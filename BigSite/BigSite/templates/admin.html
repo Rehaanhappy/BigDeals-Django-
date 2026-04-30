@@ -1,0 +1,2130 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>BigDeals — Admin Panel</title>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400;1,600&family=Outfit:wght@300;400;500;600;700&display=swap"
+    rel="stylesheet">
+  <style>
+    *,
+    *::before,
+    *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0
+    }
+
+    :root {
+      --navy: #0B1C3F;
+      --navy2: #152a5a;
+      --blue: #1B56CC;
+      --sky: #3B82F6;
+      --gold: #C9A84C;
+      --gold2: #E8C96A;
+      --cream: #FDFAF5;
+      --offwhite: #F7F4EE;
+      --text: #1a1a2e;
+      --muted: #6B7280;
+      --border: #E5E0D8;
+      --green: #059669;
+      --red: #DC2626;
+      --orange: #D97706;
+    }
+
+    body {
+      font-family: 'Outfit', sans-serif;
+      background: var(--cream);
+      color: var(--text);
+      min-height: 100vh;
+    }
+
+    /* ── LOGIN SCREEN ── */
+    .login-screen {
+      min-height: 100vh;
+      background: var(--navy);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 24px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .login-bg-glow {
+      position: absolute;
+      top: -20%;
+      right: -10%;
+      width: 600px;
+      height: 600px;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(201, 168, 76, 0.12) 0%, transparent 70%);
+      pointer-events: none;
+    }
+
+    .login-bg-glow2 {
+      position: absolute;
+      bottom: -20%;
+      left: -5%;
+      width: 400px;
+      height: 400px;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(59, 130, 246, 0.1) 0%, transparent 70%);
+      pointer-events: none;
+    }
+
+    .login-card {
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid rgba(255, 255, 255, 0.12);
+      border-radius: 24px;
+      padding: 52px 48px;
+      width: 100%;
+      max-width: 420px;
+      backdrop-filter: blur(12px);
+      position: relative;
+      z-index: 1;
+      animation: fadeUp 0.5s ease both;
+    }
+
+    @keyframes fadeUp {
+      from {
+        opacity: 0;
+        transform: translateY(20px)
+      }
+
+      to {
+        opacity: 1;
+        transform: translateY(0)
+      }
+    }
+
+    .login-logo {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 34px;
+      font-weight: 700;
+      color: #fff;
+      margin-bottom: 4px;
+      display: block;
+    }
+
+    .login-logo span {
+      color: var(--gold2)
+    }
+
+    .login-tagline {
+      font-size: 13px;
+      color: rgba(255, 255, 255, 0.45);
+      margin-bottom: 36px;
+      font-weight: 300;
+    }
+
+    .login-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      background: rgba(201, 168, 76, 0.15);
+      border: 1px solid rgba(201, 168, 76, 0.3);
+      border-radius: 20px;
+      padding: 5px 14px;
+      font-size: 11px;
+      font-weight: 700;
+      color: var(--gold2);
+      letter-spacing: 1.2px;
+      text-transform: uppercase;
+      margin-bottom: 28px;
+    }
+
+    .login-label {
+      display: block;
+      font-size: 11px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.6px;
+      color: rgba(255, 255, 255, 0.5);
+      margin-bottom: 8px;
+    }
+
+    .login-input {
+      width: 100%;
+      height: 48px;
+      background: rgba(255, 255, 255, 0.08);
+      border: 1.5px solid rgba(255, 255, 255, 0.15);
+      border-radius: 10px;
+      padding: 0 16px;
+      font-size: 15px;
+      font-family: 'Outfit', sans-serif;
+      color: #fff;
+      outline: none;
+      transition: border-color 0.2s;
+      margin-bottom: 20px;
+    }
+
+    .login-input::placeholder {
+      color: rgba(255, 255, 255, 0.3)
+    }
+
+    .login-input:focus {
+      border-color: var(--gold)
+    }
+
+    .login-btn {
+      width: 100%;
+      height: 52px;
+      background: linear-gradient(135deg, var(--gold), var(--gold2));
+      border: none;
+      border-radius: 12px;
+      font-size: 15px;
+      font-weight: 700;
+      color: var(--navy);
+      cursor: pointer;
+      font-family: 'Outfit', sans-serif;
+      transition: all 0.2s;
+      letter-spacing: 0.3px;
+    }
+
+    .login-btn:hover {
+      transform: translateY(-1px);
+      box-shadow: 0 8px 24px rgba(201, 168, 76, 0.4)
+    }
+
+    .login-btn:active {
+      transform: translateY(0)
+    }
+
+    .login-error {
+      background: rgba(220, 38, 38, 0.15);
+      border: 1px solid rgba(220, 38, 38, 0.4);
+      color: #FCA5A5;
+      border-radius: 8px;
+      padding: 10px 14px;
+      font-size: 13px;
+      margin-bottom: 16px;
+      display: none;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .login-error.show {
+      display: flex
+    }
+
+    /* ── DASHBOARD ── */
+    .dashboard {
+      display: none;
+      min-height: 100vh
+    }
+
+    .dashboard.show {
+      display: block
+    }
+
+    /* Header */
+    .admin-header {
+      background: var(--navy);
+      height: 68px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 40px;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      box-shadow: 0 2px 20px rgba(0, 0, 0, 0.2);
+    }
+
+    .admin-header-left {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+    }
+
+    .admin-logo {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 24px;
+      font-weight: 700;
+      color: #fff;
+      text-decoration: none;
+    }
+
+    .admin-logo span {
+      color: var(--gold2)
+    }
+
+    .admin-badge {
+      background: rgba(201, 168, 76, 0.18);
+      border: 1px solid rgba(201, 168, 76, 0.35);
+      color: var(--gold2);
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+      padding: 4px 12px;
+      border-radius: 20px;
+    }
+
+    .admin-header-right {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+    }
+
+
+    .admin-user {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .admin-avatar {
+      width: 36px;
+      height: 36px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, var(--gold), var(--gold2));
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 14px;
+      font-weight: 700;
+      color: var(--navy);
+    }
+
+    .admin-name {
+      font-size: 13px;
+      font-weight: 600;
+      color: #fff;
+    }
+
+    .admin-role {
+      font-size: 11px;
+      color: rgba(255, 255, 255, 0.45);
+    }
+
+    .logout-btn {
+      height: 36px;
+      padding: 0 18px;
+      border: 1.5px solid rgba(255, 255, 255, 0.25);
+      background: transparent;
+      color: rgba(255, 255, 255, 0.8);
+      border-radius: 8px;
+      font-size: 13px;
+      font-weight: 600;
+      cursor: pointer;
+      font-family: 'Outfit', sans-serif;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      transition: all 0.2s;
+    }
+
+    .logout-btn:hover {
+      background: rgba(255, 255, 255, 0.1);
+      border-color: rgba(255, 255, 255, 0.5);
+      color: #fff;
+    }
+
+    .view-site-btn {
+      height: 36px;
+      padding: 0 18px;
+      background: var(--gold);
+      border: none;
+      color: var(--navy);
+      border-radius: 8px;
+      font-size: 13px;
+      font-weight: 700;
+      cursor: pointer;
+      font-family: 'Outfit', sans-serif;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      transition: background 0.2s;
+      text-decoration: none;
+    }
+
+    .view-site-btn:hover {
+      background: var(--gold2)
+    }
+
+    /* Main */
+    .admin-main {
+      max-width: 1300px;
+      margin: 0 auto;
+      padding: 40px 40px 80px;
+    }
+
+    .page-title {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 36px;
+      font-weight: 600;
+      color: var(--text);
+      margin-bottom: 6px;
+    }
+
+    .page-subtitle {
+      font-size: 14px;
+      color: var(--muted);
+      margin-bottom: 40px;
+      font-weight: 300;
+    }
+
+    /* Stats */
+    .stats-row {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 20px;
+      margin-bottom: 40px;
+    }
+
+    .stat-card {
+      background: #fff;
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 24px;
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      transition: box-shadow 0.2s;
+    }
+
+    .stat-card:hover {
+      box-shadow: 0 4px 20px rgba(11, 28, 63, 0.08)
+    }
+
+    .stat-icon {
+      width: 52px;
+      height: 52px;
+      border-radius: 14px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+    }
+
+    .stat-num {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 36px;
+      font-weight: 700;
+      line-height: 1;
+      color: var(--text);
+    }
+
+    .stat-label {
+      font-size: 12px;
+      color: var(--muted);
+      margin-top: 4px;
+      font-weight: 500;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+
+    /* Tabs */
+    .tabs-bar {
+      display: flex;
+      gap: 4px;
+      background: var(--offwhite);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 4px;
+      width: fit-content;
+      margin-bottom: 28px;
+    }
+
+    .tab-btn {
+      height: 38px;
+      padding: 0 22px;
+      border-radius: 9px;
+      border: none;
+      font-size: 13px;
+      font-weight: 600;
+      cursor: pointer;
+      font-family: 'Outfit', sans-serif;
+      color: var(--muted);
+      background: transparent;
+      transition: all 0.2s;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .tab-btn.active {
+      background: #fff;
+      color: var(--navy);
+      box-shadow: 0 1px 8px rgba(11, 28, 63, 0.1);
+    }
+
+    .tab-count {
+      min-width: 20px;
+      height: 20px;
+      border-radius: 10px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 10px;
+      font-weight: 700;
+      padding: 0 5px;
+    }
+
+    .tab-count.pending {
+      background: #FEF3C7;
+      color: #92400E
+    }
+
+    .tab-count.approved {
+      background: #D1FAE5;
+      color: #065F46
+    }
+
+    .tab-count.rejected {
+      background: #FEE2E2;
+      color: #991B1B
+    }
+
+    /* Table */
+    .table-wrap {
+      background: #fff;
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      overflow: hidden;
+    }
+
+    .table-header {
+      padding: 20px 24px;
+      border-bottom: 1px solid var(--border);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .table-title {
+      font-size: 16px;
+      font-weight: 700;
+      color: var(--text);
+    }
+
+    .table-count {
+      font-size: 13px;
+      color: var(--muted);
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+    }
+
+    thead th {
+      padding: 12px 20px;
+      text-align: left;
+      font-size: 11px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.6px;
+      color: var(--muted);
+      background: var(--offwhite);
+      border-bottom: 1px solid var(--border);
+    }
+
+    tbody tr {
+      border-bottom: 1px solid var(--border);
+      transition: background 0.15s;
+    }
+
+    tbody tr:last-child {
+      border-bottom: none
+    }
+
+    tbody tr:hover {
+      background: #FAFAF8
+    }
+
+    tbody td {
+      padding: 16px 20px;
+      font-size: 14px;
+      color: var(--text);
+      vertical-align: middle;
+    }
+
+    .prop-title-cell {
+      font-weight: 600;
+      color: var(--navy);
+    }
+
+    .prop-loc-cell {
+      font-size: 12px;
+      color: var(--muted);
+      margin-top: 2px;
+    }
+
+    .type-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      font-size: 11px;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.4px;
+      padding: 4px 10px;
+      border-radius: 20px;
+    }
+
+    .type-apartment {
+      background: #EFF6FF;
+      color: #1E40AF
+    }
+
+    .type-villa {
+      background: #D1FAE5;
+      color: #065F46
+    }
+
+    .type-house {
+      background: #FEF9EE;
+      color: #92400E
+    }
+
+    .type-land {
+      background: #F0FFF4;
+      color: #065F46
+    }
+
+    .type-commercial {
+      background: #F5F3FF;
+      color: #5B21B6
+    }
+
+    .type-other {
+      background: var(--offwhite);
+      color: var(--muted)
+    }
+
+    .price-cell {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 18px;
+      font-weight: 700;
+      color: var(--navy);
+    }
+
+    .contact-cell {
+      font-size: 13px;
+    }
+
+    .date-cell {
+      font-size: 12px;
+      color: var(--muted);
+      white-space: nowrap;
+    }
+
+    .actions-cell {
+      display: flex;
+      gap: 8px;
+      align-items: center;
+    }
+
+    .action-btn {
+      height: 34px;
+      padding: 0 16px;
+      border-radius: 8px;
+      font-size: 12px;
+      font-weight: 700;
+      cursor: pointer;
+      border: none;
+      font-family: 'Outfit', sans-serif;
+      display: flex;
+      align-items: center;
+      gap: 5px;
+      transition: all 0.15s;
+      white-space: nowrap;
+    }
+
+    .btn-approve {
+      background: #D1FAE5;
+      color: #065F46;
+    }
+
+    .btn-approve:hover {
+      background: #059669;
+      color: #fff;
+    }
+
+    .btn-reject {
+      background: #FEE2E2;
+      color: #991B1B;
+    }
+
+    .btn-reject:hover {
+      background: #DC2626;
+      color: #fff;
+    }
+
+    .btn-view {
+      background: var(--offwhite);
+      color: var(--muted);
+      border: 1px solid var(--border);
+    }
+
+    .btn-view:hover {
+      background: var(--navy);
+      color: #fff;
+    }
+
+    .status-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+      font-size: 11px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.4px;
+      padding: 5px 12px;
+      border-radius: 20px;
+    }
+
+    .status-approved {
+      background: #D1FAE5;
+      color: #065F46
+    }
+
+    .status-rejected {
+      background: #FEE2E2;
+      color: #991B1B
+    }
+
+    .status-pending {
+      background: #FEF3C7;
+      color: #92400E
+    }
+
+    /* Empty state */
+    .empty-table {
+      padding: 64px 40px;
+      text-align: center;
+    }
+
+    .empty-icon {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 80px;
+      height: 80px;
+      border-radius: 20px;
+      background: var(--offwhite);
+      margin: 0 auto 20px;
+    }
+
+    .empty-title {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 24px;
+      font-weight: 600;
+      color: var(--text);
+      margin-bottom: 6px;
+    }
+
+    .empty-sub {
+      font-size: 14px;
+      color: var(--muted);
+    }
+
+    /* Toast */
+    .toast {
+      position: fixed;
+      bottom: 32px;
+      right: 32px;
+      padding: 12px 24px;
+      border-radius: 10px;
+      font-size: 14px;
+      font-weight: 500;
+      z-index: 9999;
+      opacity: 0;
+      transform: translateY(10px);
+      transition: all 0.3s;
+      pointer-events: none;
+      max-width: 320px;
+    }
+
+    .toast.show {
+      opacity: 1;
+      transform: translateY(0)
+    }
+
+    .toast.success {
+      background: #059669;
+      color: #fff
+    }
+
+    .toast.error {
+      background: #DC2626;
+      color: #fff
+    }
+
+    .toast.info {
+      background: var(--navy);
+      color: #fff
+    }
+
+    /* Detail panel */
+    .detail-overlay {
+      position: fixed;
+      inset: 0;
+      background: rgba(11, 28, 63, 0.55);
+      z-index: 2000;
+      display: none;
+      align-items: center;
+      justify-content: center;
+      backdrop-filter: blur(3px);
+    }
+
+    .detail-overlay.open {
+      display: flex
+    }
+
+    .detail-panel {
+      width: 100%;
+      max-width: 560px;
+      max-height: 90vh;
+      background: #fff;
+      overflow-y: auto;
+      border-radius: 16px;
+      box-shadow: 0 20px 40px rgba(11, 28, 63, 0.15);
+      animation: scaleIn 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    @keyframes scaleIn {
+      from {
+        transform: scale(0.95);
+        opacity: 0;
+      }
+
+      to {
+        transform: scale(1);
+        opacity: 1;
+      }
+    }
+
+    .detail-header {
+      background: var(--navy);
+      padding: 24px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .detail-title {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 20px;
+      font-weight: 600;
+      color: #fff;
+    }
+
+    .detail-close {
+      width: 32px;
+      height: 32px;
+      border-radius: 50%;
+      background: rgba(255, 255, 255, 0.15);
+      border: none;
+      cursor: pointer;
+      color: #fff;
+      font-size: 18px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    @keyframes spin { 100% { transform: rotate(360deg); } }
+
+    .detail-body {
+      padding: 28px
+    }
+
+    .detail-row {
+      margin-bottom: 20px;
+    }
+
+    .detail-lbl {
+      font-size: 11px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.6px;
+      color: var(--muted);
+      margin-bottom: 5px;
+    }
+
+    .detail-val {
+      font-size: 15px;
+      color: var(--text);
+      font-weight: 500;
+      line-height: 1.5;
+    }
+
+    .detail-actions {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 10px;
+      padding: 20px 28px;
+      border-top: 1px solid var(--border);
+      position: sticky;
+      bottom: 0;
+      background: #fff;
+    }
+
+    .detail-approve {
+      height: 46px;
+      background: var(--green);
+      color: #fff;
+      border: none;
+      border-radius: 10px;
+      font-size: 14px;
+      font-weight: 700;
+      cursor: pointer;
+      font-family: 'Outfit', sans-serif;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+      transition: background 0.2s;
+    }
+
+    .detail-approve:hover {
+      background: #047857
+    }
+
+    .detail-reject {
+      height: 46px;
+      background: #FEE2E2;
+      color: #991B1B;
+      border: 1.5px solid #FECACA;
+      border-radius: 10px;
+      font-size: 14px;
+      font-weight: 700;
+      cursor: pointer;
+      font-family: 'Outfit', sans-serif;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+      transition: all 0.2s;
+    }
+
+    .detail-reject:hover {
+      background: #DC2626;
+      color: #fff;
+      border-color: #DC2626
+    }
+
+    .detail-input,
+    .detail-select,
+    .detail-textarea {
+      width: 100%;
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 10px 14px;
+      font-family: 'Outfit', sans-serif;
+      font-size: 14px;
+      color: var(--text);
+      background: #F9FAFB;
+      outline: none;
+      transition: border-color 0.2s;
+      margin-top: 4px;
+    }
+
+    .detail-input:focus,
+    .detail-select:focus,
+    .detail-textarea:focus {
+      border-color: var(--sky)
+    }
+
+    .detail-textarea {
+      resize: vertical;
+      min-height: 90px;
+      line-height: 1.5
+    }
+
+    /* Responsive */
+    @media(max-width: 900px) {
+      .stats-row {
+        grid-template-columns: repeat(2, 1fr)
+      }
+
+      .admin-header {
+        padding: 0 20px
+      }
+
+      .admin-main {
+        padding: 24px 20px 60px
+      }
+
+      .admin-name,
+      .admin-role {
+        display: none
+      }
+    }
+
+    @media(max-width: 600px) {
+      .login-card {
+        padding: 36px 24px
+      }
+
+      .stats-row {
+        grid-template-columns: 1fr 1fr
+      }
+
+      .detail-panel {
+        width: 100%
+      }
+
+      table {
+        font-size: 13px
+      }
+
+      thead th,
+      tbody td {
+        padding: 10px 12px
+      }
+
+      .view-site-btn span {
+        display: none
+      }
+
+      .tabs-bar {
+        overflow-x: auto;
+        width: 100%
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <!-- TOAST -->
+  <div class="toast" id="toast"></div>
+
+  <!-- LOGIN SCREEN -->
+  <div class="login-screen" id="loginScreen">
+    <div class="login-bg-glow"></div>
+    <div class="login-bg-glow2"></div>
+    <div class="login-card">
+      <span class="login-logo">Big<span>Deals</span></span>
+      <div class="login-tagline">Kerala's Premier Real Estate Platform</div>
+      <div class="login-badge">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="11" height="11">
+          <rect x="3" y="11" width="18" height="11" rx="2" ry="2" />
+          <path d="M7 11V7a5 5 0 0 1 10 0v4" />
+        </svg>
+        Admin Access Only
+      </div>
+
+      <div class="login-error" id="loginError">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="16" height="16"
+          style="flex-shrink:0">
+          <circle cx="12" cy="12" r="10" />
+          <line x1="15" y1="9" x2="9" y2="15" />
+          <line x1="9" y1="9" x2="15" y2="15" />
+        </svg>
+        <span>Incorrect password. Please try again.</span>
+      </div>
+
+      <label class="login-label">Admin Password</label>
+      <input class="login-input" type="password" id="passwordInput" placeholder="Enter admin password"
+        onkeydown="if(event.key==='Enter')doLogin()">
+
+      <button class="login-btn" onclick="doLogin()">
+        Sign In to Admin Panel
+      </button>
+
+      <div style="margin-top:20px;text-align:center">
+        <a href="BigDeals.html"
+          style="font-size:12px;color:rgba(255,255,255,0.35);text-decoration:none;font-weight:400">
+          ← Back to BigDeals
+        </a>
+      </div>
+    </div>
+  </div>
+
+  <!-- DASHBOARD -->
+  <div class="dashboard" id="dashboard">
+
+    <!-- Header -->
+    <header class="admin-header">
+      <div class="admin-header-left">
+        <a href="BigDeals.html" class="admin-logo">Big<span>Deals</span></a>
+        <span class="admin-badge">Admin Panel</span>
+      </div>
+      <div class="admin-header-right">
+        <button class="view-site-btn" onclick="openAddForm()">+ Add Property</button>
+        <a href="/" class="view-site-btn" target="_blank">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="14" height="14">
+            <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6" />
+            <polyline points="15 3 21 3 21 9" />
+            <line x1="10" y1="14" x2="21" y2="3" />
+          </svg>
+          <span>View Site</span>
+        </a>
+        <div class="admin-user">
+          <div class="admin-avatar">A</div>
+          <div>
+            <div class="admin-name">Administrator</div>
+            <div class="admin-role">Super Admin</div>
+          </div>
+        </div>
+        <button class="logout-btn" onclick="doLogout()">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="14" height="14">
+            <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4" />
+            <polyline points="16 17 21 12 16 7" />
+            <line x1="21" y1="12" x2="9" y2="12" />
+          </svg>
+          Logout
+        </button>
+      </div>
+    </header>
+
+    <!-- Main -->
+    <main class="admin-main">
+      <div class="page-title">Property Listings</div>
+      <div class="page-subtitle" id="pageSubtitle">Review and approve user-submitted properties before they go live.
+      </div>
+
+      <!-- Stats -->
+      <div class="stats-row" id="statsRow"></div>
+
+      <!-- Tabs -->
+      <div class="tabs-bar">
+        <button class="tab-btn active" id="tabPending" onclick="setTab('pending')">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="14" height="14">
+            <circle cx="12" cy="12" r="10" />
+            <polyline points="12 6 12 12 16 14" />
+          </svg>
+          Pending Review
+          <span class="tab-count pending" id="countPending">0</span>
+        </button>
+        <button class="tab-btn" id="tabApproved" onclick="setTab('approved')">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="14" height="14">
+            <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14" />
+            <polyline points="22 4 12 14.01 9 11.01" />
+          </svg>
+          Approved
+          <span class="tab-count approved" id="countApproved">0</span>
+        </button>
+        <button class="tab-btn" id="tabRejected" onclick="setTab('rejected')">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="14" height="14">
+            <circle cx="12" cy="12" r="10" />
+            <line x1="15" y1="9" x2="9" y2="15" />
+            <line x1="9" y1="9" x2="15" y2="15" />
+          </svg>
+          Rejected
+          <span class="tab-count rejected" id="countRejected">0</span>
+        </button>
+        <button class="tab-btn" id="tabAll" onclick="setTab('all')" style="margin-left: auto; background: rgba(201,168,76,0.1); color: var(--gold2); border: 1px solid rgba(201,168,76,0.3);">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="14" height="14">
+            <polyline points="21 8 21 21 3 21 3 8" />
+            <rect x="1" y="3" width="22" height="5" />
+            <line x1="10" y1="12" x2="14" y2="12" />
+          </svg>
+          Admin View (All Data)
+        </button>
+      </div>
+
+      <!-- Table -->
+      <div class="table-wrap" id="tableWrap"></div>
+    </main>
+  </div>
+
+  <!-- DETAIL PANEL -->
+  <div class="detail-overlay" id="detailOverlay" onclick="if(event.target===this)closeDetail()">
+    <div class="detail-panel" id="detailPanel">
+      <div class="detail-header">
+        <div class="detail-title">Property Details</div>
+        <div id="detailHeaderActions" style="display:flex;gap:12px;align-items:center">
+          <button class="detail-close" onclick="closeDetail()">✕</button>
+        </div>
+      </div>
+      <div class="detail-body" id="detailBody"></div>
+      <div class="detail-actions" id="detailActions"></div>
+    </div>
+  </div>
+
+  <script>
+    // CSRF helper
+    function getCookie(name) {
+      const v = document.cookie.match('(^|;)\\s*' + name + '\\s*=\\s*([^;]+)');
+      return v ? v.pop() : '';
+    }
+    const CSRF = getCookie('csrftoken') || '{{ csrf_token }}';
+
+    let currentTab = 'pending';
+    let viewingId = null;
+    let isEditing = false;
+
+    // ── AUTH ──
+    function doLogin() {
+      const pw = document.getElementById('passwordInput').value;
+      const err = document.getElementById('loginError');
+      fetch('/admin/login/', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/x-www-form-urlencoded', 'X-CSRFToken': CSRF },
+        body: new URLSearchParams({ password: pw })
+      }).then(res => res.json()).then(data => {
+        if (data.success) {
+          sessionStorage.setItem('bdAdminAuth', '1');
+          err.classList.remove('show');
+          showDashboard();
+        } else {
+          err.classList.add('show');
+          document.getElementById('passwordInput').value = '';
+          document.getElementById('passwordInput').focus();
+        }
+      }).catch(() => {
+        err.classList.add('show');
+      });
+    }
+
+    function doLogout() {
+      fetch('/admin/logout/', { method: 'POST', headers: { 'X-CSRFToken': CSRF } }).then(() => {
+        sessionStorage.removeItem('bdAdminAuth');
+        document.getElementById('dashboard').classList.remove('show');
+        document.getElementById('loginScreen').style.display = 'flex';
+        document.getElementById('passwordInput').value = '';
+        document.getElementById('loginError').classList.remove('show');
+      });
+    }
+
+    function showDashboard() {
+      document.getElementById('loginScreen').style.display = 'none';
+      document.getElementById('dashboard').classList.add('show');
+      refreshDashboard();
+    }
+
+    // Check if already logged in — validate with server to catch expired sessions
+    if (sessionStorage.getItem('bdAdminAuth') === '1') {
+      fetch('/admin/update/0/', { method: 'POST', headers: { 'X-CSRFToken': CSRF }, body: new URLSearchParams({ status: 'check' }) })
+        .then(res => {
+          if (res.status === 403) {
+            // Server session expired — force re-login
+            sessionStorage.removeItem('bdAdminAuth');
+          } else {
+            showDashboard();
+          }
+        })
+        .catch(() => { showDashboard(); }); // Network error — optimistically show dashboard
+    }
+
+    // ── DATA HELPERS ──
+    function getPending() { return JSON.parse(localStorage.getItem('bd_pending_listings') || '[]') }
+    function getApproved() { return JSON.parse(localStorage.getItem('bd_approved_listings') || '[]') }
+    function getRejected() { return JSON.parse(localStorage.getItem('bd_rejected_listings') || '[]') }
+    function getAll() { return typeof dbProperties !== 'undefined' ? dbProperties : [...getPending(), ...getApproved(), ...getRejected()] }
+
+    function savePending(arr) { localStorage.setItem('bd_pending_listings', JSON.stringify(arr)) }
+    function saveApproved(arr) { localStorage.setItem('bd_approved_listings', JSON.stringify(arr)) }
+    function saveRejected(arr) { localStorage.setItem('bd_rejected_listings', JSON.stringify(arr)) }
+
+    // ── ACTIONS ──
+    function approve(id) {
+      fetch(`/admin/update/${id}/`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/x-www-form-urlencoded', 'X-CSRFToken': CSRF },
+        body: new URLSearchParams({ status: 'approved' })
+      }).then(res => {
+        if (res.status === 403) {
+          sessionStorage.removeItem('bdAdminAuth');
+          toast('Session expired — please log in again.', 'error');
+          setTimeout(() => window.location.reload(), 1500);
+          return;
+        }
+        if (!res.ok) { toast('Server error — please try again.', 'error'); return; }
+        return res.json();
+      }).then(data => {
+        if (!data) return;
+        let pending = getPending();
+        const item = pending.find(p => String(p.id) === String(id));
+        if (item) {
+          item.status = 'approved';
+          item.reviewedAt = new Date().toISOString();
+          pending = pending.filter(p => String(p.id) !== String(id));
+          const approved = getApproved();
+          approved.unshift(item);
+          savePending(pending);
+          saveApproved(approved);
+        }
+        closeDetail();
+        toast('✓ Property approved and is now live!', 'success');
+        refreshDashboard();
+      }).catch(() => toast('Network error — please check your connection.', 'error'));
+    }
+
+    function reject(id) {
+      fetch(`/admin/update/${id}/`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/x-www-form-urlencoded', 'X-CSRFToken': CSRF },
+        body: new URLSearchParams({ status: 'rejected' })
+      }).then(res => {
+        if (res.status === 403) {
+          sessionStorage.removeItem('bdAdminAuth');
+          toast('Session expired — please log in again.', 'error');
+          setTimeout(() => window.location.reload(), 1500);
+          return;
+        }
+        if (!res.ok) { toast('Server error — please try again.', 'error'); return; }
+        return res.json();
+      }).then(data => {
+        if (!data) return;
+        let pending = getPending();
+        const item = pending.find(p => String(p.id) === String(id));
+        if (item) {
+          item.status = 'rejected';
+          item.reviewedAt = new Date().toISOString();
+          pending = pending.filter(p => String(p.id) !== String(id));
+          const rejected = getRejected();
+          rejected.unshift(item);
+          savePending(pending);
+          saveRejected(rejected);
+        }
+        closeDetail();
+        toast('Property rejected.', 'error');
+        refreshDashboard();
+      }).catch(() => toast('Network error — please check your connection.', 'error'));
+    }
+
+    // ── RENDER ──
+    function refreshDashboard() {
+      const pending = getPending();
+      const approved = getApproved();
+      const rejected = getRejected();
+
+      // Stats
+      document.getElementById('statsRow').innerHTML = `
+        <div class="stat-card">
+          <div class="stat-icon" style="background:#FEF3C7">
+            <svg viewBox="0 0 24 24" fill="none" stroke="#D97706" stroke-width="2" width="24" height="24">
+              <circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/>
+            </svg>
+          </div>
+          <div class="stat-info">
+            <div class="stat-num" id="statPending">${pending.length}</div>
+            <div class="stat-label">Pending Review</div>
+          </div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-icon" style="background:#D1FAE5">
+            <svg viewBox="0 0 24 24" fill="none" stroke="#059669" stroke-width="2" width="24" height="24">
+              <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/>
+            </svg>
+          </div>
+          <div class="stat-info">
+            <div class="stat-num">${approved.length}</div>
+            <div class="stat-label">Approved Live</div>
+          </div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-icon" style="background:#FEE2E2">
+            <svg viewBox="0 0 24 24" fill="none" stroke="#DC2626" stroke-width="2" width="24" height="24">
+              <circle cx="12" cy="12" r="10"/><line x1="15" y1="9" x2="9" y2="15"/><line x1="9" y1="9" x2="15" y2="15"/>
+            </svg>
+          </div>
+          <div class="stat-info">
+            <div class="stat-num">${rejected.length}</div>
+            <div class="stat-label">Rejected</div>
+          </div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-icon" style="background:#EFF6FF">
+            <svg viewBox="0 0 24 24" fill="none" stroke="#1B56CC" stroke-width="2" width="24" height="24">
+              <rect x="2" y="3" width="20" height="14" rx="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/>
+            </svg>
+          </div>
+          <div class="stat-info">
+            <div class="stat-num">${pending.length + approved.length + rejected.length}</div>
+            <div class="stat-label">Total Submissions</div>
+          </div>
+        </div>
+      `;
+
+      // Tab counts
+      document.getElementById('countPending').textContent = pending.length;
+      document.getElementById('countApproved').textContent = approved.length;
+      document.getElementById('countRejected').textContent = rejected.length;
+
+      renderTable(currentTab);
+    }
+
+    function setTab(tabId) {
+      currentTab = tabId;
+      document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+      let btn = document.getElementById(tabId === 'all' ? 'tabAll' :
+                     tabId === 'pending' ? 'tabPending' : 
+                     tabId === 'approved' ? 'tabApproved' : 'tabRejected');
+      if (btn) btn.classList.add('active');
+      const subtitle = document.getElementById('pageSubtitle');
+      if (tabId === 'pending') subtitle.innerText = "Review and approve user-submitted properties before they go live.";
+      else if (tabId === 'approved') subtitle.innerText = "Manage properties currently active and visible to buyers.";
+      else if (tabId === 'rejected') subtitle.innerText = "Properties that did not meet the publication criteria.";
+      else if (tabId === 'all') subtitle.innerText = "Admin View: Complete master record of all properties in the database.";
+      renderTable(tabId);
+    }
+
+    function renderTable(tab) {
+      let data;
+      if (tab === 'pending') data = getPending();
+      else if (tab === 'approved') data = getApproved();
+      else if (tab === 'rejected') data = getRejected();
+      else if (tab === 'all') data = getAll();
+
+      const wrap = document.getElementById('tableWrap');
+
+      if (!data || data.length === 0) {
+        wrap.innerHTML = `
+          <div class="empty-table">
+            <div class="empty-icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" width="28" height="28">
+                <rect x="3" y="3" width="18" height="18" rx="2" ry="2"/>
+                <line x1="3" y1="9" x2="21" y2="9"/>
+                <line x1="9" y1="21" x2="9" y2="9"/>
+              </svg>
+            </div>
+            <div style="font-size:16px;font-weight:600;margin-bottom:6px">No properties found</div>
+            <div style="font-size:14px;color:var(--muted)">There are no ${tab === 'all' ? '' : tab} properties at the moment.</div>
+          </div>
+        `;
+        return;
+      }
+
+      const titles = {
+        pending: 'Pending Review',
+        approved: 'Live Properties',
+        rejected: 'Rejected Submissions',
+        all: 'All Database Records (Admin View)'
+      };
+
+      const rows = data.map(p => {
+        const mapHref = (p.mapUrl && p.mapUrl !== 'None') ? (p.mapUrl.includes('<iframe') ? (p.mapUrl.match(/src="([^"]+)"/)||[])[1] : p.mapUrl) : '';
+        const typePill = `<span class="type-pill type-${p.type || 'other'}">${cap(p.type || 'Other')}</span>`;
+        const dateStr = p.submittedAt ? formatDate(p.submittedAt) : '—';
+
+        if (tab === 'pending') {
+          return `<tr>
+            <td>
+              <div class="prop-title-cell">${esc(p.title || 'Untitled Property')}</div>
+              <div class="prop-loc-cell"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="11" height="11" style="vertical-align:-1px;margin-right:3px"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>${esc(p.location || '—')}</div>
+            </td>
+            <td>${typePill}</td>
+            <td class="price-cell">${esc(p.price || '—')}</td>
+            <td class="contact-cell">
+              <div style="font-weight:600">${esc(p.contactName || '—')}</div>
+              <div style="font-size:12px;color:var(--muted)">${esc(p.contactPhone || '')}</div>
+            </td>
+            <td class="date-cell">${dateStr}</td>
+            <td>
+              <div class="actions-cell">
+                <button class="action-btn btn-view" onclick="viewDetail('${p.id}')">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="12" height="12"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>
+                  View
+                </button>
+                <button class="action-btn btn-view" onclick="editProperty('${p.id}')">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="12" height="12"><path d="M12 20h9"/><path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"/></svg>
+                  Edit
+                </button>
+                <button class="action-btn btn-approve" onclick="approve('${p.id}')">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="12" height="12"><polyline points="20 6 9 17 4 12"/></svg>
+                  Approve
+                </button>
+                <button class="action-btn btn-reject" onclick="reject('${p.id}')">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="12" height="12"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+                  Reject
+                </button>
+                <button class="action-btn btn-reject" onclick="requestDelete('${p.id}')" style="color:#DC2626;background:#FEE2E2;border:1px solid #FECACA">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="12" height="12"><path d="M3 6h18"/><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/></svg>
+                  Delete
+                </button>
+              </div>
+            </td>
+          </tr>`;
+        } else {
+          const statusLower = (p.status || '').toLowerCase();
+          const statusPill = statusLower === 'approved'
+            ? `<span class="status-pill status-approved"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" width="11" height="11"><polyline points="20 6 9 17 4 12"/></svg> Approved</span>`
+            : statusLower === 'pending'
+              ? `<span class="status-pill" style="background:#FEF3C7;color:#D97706"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" width="11" height="11"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg> Pending</span>`
+              : `<span class="status-pill status-rejected"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" width="11" height="11"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg> Rejected</span>`;
+          return `<tr>
+            <td>
+              <div class="prop-title-cell">${esc(p.title || 'Untitled Property')}</div>
+              <div class="prop-loc-cell"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="11" height="11" style="vertical-align:-1px;margin-right:3px"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>${esc(p.location || '—')}</div>
+            </td>
+            <td>${typePill}</td>
+            <td class="price-cell">${esc(p.price || '—')}</td>
+            <td class="contact-cell">
+              ${p.contactName && p.contactName !== '—' ? `<div style="font-weight:600">${esc(p.contactName)}</div>` : ''}
+              ${p.contactEmail && p.contactEmail !== '—' ? `<div style="font-size:12px;color:var(--blue)">${esc(p.contactEmail)}</div>` : ''}
+              ${p.contactPhone && p.contactPhone !== '—' ? `<div style="font-size:12px;color:var(--muted)">${esc(p.contactPhone)}</div>` : ''}
+            </td>
+            <td>${statusPill}</td>
+            <td class="date-cell">${p.reviewedAt ? formatDate(p.reviewedAt) : dateStr}</td>
+            <td>
+              ${tab === 'approved' ? `
+              <button class="action-btn btn-reject" onclick="requestDelete('${p.id}')" style="color:#DC2626;background:#FEE2E2;border:1px solid #FECACA">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="12" height="12"><path d="M3 6h18"/><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/></svg>
+                Delete
+              </button>
+              ` : `
+              <button class="action-btn btn-view" onclick="viewDetail('${p.id}')" style="margin-right: 4px;">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="12" height="12"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>
+                View Details
+              </button>
+              <button class="action-btn btn-view" onclick="editProperty('${p.id}')">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="12" height="12"><path d="M12 20h9"/><path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"/></svg>
+                Edit
+              </button>
+              <button class="action-btn btn-reject" onclick="requestDelete('${p.id}')" style="color:#DC2626;background:#FEE2E2;border:1px solid #FECACA; margin-left: 4px;">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="12" height="12"><path d="M3 6h18"/><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/></svg>
+                Delete
+              </button>
+              `}
+            </td>
+          </tr>`;
+        }
+      }).join('');
+
+      const pendingCols = `<thead><tr>
+        <th>Property</th><th>Type</th><th>Price</th><th>Submitted By</th><th>Date</th><th>Actions</th>
+      </tr></thead>`;
+      const otherCols = `<thead><tr>
+        <th>Property</th><th>Type</th><th>Price</th><th>Submitted By</th><th>Status</th><th>Date</th><th></th>
+      </tr></thead>`;
+
+      wrap.innerHTML = `
+        <div class="table-header">
+          <div class="table-title">${titles[tab]}</div>
+          <div class="table-count">${data.length} listing${data.length !== 1 ? 's' : ''}</div>
+        </div>
+        <div style="overflow-x:auto">
+          <table>
+            ${tab === 'pending' ? pendingCols : otherCols}
+            <tbody>${rows}</tbody>
+          </table>
+        </div>`;
+    }
+
+    function viewDetail(id) {
+      const all = [...getPending(), ...getApproved(), ...getRejected()];
+      const p = all.find(x => x.id === id);
+      if (!p) return;
+      viewingId = id;
+
+      const isPending = getPending().some(x => x.id === id);
+
+      document.getElementById('detailHeaderActions').innerHTML = `
+        <button class="detail-close" onclick="closeDetail()">✕</button>
+      `;
+
+      document.getElementById('detailBody').innerHTML = `
+        <div class="detail-row">
+          <div class="detail-lbl">Property Title</div>
+          <div class="detail-val">${esc(p.title || '—')}</div>
+        </div>
+        <div class="detail-row">
+          <div class="detail-lbl">Location</div>
+          <div class="detail-val"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="13" height="13" style="vertical-align:-2px;margin-right:4px;color:var(--muted)"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>${esc(p.location || '—')}</div>
+        </div>
+        <div class="detail-row">
+          <div class="detail-lbl">Price</div>
+          <div class="detail-val" style="font-family:'Cormorant Garamond',serif;font-size:22px;font-weight:700;color:var(--navy)">${esc(p.price || '—')}</div>
+        </div>
+        <div class="detail-row">
+          <div class="detail-lbl">Badges</div>
+          <div class="detail-val" style="display:flex;gap:8px">
+            ${p.verified ? '<span style="background:#ECFDF5;color:#059669;padding:4px 10px;border-radius:4px;font-size:12px;font-weight:600">✓ Verified</span>' : ''}
+            ${p.label ? `<span style="background:#FEF3C7;color:#92400E;padding:4px 10px;border-radius:4px;font-size:12px;font-weight:600">${p.label === 'new' ? 'New' : p.label === 'reduced' ? 'Price Reduced' : p.label === 'contract' ? 'Under Contract' : p.label}</span>` : ''}
+            ${!p.verified && !p.label ? '<span style="color:var(--muted)">None</span>' : ''}
+          </div>
+        </div>
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px">
+          <div class="detail-row">
+            <div class="detail-lbl">Type</div>
+            <div class="detail-val"><span class="type-pill type-${p.type || 'other'}">${cap(p.type || 'Other')}</span></div>
+          </div>
+          <div class="detail-row">
+            <div class="detail-lbl">Bedrooms</div>
+            <div class="detail-val">${p.bedrooms || '—'}</div>
+          </div>
+          <div class="detail-row">
+            <div class="detail-lbl">Bathrooms</div>
+            <div class="detail-val">${p.bathrooms || '—'}</div>
+          </div>
+          <div class="detail-row">
+            <div class="detail-lbl">Area</div>
+            <div class="detail-val">${esc(p.area || '—')}</div>
+          </div>
+        </div>
+        <div class="detail-row">
+          <div class="detail-lbl">Description</div>
+          <div class="detail-val" style="font-size:14px;font-weight:400;line-height:1.6;color:#374151">${esc(p.description || '—')}</div>
+        </div>
+        <div class="detail-row">
+          <div class="detail-lbl">Amenities</div>
+          <div class="detail-val" style="font-size:14px;font-weight:400">${esc(p.amenities || '—')}</div>
+        </div>
+        <div style="border-top:1px solid var(--border);padding-top:20px;margin-top:8px">
+          <div class="detail-lbl" style="margin-bottom:14px">Contact Information</div>
+          <div class="detail-row" style="margin-bottom:10px">
+            <div class="detail-lbl">Name</div>
+            <div class="detail-val">${esc(p.contactName || '—')}</div>
+          </div>
+          <div class="detail-row" style="margin-bottom:10px">
+            <div class="detail-lbl">Phone</div>
+            <div class="detail-val"><a href="tel:${esc(p.contactPhone)}" style="color:var(--blue)">${esc(p.contactPhone || '—')}</a></div>
+          </div>
+          <div class="detail-row">
+            <div class="detail-lbl">Email</div>
+            <div class="detail-val"><a href="mailto:${esc(p.contactEmail)}" style="color:var(--blue)">${esc(p.contactEmail || '—')}</a></div>
+          </div>
+        </div>
+        <div class="detail-row">
+          <div class="detail-lbl">Submitted</div>
+          <div class="detail-val" style="font-size:13px;color:var(--muted)">${p.submittedAt ? new Date(p.submittedAt).toLocaleString() : '—'}</div>
+        </div>
+        ${!isPending && p.reviewedAt ? `<div class="detail-row"><div class="detail-lbl">Reviewed</div><div class="detail-val" style="font-size:13px;color:var(--muted)">${new Date(p.reviewedAt).toLocaleString()}</div></div>` : ''}
+      `;
+
+      document.getElementById('detailActions').innerHTML = isPending
+        ? `<button class="detail-approve" onclick="approve('${id}')">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" width="16" height="16"><polyline points="20 6 9 17 4 12"/></svg>
+            Approve Listing
+          </button>
+          <button class="detail-reject" onclick="reject('${id}')">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" width="16" height="16"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+            Reject
+          </button>`
+        : `<button class="detail-approve" style="grid-column:1/-1" onclick="closeDetail()">Close</button>`;
+
+      document.getElementById('detailOverlay').classList.add('open');
+      document.body.style.overflow = 'hidden';
+    }
+
+    function closeDetail() {
+      document.getElementById('detailOverlay').classList.remove('open');
+      document.body.style.overflow = '';
+      viewingId = null;
+      isEditing = false;
+    }
+
+    function requestDelete(id) {
+        window.propertyToDelete = id;
+        document.getElementById('deleteModal').classList.add('open');
+        document.body.style.overflow = 'hidden';
+    }
+
+    function confirmDelete() {
+        if(!window.propertyToDelete) return;
+        const btn = document.getElementById('deleteConfirmBtn');
+        btn.innerHTML = 'Deleting...';
+        btn.disabled = true;
+        fetch(`/admin/delete/${window.propertyToDelete}/`, { method: 'POST', headers: { 'X-CSRFToken': CSRF } })
+        .then(res => res.json())
+        .then(data => {
+            if(data.success) {
+                window.location.reload();
+            } else {
+                toast('Error deleting property.', 'error');
+                btn.innerHTML = 'Delete';
+                btn.disabled = false;
+            }
+        });
+    }
+
+    function closeDeleteModal() {
+        document.getElementById('deleteModal').classList.remove('open');
+        if(!document.getElementById('detailOverlay').classList.contains('open')) {
+            document.body.style.overflow = '';
+        }
+        window.propertyToDelete = null;
+    }
+
+    // ── UTILS ──
+    function cap(s) { return s ? s.charAt(0).toUpperCase() + s.slice(1) : s }
+    function esc(s) { const d = document.createElement('div'); d.textContent = s || ''; return d.innerHTML }
+    function formatDate(iso) {
+      try {
+        const d = new Date(iso);
+        return d.toLocaleDateString('en-IN', { day: 'numeric', month: 'short', year: 'numeric' });
+      } catch { return '—' }
+    }
+
+    let toastTimer;
+    function toast(msg, type = 'info') {
+      const t = document.getElementById('toast');
+      t.textContent = msg;
+      t.className = `toast ${type} show`;
+      clearTimeout(toastTimer);
+      toastTimer = setTimeout(() => t.classList.remove('show'), 3200);
+    }
+  </script>
+
+  <!-- DATABASE INTEGRATION -->
+  <script>
+    const dbProperties = [
+      {% for p in properties %}
+    {
+      id: "{{ p.id }}", title: "{{ p.title|escapejs }}", location: "{{ p.location|escapejs }}",
+        type: "{{ p.property_type|escapejs }}", price: "{{ p.price|escapejs }}",
+          contactName: "{{ p.submitter_name|escapejs }}" || "Admin", contactEmail: "{{ p.contact_email|escapejs }}", contactPhone: "{{ p.contact_number|escapejs }}",
+            bedrooms: "{{ p.bedrooms|escapejs }}", bathrooms: "{{ p.bathrooms|escapejs }}", area: "{{ p.area|escapejs }}", description: "{{ p.description|escapejs }}", amenities: "{{ p.amenities|escapejs }}", videoUrl: "{{ p.video_url|default:''|escapejs }}", mapUrl: "{{ p.map_url|default:''|escapejs }}",
+            verified: {{ p.verified|yesno:"true,false" }}, label: "{{ p.label|escapejs }}",
+            status: "{{ p.status|lower }}", submittedAt: "{{ p.created_at.isoformat }}",
+            images: [{% for img in p.images.all %}{ id: "{{ img.id }}", url: "{{ img.image.url|escapejs }}" }{% if not forloop.last %},{% endif %}{% endfor %}]
+    } {% if not forloop.last %}, {% endif %}
+    {% endfor %}
+    ];
+    const pending = dbProperties.filter(p => (p.status || '').toLowerCase() === 'pending');
+    const approved = dbProperties.filter(p => (p.status || '').toLowerCase() === 'approved');
+    const rejected = dbProperties.filter(p => (p.status || '').toLowerCase() === 'rejected');
+    localStorage.setItem('bd_pending_listings', JSON.stringify(pending));
+    localStorage.setItem('bd_approved_listings', JSON.stringify(approved));
+    localStorage.setItem('bd_rejected_listings', JSON.stringify(rejected));
+
+    function saveToDbSync() {
+      // Any JS action might want to refresh, but for now we rely on the modal form for insertion
+    }
+
+    initTabs();
+    calculateStats();
+    saveToDbSync();
+  </script>
+
+  <!-- INLINE IMAGE DELETE CONFIRM -->
+  <div id="imgDeleteConfirm" style="display:none;position:fixed;inset:0;background:rgba(0,0,0,0.5);z-index:99999;align-items:center;justify-content:center;">
+    <div style="background:#fff;border-radius:16px;padding:28px 24px;max-width:340px;width:90%;text-align:center;box-shadow:0 20px 60px rgba(0,0,0,0.3);" onclick="event.stopPropagation()">
+      <div style="background:#FEE2E2;width:56px;height:56px;border-radius:50%;display:flex;align-items:center;justify-content:center;margin:0 auto 16px;">
+        <svg viewBox="0 0 24 24" fill="none" stroke="#EF4444" stroke-width="2" width="28" height="28"><path d="M3 6h18"/><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/></svg>
+      </div>
+      <div style="font-size:17px;font-weight:700;color:#111827;margin-bottom:8px">Remove Image?</div>
+      <div style="font-size:13px;color:#6B7280;margin-bottom:24px;line-height:1.5">This image will be permanently deleted when you save the property.</div>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px">
+        <button onclick="hideImgConfirm()" style="padding:10px;border-radius:8px;border:1.5px solid #E5E7EB;background:#fff;font-size:14px;font-weight:600;cursor:pointer">Cancel</button>
+        <button id="imgDeleteConfirmBtn" onclick="confirmDeleteImage()" style="padding:10px;border-radius:8px;border:none;background:#EF4444;color:#fff;font-size:14px;font-weight:600;cursor:pointer">Delete</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ADD PROPERTY MODAL -->
+  <div class="detail-overlay" id="addFormOverlay" onclick="if(event.target===this)closeAddForm()">
+    <div class="detail-panel">
+      <div class="detail-header">
+        <div class="detail-title">Add Property</div>
+        <button class="detail-close" onclick="closeAddForm()">✕</button>
+      </div>
+      <form id="editForm" method="POST" action="/admin/add/" enctype="multipart/form-data">
+        {% csrf_token %}
+        <div class="detail-body">
+          <input type="hidden" name="property_id" id="add_property_id">
+          <input type="hidden" name="deleted_images" id="add_deleted_images" value="">
+          
+          <label class="detail-lbl">Title</label>
+          <input type="text" name="title" id="add_title" class="detail-input" required style="margin-bottom: 16px;">
+
+          <div style="display:grid;grid-template-columns:1fr 1.5fr;gap:16px;margin-bottom:16px;background:#F9FAFB;padding:12px 14px;border:1px solid #E5E7EB;border-radius:8px">
+            <div style="display:flex;align-items:center;gap:8px">
+              <input type="checkbox" name="verified" id="add_verified" value="true" style="width:16px;height:16px;accent-color:var(--gold);cursor:pointer">
+              <label for="add_verified" class="detail-lbl" style="margin:0;cursor:pointer">Verified Listing</label>
+            </div>
+            <div style="display:flex;align-items:center;gap:10px">
+              <div class="detail-lbl" style="margin:0;white-space:nowrap">Highlight Badge:</div>
+              <select name="label" id="add_label" class="detail-select" style="margin:0;padding:6px 10px">
+                <option value="none">None</option>
+                <option value="new">New</option>
+                <option value="reduced">Price Reduced</option>
+                <option value="contract">Under Contract</option>
+              </select>
+            </div>
+          </div>
+
+          <label class="detail-lbl">Location</label>
+          <input type="text" name="location" id="add_location" class="detail-input" required style="margin-bottom: 16px;">
+
+          <!-- Hidden fields for new schema -->
+          <input type="hidden" name="main_type" id="add_main_type_hidden">
+          <input type="hidden" name="sub_type" id="add_sub_type_hidden">
+          <input type="hidden" name="details" id="add_details_hidden">
+          <!-- Legacy compat -->
+          <input type="hidden" name="property_type" id="add_type_hidden">
+
+          <label class="detail-lbl">Category</label>
+          <select id="add_main_type" class="detail-select" style="margin-bottom:10px" onchange="adminOnMainTypeChange(this.value)">
+            <option value="residential">Residential</option>
+            <option value="commercial">Commercial</option>
+            <option value="land">Land / Plot</option>
+          </select>
+
+          <div id="admin_subtype_container" style="margin-bottom:10px"></div>
+          <div id="admin_dynamic_fields_container" style="margin-bottom:10px"></div>
+
+          <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-bottom:16px;margin-top:4px">
+            <div style="grid-column:span 2"><label class="detail-lbl">Video URL</label><input type="text" name="video" id="add_video" class="detail-input" placeholder="YouTube or Vimeo"></div>
+            <div style="grid-column:span 2"><label class="detail-lbl">Google Maps URL</label><input type="text" name="map_url" id="add_map" class="detail-input" placeholder="Google Maps Custom Link"></div>
+          </div>
+
+          <label class="detail-lbl">Description</label>
+          <textarea name="desc" id="add_desc" class="detail-input" rows="4" style="margin-bottom:16px;resize:vertical" placeholder="Detailed property description"></textarea>
+
+          <label class="detail-lbl">Amenities</label>
+          <input type="text" name="amenities" id="add_amenities" class="detail-input" placeholder="Pool, Gym, Parking..." style="margin-bottom: 16px;">
+
+          <label class="detail-lbl">Price</label>
+          <input type="text" name="price" id="add_price" placeholder="e.g. 1.5 Cr" class="detail-input" required
+            style="margin-bottom: 16px;">
+
+          <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-bottom:16px;">
+            <div>
+              <label class="detail-lbl">Submitter Name</label>
+              <input type="text" name="name" id="add_name" placeholder="Name" class="detail-input">
+            </div>
+            <div>
+              <label class="detail-lbl">Contact Number</label>
+              <input type="text" name="contact" id="add_contact" class="detail-input" required>
+            </div>
+          </div>
+
+          <label class="detail-lbl">Email Address</label>
+          <input type="email" name="email" id="add_email" class="detail-input" style="margin-bottom: 16px;">
+
+          <label class="detail-lbl">Property Images (Select to set front Cover)</label>
+          <div class="upload-zone" onclick="document.getElementById('admin_images').click()" style="border:2px dashed var(--border); border-radius:12px; padding:32px 20px; text-align:center; cursor:pointer; background:var(--bg2); transition:all 0.2s" onmouseover="this.style.borderColor='var(--blue)'; this.style.background='#EFF6FF'" onmouseout="this.style.borderColor='var(--border)'; this.style.background='var(--bg2)'">
+            <input type="file" name="images" id="admin_images" multiple accept="image/*" style="display:none" onchange="previewAdminImages(this)">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" width="36" height="36" style="color:var(--muted); margin-bottom:12px"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></svg>
+            <div style="font-size:15px; font-weight:600; color:var(--navy); margin-bottom:6px">Click to browse or drag photos here</div>
+            <div style="font-size:13px; color:var(--muted)">Supports JPG, PNG (Max 5MB per file)</div>
+          </div>
+          <div id="admin_existing_preview" style="display:flex; flex-wrap:wrap; gap:16px; margin-top:12px; overflow:visible; padding:8px 0;"></div>
+          <div id="admin_img_preview" style="display:flex; flex-wrap:wrap; gap:16px; margin-top:4px; margin-bottom:24px; overflow:visible; padding:8px 0;"></div>
+        </div>
+        <div class="detail-actions" style="grid-template-columns: 1fr;">
+          <button type="submit" class="detail-approve" id="savePropertyBtn">Save Property to Database</button>
+        </div>
+      </form>
+    </div>
+  </div>
+  <script>
+    // ════════════════════════════════════════════════════════
+    // PROPERTY CONFIG — shared with BigDeals.html
+    // ════════════════════════════════════════════════════════
+    const PROPERTY_CONFIG = {
+      residential: {
+        hasSubtype: true, label: 'Residential', icon: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="22" height="22"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>`,
+        subtypes: [
+          { value: 'apartment', label: 'Apartment' },
+          { value: 'villa', label: 'Villa' },
+          { value: 'house', label: 'House' }
+        ],
+        fields: ['bedrooms','bathrooms','area','parking','furnishing','floor']
+      },
+      commercial: {
+        hasSubtype: true, label: 'Commercial', icon: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="22" height="22"><rect x="2" y="3" width="20" height="18" rx="2"/><line x1="8" y1="21" x2="8" y2="3"/><line x1="16" y1="21" x2="16" y2="3"/><line x1="2" y1="9" x2="22" y2="9"/><line x1="2" y1="15" x2="22" y2="15"/></svg>`,
+        subtypes: [
+          { value: 'office', label: 'Office' },
+          { value: 'shop', label: 'Shop' },
+          { value: 'building', label: 'Building' }
+        ],
+        fields: ['area','parking','furnishing']
+      },
+      land: {
+        hasSubtype: false, label: 'Land / Plot', icon: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="22" height="22"><path d="M3 17l4-8 4 4 4-6 4 10"/><line x1="3" y1="21" x2="21" y2="21"/></svg>`,
+        subtypes: [],
+        fields: ['plot_size','land_type']
+      }
+    };
+    const FIELD_META = {
+      bedrooms:   { label:'Bedrooms',      placeholder:'e.g. 3',           type:'number' },
+      bathrooms:  { label:'Bathrooms',     placeholder:'e.g. 2',           type:'number' },
+      area:       { label:'Built-up Area', placeholder:'e.g. 1,450 sq.ft', type:'text' },
+      parking:    { label:'Parking',       type:'checkbox' },
+      furnishing: { label:'Furnishing',    type:'select',
+                    options:['unfurnished','semi-furnished','fully-furnished'] },
+      floor:      { label:'Floor Number',  placeholder:'e.g. 3',           type:'number' },
+      plot_size:  { label:'Plot Size',     placeholder:'e.g. 5,000 sq.ft', type:'text' },
+      land_type:  { label:'Land Type',     type:'select',
+                    options:['residential','agricultural','commercial','industrial'] }
+    };
+
+    function adminRenderSubtype(mainType, currentVal) {
+      const c = document.getElementById('admin_subtype_container');
+      if (!c) return;
+      c.innerHTML = '';
+      const cfg = PROPERTY_CONFIG[mainType];
+      if (!cfg || !cfg.hasSubtype) return;
+      c.innerHTML = `<label class="detail-lbl">Subtype</label>
+        <select id="admin_subtype" class="detail-select" style="margin-bottom:10px">
+          ${cfg.subtypes.map(s=>`<option value="${s.value}"${currentVal===s.value?' selected':''}>${s.label}</option>`).join('')}
+        </select>`;
+    }
+
+    function adminRenderFields(mainType, vals) {
+      const c = document.getElementById('admin_dynamic_fields_container');
+      if (!c) return;
+      c.innerHTML = '';
+      const cfg = PROPERTY_CONFIG[mainType];
+      if (!cfg) return;
+      vals = vals || {};
+      const grid = document.createElement('div');
+      grid.style.cssText = 'display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:4px';
+      cfg.fields.forEach(k => {
+        const meta = FIELD_META[k];
+        if (!meta) return;
+        const cell = document.createElement('div');
+        if (k === 'plot_size' || k === 'area') cell.style.gridColumn = 'span 2';
+        if (meta.type === 'checkbox') {
+          cell.innerHTML = `<div style="display:flex;align-items:center;gap:8px;margin-top:22px">
+            <input type="checkbox" id="adm_${k}" ${vals[k]?'checked':''} style="width:16px;height:16px;accent-color:var(--navy)">
+            <label for="adm_${k}" class="detail-lbl" style="margin:0">${meta.label}</label></div>`;
+        } else if (meta.type === 'select') {
+          cell.innerHTML = `<label class="detail-lbl">${meta.label}</label>
+            <select id="adm_${k}" class="detail-select">
+              ${meta.options.map(o=>`<option value="${o}"${vals[k]===o?' selected':''}>${o.charAt(0).toUpperCase()+o.slice(1).replace(/-/g,' ')}</option>`).join('')}
+            </select>`;
+        } else {
+          cell.innerHTML = `<label class="detail-lbl">${meta.label}</label>
+            <input id="adm_${k}" class="detail-input" type="${meta.type||'text'}" placeholder="${meta.placeholder||''}" value="${String(vals[k]||'')}">`;
+        }
+        grid.appendChild(cell);
+      });
+      c.appendChild(grid);
+    }
+
+    function adminCollectDynamic(mainType) {
+      const cfg = PROPERTY_CONFIG[mainType];
+      if (!cfg) return {};
+      const out = {};
+      cfg.fields.forEach(k => {
+        const el = document.getElementById('adm_' + k);
+        if (!el) return;
+        if (el.type === 'checkbox') out[k] = el.checked;
+        else if (el.value !== '') out[k] = el.type === 'number' ? Number(el.value) : el.value.trim();
+      });
+      return out;
+    }
+
+    function adminOnMainTypeChange(val) {
+      adminRenderSubtype(val, '');
+      adminRenderFields(val, {});
+    }
+
+    document.getElementById('editForm').addEventListener('submit', function(e) {
+        e.preventDefault();
+        const btn = document.getElementById('savePropertyBtn');
+        btn.disabled = true;
+        btn.innerHTML = `<svg style="animation:spin 1s linear infinite;margin-right:8px;vertical-align:middle" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="16" height="16"><circle cx="12" cy="12" r="10" stroke-opacity="0.25"/><path d="M12 2v4M12 18v4M4.93 4.93l2.83 2.83M16.24 16.24l2.83 2.83M2 12h4M18 12h4M4.93 19.07l2.83-2.83M16.24 7.76l2.83-2.83"/></svg>Saving...`;
+
+        const mt = document.getElementById('add_main_type').value;
+        const stEl = document.getElementById('admin_subtype');
+        const st = stEl ? stEl.value : '';
+        const det = adminCollectDynamic(mt);
+
+        // Populate hidden fields for submission
+        document.getElementById('add_main_type_hidden').value = mt;
+        document.getElementById('add_sub_type_hidden').value  = st;
+        document.getElementById('add_details_hidden').value   = JSON.stringify(det);
+        document.getElementById('add_type_hidden').value      = st || mt;
+
+        const fd = new FormData(this);
+        // Legacy flat fields from details
+        if (det.bedrooms !== undefined)  fd.append('beds',  det.bedrooms);
+        if (det.bathrooms !== undefined) fd.append('baths', det.bathrooms);
+        if (det.area)      fd.append('area', det.area);
+        if (det.plot_size) fd.append('area', det.plot_size);
+
+        if (window.adminCoverIndex != null) fd.append('cover_index', window.adminCoverIndex);
+        if (window.adminCoverDbId  != null) fd.append('cover_db_id', window.adminCoverDbId);
+        if (document.getElementById('admin_images').files.length === 0) fd.delete('images');
+
+        fd.append('csrfmiddlewaretoken', CSRF);
+        fetch('/admin/add/', { method:'POST', body:fd, headers:{'X-CSRFToken':CSRF} })
+          .then(() => window.location.reload());
+    });
+
+    function openAddForm() {
+      document.getElementById('add_property_id').value = '';
+      document.getElementById('add_deleted_images').value = '';
+      document.getElementById('add_verified').checked = false;
+      document.getElementById('add_label').value = 'none';
+      document.querySelector('#addFormOverlay .detail-title').textContent = 'Add Property';
+      document.getElementById('add_main_type').value = 'residential';
+      adminRenderSubtype('residential', '');
+      adminRenderFields('residential', {});
+      document.getElementById('addFormOverlay').classList.add('open');
+    }
+    function closeAddForm() { document.getElementById('addFormOverlay').classList.remove('open'); }
+
+    function editProperty(id) {
+      document.getElementById('detailOverlay').classList.remove('open');
+      openAddForm();
+      document.querySelector('#addFormOverlay .detail-title').textContent = 'Edit Property';
+      const allProps = [...pending, ...approved, ...rejected];
+      const p = allProps.find(x => x.id === id || String(x.id) === String(id));
+      if (!p) return;
+
+      document.getElementById('add_property_id').value = p.id;
+      document.getElementById('add_title').value     = p.title    || '';
+      document.getElementById('add_location').value  = p.location || '';
+      document.getElementById('add_price').value     = p.price    || '';
+      document.getElementById('add_contact').value   = p.contactPhone || '';
+      document.getElementById('add_email').value     = p.contactEmail || '';
+      document.getElementById('add_name').value      = (p.contactName && p.contactName !== 'Admin') ? p.contactName : '';
+      document.getElementById('add_verified').checked = p.verified === true || p.verified === 'true';
+      document.getElementById('add_label').value     = p.label || 'none';
+      document.getElementById('add_desc').value      = p.desc  || p.description || '';
+      document.getElementById('add_amenities').value = p.amenities || '';
+      document.getElementById('add_video').value     = p.videoUrl  || '';
+      document.getElementById('add_map').value       = p.mapUrl    || '';
+
+      // Determine main_type from new or legacy field
+      const mt = p.main_type || ({'apartment':'residential','villa':'residential','house':'residential',
+                   'office':'commercial','shop':'commercial','building':'commercial','commercial':'commercial','land':'land'}[p.type]) || 'residential';
+      const st = p.sub_type || (['apartment','villa','house','office','shop','building'].includes(p.type) ? p.type : '');
+      const det = p.details || { bedrooms: p.beds, bathrooms: p.baths, area: p.area };
+
+      document.getElementById('add_main_type').value = mt;
+      adminRenderSubtype(mt, st);
+      adminRenderFields(mt, det);
+
+      // Reset image previews
+      document.getElementById('admin_img_preview').innerHTML = '';
+      window._currentEditProp = p;
+      renderDbImages(p);
+      dt.items.clear();
+      document.getElementById('admin_images').files = dt.files;
+      window.adminCoverIndex = null;
+      window.adminCoverDbId  = null;
+    }
+    
+    function renderDbImages(p) {
+        const existingContainer = document.getElementById('admin_existing_preview');
+        if (!existingContainer) return;
+        existingContainer.innerHTML = '';
+        (p.images || []).forEach(img => {
+            const isCover = window.adminCoverDbId == img.id;
+
+            // Wrapper — allow overflow so X button isn't clipped
+            const wrap = document.createElement('div');
+            wrap.id = 'db-img-' + img.id;
+            wrap.style.cssText = `position:relative;width:80px;height:80px;border-radius:8px;background:url(${JSON.stringify(img.url)}) center/cover;border:${isCover ? '3px solid #3B82F6' : '1.5px solid #E5E7EB'};flex-shrink:0;overflow:visible;`;
+
+            // Delete X — positioned INSIDE the card so overflow-y:auto won't clip it
+            const delBtn = document.createElement('button');
+            delBtn.type = 'button';
+            delBtn.innerHTML = '&times;';
+            delBtn.title = 'Remove image';
+            delBtn.style.cssText = 'position:absolute;top:4px;right:4px;background:rgba(185,28,28,0.92);color:white;width:22px;height:22px;border-radius:50%;border:none;font-size:14px;line-height:22px;text-align:center;cursor:pointer;z-index:9999;padding:0;';
+            delBtn.addEventListener('click', function(e) {
+                e.stopPropagation();
+                e.preventDefault();
+                deleteDbImage(img.id);
+            });
+            wrap.appendChild(delBtn);
+
+            // Cover label or Set Cover button
+            const badge = document.createElement('div');
+            if (isCover) {
+                badge.textContent = '★ Cover';
+                badge.style.cssText = 'position:absolute;bottom:0;left:0;right:0;background:#3B82F6;color:white;font-size:10px;text-align:center;padding:3px;font-weight:700;border-radius:0 0 8px 8px;';
+            } else {
+                badge.textContent = 'Set Cover';
+                badge.style.cssText = 'position:absolute;bottom:4px;left:4px;right:30px;background:rgba(0,0,0,0.7);color:white;font-size:10px;text-align:center;padding:4px;border-radius:4px;cursor:pointer;font-weight:600;';
+                badge.addEventListener('click', function(e) {
+                    e.stopPropagation();
+                    e.preventDefault();
+                    window.adminCoverDbId = img.id;
+                    window.adminCoverIndex = null;
+                    // Update hidden input so form sends it
+                    let ci = document.getElementById('add_cover_db_id');
+                    if (!ci) {
+                        ci = document.createElement('input');
+                        ci.type = 'hidden';
+                        ci.name = 'cover_db_id';
+                        ci.id = 'add_cover_db_id';
+                        document.getElementById('addFormOverlay').querySelector('form').appendChild(ci);
+                    }
+                    ci.value = img.id;
+                    renderAdminImages();
+                    renderDbImages(window._currentEditProp);
+                });
+            }
+            wrap.appendChild(badge);
+            existingContainer.appendChild(wrap);
+        });
+    }
+
+    const dt = new DataTransfer();
+    function previewAdminImages(input) {
+      if(input.files) {
+        Array.from(input.files).slice(0, 10).forEach(file => dt.items.add(file));
+        input.files = dt.files;
+        renderAdminImages();
+      }
+    }
+    
+    function renderAdminImages() {
+      const container = document.getElementById('admin_img_preview');
+      container.innerHTML = '';
+      if (dt.files.length === 0) return;
+      
+      Array.from(dt.files).forEach((file, index) => {
+        const isCover = window.adminCoverIndex === index;
+        const reader = new FileReader();
+        
+        // Create an element placeholder so insertion order is maintained
+        const placeholder = document.createElement('div');
+        container.appendChild(placeholder);
+
+        reader.onload = function(e) {
+            placeholder.outerHTML = `<div style="position:relative; width:80px; height:80px; border-radius:8px; background:url('${e.target.result}') center/cover; border:${isCover ? '3px solid #3B82F6' : '1px solid #E5E7EB'}; box-shadow:0 2px 4px rgba(0,0,0,0.05)"><div onclick="event.stopPropagation(); removeAdminImage(${index})" style="position:absolute;top:-6px;right:-6px;background:red;color:white;width:20px;height:20px;border-radius:50%;text-align:center;line-height:20px;font-size:12px;cursor:pointer;box-shadow:0 1px 3px rgba(0,0,0,0.3);z-index:999">✕</div>${isCover ? `<div style="position:absolute;bottom:0;left:0;right:0;background:#3B82F6;color:white;font-size:10px;text-align:center;padding:3px;font-weight:700">★ Cover</div>` : `<div onclick="event.stopPropagation(); window.adminCoverIndex=${index};window.adminCoverDbId=null;renderAdminImages();renderDbImages(window._currentEditProp)" style="position:absolute;bottom:4px;left:4px;right:4px;background:rgba(0,0,0,0.7);color:white;font-size:10px;text-align:center;padding:4px;border-radius:4px;cursor:pointer;font-weight:600">Set Cover</div>`}</div>`;
+        }
+        reader.readAsDataURL(file);
+      });
+      document.getElementById('admin_images').files = dt.files;
+    }
+
+    function removeAdminImage(index) {
+        if(!confirm("Remove this image?")) return;
+        dt.items.remove(index);
+        if(window.adminCoverIndex === index) window.adminCoverIndex = null;
+        renderAdminImages();
+    }
+
+    let _pendingDeleteId = null;
+    function deleteDbImage(id) {
+        _pendingDeleteId = id;
+        const dlg = document.getElementById('imgDeleteConfirm');
+        dlg.style.display = 'flex';
+    }
+    function hideImgConfirm() {
+        _pendingDeleteId = null;
+        document.getElementById('imgDeleteConfirm').style.display = 'none';
+    }
+    function confirmDeleteImage() {
+        document.getElementById('imgDeleteConfirm').style.display = 'none';
+        if (_pendingDeleteId === null) return;
+        const id = _pendingDeleteId;
+        _pendingDeleteId = null;
+        const input = document.getElementById('add_deleted_images');
+        input.value = input.value ? input.value + ',' + id : id;
+        const el = document.getElementById('db-img-' + id);
+        if (el) el.style.display = 'none';
+    }
+  </script>
+
+  <!-- DELETE CONFIRMATION MODAL -->
+  <div class="detail-overlay" id="deleteModal" style="z-index: 10000;">
+    <div class="detail-panel" style="max-width: 400px; padding: 24px; text-align: center; border-radius: 16px;">
+      <div style="margin-bottom: 20px; color: #EF4444; display:flex; justify-content:center;">
+        <div style="background:#FEE2E2; width:64px; height:64px; border-radius:50%; display:flex; align-items:center; justify-content:center;">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="32" height="32">
+            <path d="M3 6h18"/><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/><line x1="10" y1="11" x2="10" y2="17"/><line x1="14" y1="11" x2="14" y2="17"/>
+            </svg>
+        </div>
+      </div>
+      <div style="font-size: 20px; font-weight: 700; color: #111827; margin-bottom: 12px;">Delete Property?</div>
+      <div style="font-size: 14px; color: #4B5563; margin-bottom: 28px; line-height: 1.5;">This action cannot be undone. This will permanently remove the property, including all uploaded photos and details from the system.</div>
+      <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 12px;">
+        <button class="c-btn c-btn-outline" style="padding: 10px; width: 100%; border-radius: 8px; border: 1px solid #E5E7EB; background: white; color: #374151; font-weight: 600; cursor: pointer; transition: background 0.2s" onmouseover="this.style.background='#F3F4F6'" onmouseout="this.style.background='white'" onclick="closeDeleteModal()">Cancel</button>
+        <button id="deleteConfirmBtn" style="padding: 10px; width: 100%; border-radius: 8px; background: #EF4444; color: white; border: none; font-weight: 600; cursor: pointer; transition: background 0.2s" onmouseover="this.style.background='#DC2626'" onmouseout="this.style.background='#EF4444'" onclick="confirmDelete()">Delete</button>
+      </div>
+    </div>
+  </div>
+</body>
+</html>

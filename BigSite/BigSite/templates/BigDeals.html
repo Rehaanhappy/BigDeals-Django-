@@ -1,0 +1,4701 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>BigDeals — Premium Real Estate Kerala</title>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400;1,600&family=Outfit:wght@300;400;500;600&display=swap"
+    rel="stylesheet">
+  <style>
+    *,
+    *::before,
+    *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0
+    }
+
+    :root {
+      --navy: #0B1C3F;
+      --navy2: #152a5a;
+      --blue: #1B56CC;
+      --sky: #3B82F6;
+      --gold: #C9A84C;
+      --gold2: #E8C96A;
+      --cream: #FDFAF5;
+      --offwhite: #F7F4EE;
+      --text: #1a1a2e;
+      --muted: #6B7280;
+      --border: #E5E0D8;
+      --green: #059669;
+      --red: #DC2626;
+      --orange: #D97706;
+      --card-shadow: 0 2px 20px rgba(11, 28, 63, 0.08);
+      --card-hover: 0 8px 40px rgba(11, 28, 63, 0.15);
+    }
+
+    html {
+      scroll-behavior: smooth
+    }
+
+    body {
+      font-family: 'Outfit', sans-serif;
+      background: var(--cream);
+      color: var(--text);
+      overflow-x: hidden
+    }
+
+    /* ── GLOBAL ANIMATIONS ── */
+    @keyframes heroFadeUp {
+      from {
+        opacity: 0;
+        transform: translateY(28px)
+      }
+
+      to {
+        opacity: 1;
+        transform: translateY(0)
+      }
+    }
+
+    @keyframes heroPulse {
+
+      0%,
+      100% {
+        opacity: 1;
+        transform: scale(1)
+      }
+
+      50% {
+        opacity: 0.6;
+        transform: scale(1.4)
+      }
+    }
+
+    @keyframes shimmer {
+      0% {
+        background-position: -200% 0
+      }
+
+      100% {
+        background-position: 200% 0
+      }
+    }
+
+    @keyframes slideInRight {
+      from {
+        opacity: 0;
+        transform: translateX(20px)
+      }
+
+      to {
+        opacity: 1;
+        transform: translateX(0)
+      }
+    }
+
+    @keyframes revealUp {
+      from {
+        opacity: 0;
+        transform: translateY(40px)
+      }
+
+      to {
+        opacity: 1;
+        transform: translateY(0)
+      }
+    }
+
+    /* Hero entrance sequence */
+    .hero-label {
+      animation: heroFadeUp 0.6s ease 0.1s both
+    }
+
+    .hero h1 {
+      animation: heroFadeUp 0.7s ease 0.25s both
+    }
+
+    .hero-sub {
+      animation: heroFadeUp 0.7s ease 0.4s both
+    }
+
+    .search-bar {
+      animation: heroFadeUp 0.7s ease 0.55s both
+    }
+
+    .post-cta-card {
+      animation: heroFadeUp 0.7s ease 0.7s both
+    }
+
+    /* Scroll reveal utility */
+    .reveal {
+      opacity: 0;
+      transform: translateY(32px);
+      transition: opacity 0.6s ease, transform 0.6s ease
+    }
+
+    .reveal.visible {
+      opacity: 1;
+      transform: translateY(0)
+    }
+
+    /* ── SECTION HEADER ── */
+    .section-hd {
+      text-align: center;
+      margin-bottom: 48px
+    }
+
+    .section-hd-label {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 11px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 1.5px;
+      color: var(--blue);
+      background: #EFF6FF;
+      border: 1px solid #BFDBFE;
+      border-radius: 20px;
+      padding: 5px 14px;
+      margin-bottom: 14px
+    }
+
+    .section-hd h2 {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(28px, 4vw, 42px);
+      font-weight: 600;
+      color: var(--text);
+      line-height: 1.2;
+      margin-bottom: 12px
+    }
+
+    .section-hd p {
+      font-size: 15px;
+      color: var(--muted);
+      max-width: 540px;
+      margin: 0 auto;
+      line-height: 1.7;
+      font-weight: 300
+    }
+
+    .section-rule {
+      width: 48px;
+      height: 3px;
+      background: linear-gradient(90deg, var(--gold), var(--gold2));
+      border-radius: 2px;
+      margin: 16px auto 0
+    }
+
+    /* ── TRUST STRIP ── */
+    .trust-strip {
+      background: #fff;
+      border-bottom: 1px solid var(--border);
+      padding: 0
+    }
+
+    .trust-inner {
+      max-width: 1400px;
+      margin: 0 auto;
+      padding: 0 40px;
+      display: flex;
+      align-items: stretch;
+      justify-content: space-around
+    }
+
+    .trust-item {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding: 20px 16px;
+      border-right: 1px solid var(--border);
+      flex: 1;
+      transition: background 0.2s
+    }
+
+    .trust-item:last-child {
+      border-right: none
+    }
+
+    .trust-item:hover {
+      background: var(--offwhite)
+    }
+
+    .trust-icon {
+      width: 40px;
+      height: 40px;
+      border-radius: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0
+    }
+
+    .trust-txt strong {
+      display: block;
+      font-size: 13px;
+      font-weight: 700;
+      color: var(--text)
+    }
+
+    .trust-txt span {
+      font-size: 12px;
+      color: var(--muted)
+    }
+
+    /* ── STATS BAR ── */
+    .stats-bar {
+      background: var(--navy);
+      padding: 40px 0
+    }
+
+    .stats-inner {
+      max-width: 1400px;
+      margin: 0 auto;
+      padding: 0 40px;
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 0;
+      text-align: center
+    }
+
+    .stat-item {
+      padding: 0 20px;
+      border-right: 1px solid rgba(255, 255, 255, 0.12)
+    }
+
+    .stat-item:last-child {
+      border-right: none
+    }
+
+    .stat-num {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 44px;
+      font-weight: 700;
+      color: #fff;
+      line-height: 1
+    }
+
+    .stat-num em {
+      color: var(--gold2);
+      font-style: normal
+    }
+
+    .stat-desc {
+      font-size: 13px;
+      color: rgba(255, 255, 255, 0.5);
+      margin-top: 6px;
+      text-transform: uppercase;
+      letter-spacing: 0.6px;
+      font-weight: 400
+    }
+
+    /* ── FEATURED LABEL ── */
+    .featured-section {
+      padding: 64px 0
+    }
+
+    /* ── NAV ── */
+    nav {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      z-index: 1000;
+      transition: all 0.3s
+    }
+
+    nav.scrolled {
+      background: rgba(11, 28, 63, 0.97);
+      backdrop-filter: blur(12px);
+      box-shadow: 0 2px 20px rgba(0, 0, 0, 0.2)
+    }
+
+    .nav-inner {
+      max-width: 1400px;
+      margin: 0 auto;
+      padding: 0 40px;
+      height: 72px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between
+    }
+
+    .nav-logo {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 28px;
+      font-weight: 700;
+      color: #fff;
+      letter-spacing: -0.5px;
+      text-decoration: none
+    }
+
+    .nav-logo span {
+      color: var(--gold2)
+    }
+
+    .nav-links {
+      display: flex;
+      align-items: center;
+      gap: 36px
+    }
+
+    .nav-links a {
+      color: rgba(255, 255, 255, 0.8);
+      text-decoration: none;
+      font-size: 14px;
+      font-weight: 500;
+      letter-spacing: 0.3px;
+      transition: color 0.2s;
+      position: relative;
+      padding-bottom: 2px
+    }
+
+    .nav-links a::after {
+      content: '';
+      position: absolute;
+      bottom: -2px;
+      left: 0;
+      width: 0;
+      height: 2px;
+      background: var(--gold2);
+      border-radius: 2px;
+      transition: width 0.25s ease
+    }
+
+    .nav-links a:hover {
+      color: #fff
+    }
+
+    .nav-links a:hover::after {
+      width: 100%
+    }
+
+    .nav-actions {
+      display: flex;
+      align-items: center;
+      gap: 12px
+    }
+
+    .nav-btn {
+      height: 38px;
+      padding: 0 20px;
+      border-radius: 6px;
+      font-size: 13px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.2s;
+      font-family: 'Outfit', sans-serif;
+      letter-spacing: 0.3px
+    }
+
+    .nav-btn-ghost {
+      background: transparent;
+      border: 1.5px solid rgba(255, 255, 255, 0.35);
+      color: #fff
+    }
+
+    .nav-btn-ghost:hover {
+      background: rgba(255, 255, 255, 0.1);
+      border-color: rgba(255, 255, 255, 0.6)
+    }
+
+    .nav-btn-gold {
+      background: var(--gold);
+      border: none;
+      color: var(--navy)
+    }
+
+    .nav-btn-gold:hover {
+      background: var(--gold2)
+    }
+
+    /* ── HERO ── */
+    .hero {
+      min-height: 100vh;
+      background: var(--navy);
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      overflow: hidden
+    }
+
+    .hero-bg {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(135deg, #0B1C3F 0%, #152a5a 40%, #1B3A7A 100%);
+      z-index: 0
+    }
+
+    .hero-pattern {
+      position: absolute;
+      inset: 0;
+      opacity: 0.04;
+      background-image: repeating-linear-gradient(0deg, transparent, transparent 60px, rgba(255, 255, 255, 1) 60px, rgba(255, 255, 255, 1) 61px), repeating-linear-gradient(90deg, transparent, transparent 60px, rgba(255, 255, 255, 1) 60px, rgba(255, 255, 255, 1) 61px);
+      z-index: 1
+    }
+
+    .hero-glow {
+      position: absolute;
+      top: -20%;
+      right: -10%;
+      width: 700px;
+      height: 700px;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(201, 168, 76, 0.12) 0%, transparent 70%);
+      z-index: 1
+    }
+
+    .hero-glow2 {
+      position: absolute;
+      bottom: -20%;
+      left: -5%;
+      width: 500px;
+      height: 500px;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(59, 130, 246, 0.1) 0%, transparent 70%);
+      z-index: 1
+    }
+
+    .hero-content {
+      position: relative;
+      z-index: 2;
+      max-width: 1400px;
+      margin: 0 auto;
+      padding: 120px 40px 60px;
+      width: 100%
+    }
+
+    .hero-label {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: rgba(201, 168, 76, 0.15);
+      border: 1px solid rgba(201, 168, 76, 0.3);
+      border-radius: 20px;
+      padding: 6px 16px;
+      font-size: 12px;
+      font-weight: 600;
+      color: var(--gold2);
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      margin-bottom: 28px;
+      animation: heroFadeUp 0.6s ease 0.1s both
+    }
+
+    .hero-label::before {
+      content: '';
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: var(--gold2);
+      animation: heroPulse 2s ease infinite
+    }
+
+    .hero h1 {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(52px, 6vw, 88px);
+      font-weight: 600;
+      color: #fff;
+      line-height: 1.05;
+      letter-spacing: -1px;
+      margin-bottom: 24px;
+      max-width: 800px
+    }
+
+    .hero h1 em {
+      font-style: italic;
+      color: var(--gold2)
+    }
+
+    .hero-sub {
+      font-size: 18px;
+      color: rgba(255, 255, 255, 0.6);
+      max-width: 520px;
+      line-height: 1.7;
+      margin-bottom: 48px;
+      font-weight: 300
+    }
+
+    .hero-stats {
+      display: flex;
+      gap: 48px;
+      margin-bottom: 56px
+    }
+
+    .hero-stat-val {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 36px;
+      font-weight: 700;
+      color: #fff;
+      line-height: 1
+    }
+
+    .hero-stat-val span {
+      color: var(--gold2)
+    }
+
+    .hero-stat-lbl {
+      font-size: 12px;
+      color: rgba(255, 255, 255, 0.45);
+      margin-top: 4px;
+      font-weight: 400;
+      text-transform: uppercase;
+      letter-spacing: 0.5px
+    }
+
+    /* Post CTA Card */
+    .post-cta-card {
+      display: flex;
+      align-items: center;
+      gap: 24px;
+      background: rgba(255, 255, 255, 0.07);
+      border: 1px solid rgba(255, 255, 255, 0.14);
+      border-radius: 20px;
+      padding: 28px 32px;
+      max-width: 680px;
+      margin-top: 24px;
+      margin-bottom: 48px;
+      backdrop-filter: blur(8px)
+    }
+
+    .post-cta-icon {
+      width: 52px;
+      height: 52px;
+      border-radius: 12px;
+      background: rgba(201, 168, 76, 0.18);
+      border: 1px solid rgba(201, 168, 76, 0.3);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--gold2);
+      flex-shrink: 0
+    }
+
+    .post-cta-text {
+      flex: 1
+    }
+
+    .post-cta-title {
+      font-size: 16px;
+      font-weight: 700;
+      color: #fff;
+      margin-bottom: 3px
+    }
+
+    .post-cta-sub {
+      font-size: 13px;
+      color: rgba(255, 255, 255, 0.55);
+      line-height: 1.5;
+      font-weight: 300
+    }
+
+    .post-cta-btn {
+      height: 40px;
+      padding: 0 20px;
+      background: var(--gold);
+      border: none;
+      border-radius: 10px;
+      font-size: 13px;
+      font-weight: 700;
+      color: var(--navy);
+      cursor: pointer;
+      transition: all 0.2s;
+      font-family: 'Outfit', sans-serif;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      white-space: nowrap;
+      flex-shrink: 0
+    }
+
+    .post-cta-btn:hover {
+      background: var(--gold2);
+      transform: translateX(2px)
+    }
+
+    /* Skeletons */
+    @keyframes shimmer {
+      0% {
+        background-position: -1000px 0;
+      }
+
+      100% {
+        background-position: 1000px 0;
+      }
+    }
+
+    .skeleton-card {
+      animation: shimmer 2s infinite linear;
+      background: linear-gradient(to right, #f6f7f8 4%, #edeef1 25%, #f6f7f8 36%);
+      background-size: 1000px 100%;
+      border-radius: 16px;
+      border: 1px solid #E5E7EB;
+    }
+
+
+    /* Search Bar */
+    .search-bar {
+      background: #fff;
+      border-radius: 20px;
+      padding: 12px 12px 12px 0;
+      display: flex;
+      align-items: center;
+      max-width: 900px;
+      box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3)
+    }
+
+    .search-tab-wrap {
+      display: flex;
+      background: var(--offwhite);
+      border-radius: 10px;
+      padding: 4px;
+      margin-left: 8px;
+      gap: 2px
+    }
+
+    .search-tab {
+      padding: 8px 18px;
+      border-radius: 8px;
+      font-size: 13px;
+      font-weight: 500;
+      cursor: pointer;
+      transition: all 0.2s;
+      border: none;
+      background: transparent;
+      color: var(--muted);
+      font-family: 'Outfit', sans-serif
+    }
+
+    .search-tab.active {
+      background: #fff;
+      color: var(--navy);
+      font-weight: 600;
+      box-shadow: 0 1px 4px rgba(0, 0, 0, 0.1)
+    }
+
+    .search-divider {
+      width: 1px;
+      height: 40px;
+      background: var(--border);
+      margin: 0 4px
+    }
+
+    .search-field {
+      flex: 1;
+      padding: 0 20px
+    }
+
+    .search-field label {
+      display: block;
+      font-size: 11px;
+      font-weight: 600;
+      color: var(--muted);
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      margin-bottom: 2px
+    }
+
+    .search-field input,
+    .search-field select {
+      border: none;
+      outline: none;
+      font-size: 14px;
+      font-family: 'Outfit', sans-serif;
+      color: var(--text);
+      background: transparent;
+      width: 100%;
+      cursor: pointer
+    }
+
+    .search-field select option {
+      color: var(--text)
+    }
+
+    .search-go {
+      height: 52px;
+      padding: 0 28px;
+      background: var(--navy);
+      color: #fff;
+      border: none;
+      border-radius: 10px;
+      font-size: 14px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.2s;
+      font-family: 'Outfit', sans-serif;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      white-space: nowrap
+    }
+
+    .search-go:hover {
+      background: var(--blue)
+    }
+
+    .search-go svg {
+      flex-shrink: 0
+    }
+
+    /* ── FILTER BAR ── */
+    .filter-bar {
+      background: #fff;
+      border-bottom: 1px solid var(--border);
+      position: sticky;
+      top: 72px;
+      z-index: 90
+    }
+
+    .filter-inner {
+      max-width: 1400px;
+      margin: 0 auto;
+      padding: 0 40px;
+      height: 60px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 20px
+    }
+
+    .filter-chips {
+      display: flex;
+      gap: 8px;
+      overflow-x: auto;
+      scrollbar-width: none;
+      flex: 1
+    }
+
+    .filter-chips::-webkit-scrollbar {
+      display: none
+    }
+
+    .chip {
+      height: 34px;
+      padding: 0 16px;
+      border-radius: 20px;
+      font-size: 13px;
+      font-weight: 500;
+      cursor: pointer;
+      border: 1.5px solid var(--border);
+      background: #fff;
+      color: var(--text);
+      transition: all 0.2s;
+      white-space: nowrap;
+      font-family: 'Outfit', sans-serif
+    }
+
+    .chip:hover {
+      border-color: var(--blue);
+      color: var(--blue)
+    }
+
+    .chip.active {
+      background: var(--navy);
+      color: #fff;
+      border-color: var(--navy)
+    }
+
+    .filter-right {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      flex-shrink: 0
+    }
+
+    .result-txt {
+      font-size: 13px;
+      color: var(--muted);
+      white-space: nowrap
+    }
+
+    .result-txt strong {
+      color: var(--text)
+    }
+
+    .sort-select {
+      height: 34px;
+      padding: 0 30px 0 12px;
+      border: 1.5px solid var(--border);
+      border-radius: 8px;
+      font-size: 13px;
+      font-family: 'Outfit', sans-serif;
+      color: var(--text);
+      background: #fff;
+      outline: none;
+      cursor: pointer;
+      appearance: none;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='10' viewBox='0 0 24 24' fill='none' stroke='%236B7280' stroke-width='2'%3E%3Cpath d='M6 9l6 6 6-6'/%3E%3C/svg%3E");
+      background-repeat: no-repeat;
+      background-position: right 10px center
+    }
+
+    .filter-btn {
+      height: 34px;
+      padding: 0 16px;
+      border: 1.5px solid var(--border);
+      border-radius: 8px;
+      font-size: 13px;
+      font-family: 'Outfit', sans-serif;
+      background: #fff;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      color: var(--text);
+      font-weight: 500;
+      transition: all 0.2s
+    }
+
+    .filter-btn:hover {
+      border-color: var(--blue);
+      color: var(--blue)
+    }
+
+    /* ── MOBILE FILTER BUTTON & DRAWER ── */
+    .mobile-filter-btn {
+      display: none;
+      height: 36px;
+      padding: 0 14px;
+      border: 1.5px solid var(--border);
+      border-radius: 8px;
+      font-size: 13px;
+      font-family: 'Outfit', sans-serif;
+      background: #fff;
+      cursor: pointer;
+      align-items: center;
+      gap: 6px;
+      color: var(--text);
+      font-weight: 600;
+      transition: all 0.2s;
+      white-space: nowrap;
+      flex-shrink: 0
+    }
+
+    .mobile-filter-btn:hover {
+      border-color: var(--blue);
+      color: var(--blue)
+    }
+
+    .mobile-filter-badge {
+      min-width: 18px;
+      height: 18px;
+      background: var(--navy);
+      color: #fff;
+      border-radius: 9px;
+      font-size: 10px;
+      font-weight: 700;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      padding: 0 4px
+    }
+
+    /* Filter bottom sheet */
+    .filter-sheet-overlay {
+      display: none;
+      position: fixed;
+      inset: 0;
+      background: rgba(11, 28, 63, 0.45);
+      z-index: 1500;
+      backdrop-filter: blur(3px)
+    }
+
+    .filter-sheet-overlay.open {
+      display: block
+    }
+
+    .filter-sheet {
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      background: #fff;
+      border-radius: 20px 20px 0 0;
+      z-index: 1501;
+      max-height: 85vh;
+      overflow-y: auto;
+      transform: translateY(100%);
+      transition: transform 0.35s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+      padding-bottom: env(safe-area-inset-bottom)
+    }
+
+    .filter-sheet.open {
+      transform: translateY(0)
+    }
+
+    .filter-sheet-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 20px 20px 16px;
+      border-bottom: 1px solid var(--border);
+      position: sticky;
+      top: 0;
+      background: #fff;
+      z-index: 2
+    }
+
+    .filter-sheet-title {
+      font-size: 16px;
+      font-weight: 700;
+      color: var(--text)
+    }
+
+    .filter-sheet-close {
+      width: 32px;
+      height: 32px;
+      border-radius: 50%;
+      background: var(--offwhite);
+      border: none;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--muted)
+    }
+
+    .filter-sheet-body {
+      padding: 0
+    }
+
+    .filter-sheet-footer {
+      padding: 16px 20px;
+      border-top: 1px solid var(--border);
+      display: grid;
+      grid-template-columns: 1fr 2fr;
+      gap: 10px;
+      position: sticky;
+      bottom: 0;
+      background: #fff
+    }
+
+    /* ── MAIN LAYOUT ── */
+    .main {
+      max-width: 1400px;
+      margin: 0 auto;
+      padding: 40px 40px 80px
+    }
+
+    .layout {
+      display: grid;
+      grid-template-columns: 300px 1fr;
+      gap: 32px;
+      align-items: start
+    }
+
+    /* ── SIDEBAR ── */
+    .sidebar {
+      background: #fff;
+      border-radius: 16px;
+      border: 1px solid var(--border);
+      overflow: hidden;
+      position: sticky;
+      top: 148px
+    }
+
+    .sidebar-section {
+      padding: 20px 24px;
+      border-bottom: 1px solid var(--border)
+    }
+
+    .sidebar-section:last-child {
+      border-bottom: none
+    }
+
+    .sidebar-title {
+      font-size: 12px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.8px;
+      color: var(--muted);
+      margin-bottom: 14px
+    }
+
+    .price-inputs {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 8px
+    }
+
+    .price-inp {
+      height: 38px;
+      border: 1.5px solid var(--border);
+      border-radius: 8px;
+      padding: 0 10px;
+      font-size: 13px;
+      font-family: 'Outfit', sans-serif;
+      outline: none;
+      width: 100%;
+      color: var(--text)
+    }
+
+    .price-inp:focus {
+      border-color: var(--sky)
+    }
+
+    .type-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 8px
+    }
+
+    .type-opt {
+      padding: 10px 8px;
+      border: 1.5px solid var(--border);
+      border-radius: 10px;
+      text-align: center;
+      cursor: pointer;
+      transition: all 0.2s;
+      font-size: 12px;
+      font-weight: 500
+    }
+
+    .type-opt:hover {
+      border-color: var(--blue);
+      color: var(--blue)
+    }
+
+    .type-opt.sel {
+      background: var(--navy);
+      color: #fff;
+      border-color: var(--navy)
+    }
+
+    .type-opt-icon {
+      font-size: 20px;
+      display: block;
+      margin-bottom: 3px
+    }
+
+    .bhk-row {
+      display: flex;
+      gap: 6px;
+      flex-wrap: wrap
+    }
+
+    .bhk-btn {
+      height: 32px;
+      min-width: 52px;
+      padding: 0 12px;
+      border: 1.5px solid var(--border);
+      border-radius: 20px;
+      font-size: 12px;
+      font-weight: 500;
+      cursor: pointer;
+      transition: all 0.2s;
+      font-family: 'Outfit', sans-serif;
+      background: #fff;
+      color: var(--text)
+    }
+
+    .bhk-btn.sel {
+      background: var(--navy);
+      color: #fff;
+      border-color: var(--navy)
+    }
+
+    .toggle-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 8px 0
+    }
+
+    .toggle-lbl {
+      font-size: 13px;
+      color: var(--text);
+      font-weight: 500
+    }
+
+    .toggle {
+      width: 42px;
+      height: 22px;
+      background: var(--border);
+      border-radius: 11px;
+      border: none;
+      cursor: pointer;
+      position: relative;
+      transition: background 0.2s;
+      flex-shrink: 0
+    }
+
+    .toggle::after {
+      content: '';
+      position: absolute;
+      width: 16px;
+      height: 16px;
+      border-radius: 50%;
+      background: #fff;
+      top: 3px;
+      left: 3px;
+      transition: transform 0.2s;
+      box-shadow: 0 1px 3px rgba(0, 0, 0, 0.2)
+    }
+
+    .toggle.on {
+      background: var(--blue)
+    }
+
+    .toggle.on::after {
+      transform: translateX(20px)
+    }
+
+    .apply-btn {
+      width: 100%;
+      height: 44px;
+      background: var(--navy);
+      color: #fff;
+      border: none;
+      border-radius: 10px;
+      font-size: 14px;
+      font-weight: 600;
+      cursor: pointer;
+      font-family: 'Outfit', sans-serif;
+      transition: background 0.2s;
+      margin-top: 4px
+    }
+
+    .apply-btn:hover {
+      background: var(--blue)
+    }
+
+    .clear-btn {
+      width: 100%;
+      height: 36px;
+      background: transparent;
+      color: var(--muted);
+      border: 1.5px solid var(--border);
+      border-radius: 10px;
+      font-size: 13px;
+      cursor: pointer;
+      font-family: 'Outfit', sans-serif;
+      margin-top: 8px
+    }
+
+    .clear-btn:hover {
+      border-color: var(--red);
+      color: var(--red)
+    }
+
+    /* ── PROPERTY GRID ── */
+    .grid-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 24px
+    }
+
+    .grid-title {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 28px;
+      font-weight: 600;
+      color: var(--text)
+    }
+
+    .grid-title span {
+      color: var(--muted);
+      font-size: 18px;
+      font-weight: 400;
+      margin-left: 8px
+    }
+
+    .view-toggle {
+      display: flex;
+      gap: 4px
+    }
+
+    .view-btn {
+      width: 34px;
+      height: 34px;
+      border: 1.5px solid var(--border);
+      border-radius: 8px;
+      background: #fff;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--muted);
+      transition: all 0.2s
+    }
+
+    .view-btn.active {
+      background: var(--navy);
+      border-color: var(--navy);
+      color: #fff
+    }
+
+    .prop-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr 1fr;
+      gap: 24px
+    }
+
+    /* Property Card */
+    .p-card {
+      background: #fff;
+      border-radius: 16px;
+      overflow: hidden;
+      border: 1px solid var(--border);
+      transition: all 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+      cursor: pointer;
+      position: relative
+    }
+
+    .p-card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 3px;
+      background: linear-gradient(90deg, var(--blue), var(--sky));
+      opacity: 0;
+      transition: opacity 0.3s;
+      z-index: 1
+    }
+
+    .p-card:hover {
+      transform: translateY(-6px);
+      box-shadow: 0 20px 60px rgba(11, 28, 63, 0.14)
+    }
+
+    .p-card:hover::before {
+      opacity: 1
+    }
+
+    .p-card-img {
+      height: 220px;
+      position: relative;
+      overflow: hidden;
+      background: var(--offwhite)
+    }
+
+    .p-card-img .img-bg {
+      width: 100%;
+      height: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 64px;
+      transition: transform 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94)
+    }
+
+    .p-card:hover .img-bg {
+      transform: scale(1.08)
+    }
+
+    .card-badges {
+      position: absolute;
+      top: 12px;
+      left: 12px;
+      display: flex;
+      flex-direction: column;
+      gap: 5px
+    }
+
+    .badge {
+      font-size: 10px;
+      font-weight: 700;
+      padding: 4px 10px;
+      border-radius: 20px;
+      letter-spacing: 0.4px;
+      text-transform: uppercase;
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      backdrop-filter: blur(4px)
+    }
+
+    .b-verified {
+      background: rgba(236, 253, 245, 0.95);
+      color: #065F46;
+      border: 1px solid rgba(167, 243, 208, 0.6)
+    }
+
+    .b-new {
+      background: rgba(219, 234, 254, 0.95);
+      color: #1E40AF;
+      border: 1px solid rgba(147, 197, 253, 0.6)
+    }
+
+    .b-reduced {
+      background: rgba(254, 243, 199, 0.95);
+      color: #92400E;
+      border: 1px solid rgba(252, 211, 77, 0.4)
+    }
+
+    .b-contract {
+      background: rgba(243, 244, 246, 0.95);
+      color: #374151;
+      border: 1px solid rgba(209, 213, 219, 0.6)
+    }
+
+    .card-like {
+      position: absolute;
+      top: 12px;
+      right: 12px;
+      width: 36px;
+      height: 36px;
+      border-radius: 50%;
+      background: rgba(255, 255, 255, 0.95);
+      border: none;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 16px;
+      transition: all 0.2s;
+      box-shadow: 0 2px 12px rgba(0, 0, 0, 0.15);
+      backdrop-filter: blur(4px)
+    }
+
+    .card-like:hover {
+      transform: scale(1.2);
+      box-shadow: 0 4px 16px rgba(0, 0, 0, 0.2)
+    }
+
+    .p-card-body {
+      padding: 16px 18px 20px
+    }
+
+    .card-price {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 24px;
+      font-weight: 700;
+      color: var(--navy);
+      line-height: 1
+    }
+
+    .card-title {
+      font-size: 15px;
+      font-weight: 600;
+      color: var(--text);
+      margin: 4px 0 3px;
+      line-height: 1.3
+    }
+
+    .card-loc {
+      font-size: 12px;
+      color: var(--muted);
+      display: flex;
+      align-items: center;
+      gap: 4px
+    }
+
+    .card-divider {
+      height: 1px;
+      background: var(--border);
+      margin: 12px 0
+    }
+
+    .card-attrs {
+      display: flex;
+      gap: 16px
+    }
+
+    .c-attr {
+      display: flex;
+      align-items: center;
+      gap: 5px;
+      font-size: 12px;
+      color: var(--muted);
+      font-weight: 500
+    }
+
+    .card-foot {
+      display: flex;
+      gap: 8px;
+      margin-top: 14px
+    }
+
+    .c-btn {
+      flex: 1;
+      height: 36px;
+      border-radius: 8px;
+      font-size: 12px;
+      font-weight: 600;
+      border: none;
+      cursor: pointer;
+      transition: all 0.2s;
+      font-family: 'Outfit', sans-serif;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 5px
+    }
+
+    .c-btn-wa {
+      background: #25D366;
+      color: #fff
+    }
+
+    .c-btn-wa:hover {
+      background: #1EB855
+    }
+
+    .c-btn-outline {
+      background: #fff;
+      color: var(--navy);
+      border: 1.5px solid var(--border)
+    }
+
+    .c-btn-outline:hover {
+      background: var(--navy);
+      color: #fff;
+      border-color: var(--navy)
+    }
+
+    .c-btn-icon {
+      flex: 0;
+      width: 36px;
+      background: var(--offwhite);
+      color: var(--muted);
+      border: 1.5px solid var(--border)
+    }
+
+    .c-btn-icon:hover {
+      background: var(--navy);
+      color: #fff;
+      border-color: var(--navy)
+    }
+
+    /* ── DETAIL MODAL ── */
+    .modal-overlay {
+      position: fixed;
+      inset: 0;
+      background: rgba(11, 28, 63, 0.6);
+      z-index: 2000;
+      display: none;
+      align-items: flex-start;
+      justify-content: center;
+      padding: 24px;
+      overflow-y: auto;
+      backdrop-filter: blur(4px)
+    }
+
+    .modal-overlay.open {
+      display: flex
+    }
+
+    .modal {
+      background: #fff;
+      border-radius: 20px;
+      width: 100%;
+      max-width: 1000px;
+      overflow: hidden;
+      margin: auto;
+      animation: modalIn 0.3s ease
+    }
+
+    @keyframes modalIn {
+      from {
+        opacity: 0;
+        transform: translateY(20px)
+      }
+
+      to {
+        opacity: 1;
+        transform: translateY(0)
+      }
+    }
+
+    .modal-gallery {
+      position: relative;
+      height: 400px;
+      background: var(--offwhite);
+      overflow: hidden
+    }
+
+    .modal-gallery .img-bg {
+      width: 100%;
+      height: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 120px
+    }
+
+    .modal-close {
+      position: absolute;
+      top: 16px;
+      right: 16px;
+      width: 38px;
+      height: 38px;
+      border-radius: 50%;
+      background: rgba(255, 255, 255, 0.95);
+      border: none;
+      cursor: pointer;
+      font-size: 18px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      z-index: 2;
+      transition: background 0.2s
+    }
+
+    .modal-close:hover {
+      background: #fff
+    }
+
+    .modal-share {
+      position: absolute;
+      top: 16px;
+      right: 64px;
+      width: 38px;
+      height: 38px;
+      border-radius: 50%;
+      background: rgba(255, 255, 255, 0.95);
+      border: none;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      z-index: 2
+    }
+
+    .modal-body {
+      display: grid;
+      grid-template-columns: 1fr 340px;
+      gap: 0
+    }
+
+    .modal-main {
+      padding: 32px;
+      border-right: 1px solid var(--border)
+    }
+
+    .modal-sidebar {
+      padding: 32px
+    }
+
+    .modal-badges {
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+      margin-bottom: 12px
+    }
+
+    .modal-price {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 36px;
+      font-weight: 700;
+      color: var(--navy)
+    }
+
+    .modal-title {
+      font-size: 22px;
+      font-weight: 700;
+      color: var(--text);
+      margin: 6px 0 6px
+    }
+
+    .modal-loc {
+      font-size: 14px;
+      color: var(--muted);
+      display: flex;
+      align-items: center;
+      gap: 5px;
+      margin-bottom: 20px
+    }
+
+    .modal-attrs {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 12px;
+      background: var(--offwhite);
+      border-radius: 12px;
+      padding: 12px;
+      margin: 0 auto 32px;
+    }
+
+    .suggestions-dropdown {
+      position: absolute;
+      top: 100%;
+      left: 0;
+      right: 0;
+      background: white;
+      border: 1px solid #E5E7EB;
+      border-radius: 8px;
+      margin-top: 4px;
+      z-index: 1000;
+      display: none;
+      box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+      max-height: 250px;
+      overflow-y: auto;
+    }
+
+    .suggestions-dropdown.active {
+      display: block;
+    }
+
+    .sugg-item {
+      padding: 12px 16px;
+      cursor: pointer;
+      font-size: 14px;
+      color: #374151;
+      border-bottom: 1px solid #F3F4F6;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      text-align: left;
+    }
+
+    .sugg-item:hover {
+      background: #F9FAFB;
+    }
+
+    .sugg-item-type {
+      font-size: 11px;
+      color: #6B7280;
+      background: #F3F4F6;
+      padding: 2px 6px;
+      border-radius: 4px;
+      text-transform: capitalize;
+    }
+
+    .search-tab-wrap {
+      text-align: center
+    }
+
+    .m-attr-val {
+      font-size: 20px;
+      font-weight: 700;
+      color: var(--navy);
+      font-family: 'Cormorant Garamond', serif
+    }
+
+    .m-attr-lbl {
+      font-size: 11px;
+      color: var(--muted);
+      margin-top: 2px;
+      text-transform: uppercase;
+      letter-spacing: 0.5px
+    }
+
+    .modal-section-title {
+      font-size: 12px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.8px;
+      color: var(--muted);
+      margin-bottom: 10px
+    }
+
+    .modal-desc {
+      font-size: 14px;
+      color: #374151;
+      line-height: 1.75;
+      margin-bottom: 24px
+    }
+
+    .amenities {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-bottom: 24px
+    }
+
+    .amenity {
+      font-size: 12px;
+      color: var(--blue);
+      background: #EFF6FF;
+      border: 1px solid #BFDBFE;
+      border-radius: 6px;
+      padding: 5px 12px;
+      font-weight: 500
+    }
+
+    .map-box {
+      height: 160px;
+      background: linear-gradient(135deg, #E2E8F0, #CBD5E1);
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 14px;
+      color: var(--muted);
+      border: 1px solid var(--border)
+    }
+
+    /* Contact sidebar */
+    .contact-brand {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 20px;
+      padding-bottom: 20px;
+      border-bottom: 1px solid var(--border)
+    }
+
+    .contact-logo-box {
+      width: 48px;
+      height: 48px;
+      border-radius: 12px;
+      background: var(--navy);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 16px;
+      color: var(--gold2);
+      font-weight: 700;
+      flex-shrink: 0
+    }
+
+    .contact-name-lg {
+      font-size: 15px;
+      font-weight: 700;
+      color: var(--text)
+    }
+
+    .contact-sub-lg {
+      font-size: 12px;
+      color: var(--muted);
+      margin-top: 2px
+    }
+
+    .contact-actions {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 8px;
+      margin-bottom: 20px
+    }
+
+    .contact-btn {
+      height: 42px;
+      border-radius: 10px;
+      font-size: 13px;
+      font-weight: 600;
+      border: none;
+      cursor: pointer;
+      font-family: 'Outfit', sans-serif;
+      transition: all 0.2s;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 6px
+    }
+
+    .cb-call {
+      background: var(--offwhite);
+      color: var(--navy);
+      border: 1.5px solid var(--border)
+    }
+
+    .cb-call:hover {
+      background: var(--navy);
+      color: #fff
+    }
+
+    .cb-wa {
+      background: #25D366;
+      color: #fff
+    }
+
+    .cb-wa:hover {
+      background: #1EB855
+    }
+
+    .inquiry-form {
+      display: flex;
+      flex-direction: column;
+      gap: 10px
+    }
+
+    .inq-input {
+      height: 40px;
+      border: 1.5px solid var(--border);
+      border-radius: 8px;
+      padding: 0 12px;
+      font-size: 13px;
+      font-family: 'Outfit', sans-serif;
+      outline: none;
+      color: var(--text)
+    }
+
+    .inq-input:focus {
+      border-color: var(--sky)
+    }
+
+    .inq-textarea {
+      height: 72px;
+      border: 1.5px solid var(--border);
+      border-radius: 8px;
+      padding: 10px 12px;
+      font-size: 13px;
+      font-family: 'Outfit', sans-serif;
+      outline: none;
+      color: var(--text);
+      resize: none
+    }
+
+    .inq-textarea:focus {
+      border-color: var(--sky)
+    }
+
+    .inq-submit {
+      height: 44px;
+      background: var(--navy);
+      color: #fff;
+      border: none;
+      border-radius: 10px;
+      font-size: 14px;
+      font-weight: 600;
+      cursor: pointer;
+      font-family: 'Outfit', sans-serif;
+      transition: background 0.2s
+    }
+
+    .inq-submit:hover {
+      background: var(--blue)
+    }
+
+    .verified-note {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      background: #ECFDF5;
+      border: 1px solid #A7F3D0;
+      border-radius: 8px;
+      padding: 10px 12px;
+      margin-top: 16px;
+      font-size: 12px;
+      color: #065F46;
+      font-weight: 500
+    }
+
+    /* ── POST LISTING MODAL ── */
+    .post-overlay {
+      position: fixed;
+      inset: 0;
+      background: rgba(11, 28, 63, 0.6);
+      z-index: 3000;
+      display: none;
+      align-items: center;
+      justify-content: center;
+      padding: 24px;
+      backdrop-filter: blur(4px)
+    }
+
+    .post-overlay.open {
+      display: flex
+    }
+
+    .post-modal {
+      background: #fff;
+      border-radius: 20px;
+      width: 100%;
+      max-width: 680px;
+      overflow: hidden;
+      animation: modalIn 0.3s ease;
+      max-height: 90vh;
+      overflow-y: auto
+    }
+
+    .post-header {
+      background: var(--navy);
+      padding: 24px 28px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between
+    }
+
+    .post-header-title {
+      color: #fff;
+      font-size: 18px;
+      font-weight: 600;
+      font-family: 'Cormorant Garamond', serif
+    }
+
+    .post-close {
+      width: 32px;
+      height: 32px;
+      border-radius: 50%;
+      background: rgba(255, 255, 255, 0.15);
+      border: none;
+      cursor: pointer;
+      color: #fff;
+      font-size: 18px;
+      display: flex;
+      align-items: center;
+      justify-content: center
+    }
+
+    .steps {
+      display: flex;
+      align-items: center;
+      padding: 20px 28px;
+      border-bottom: 1px solid var(--border);
+      gap: 0
+    }
+
+    .step {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      flex: 1
+    }
+
+    .step-num {
+      width: 28px;
+      height: 28px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 12px;
+      font-weight: 700;
+      flex-shrink: 0
+    }
+
+    .step-num.done {
+      background: var(--navy);
+      color: #fff
+    }
+
+    .step-num.current {
+      background: var(--gold);
+      color: var(--navy)
+    }
+
+    .step-num.upcoming {
+      background: var(--offwhite);
+      color: var(--muted);
+      border: 1.5px solid var(--border)
+    }
+
+    .step-lbl {
+      font-size: 12px;
+      font-weight: 600;
+      color: var(--muted)
+    }
+
+    .step-lbl.current {
+      color: var(--navy)
+    }
+
+    .step-line {
+      flex: 1;
+      height: 1px;
+      background: var(--border);
+      margin: 0 8px
+    }
+
+    .step-line.done {
+      background: var(--navy)
+    }
+
+    .post-body {
+      padding: 28px
+    }
+
+    .form-group {
+      margin-bottom: 18px
+    }
+
+    .form-label {
+      display: block;
+      font-size: 12px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      color: var(--muted);
+      margin-bottom: 6px
+    }
+
+    .form-input {
+      width: 100%;
+      height: 44px;
+      border: 1.5px solid var(--border);
+      border-radius: 10px;
+      padding: 0 14px;
+      font-size: 14px;
+      font-family: 'Outfit', sans-serif;
+      outline: none;
+      color: var(--text);
+      transition: border-color 0.2s
+    }
+
+    .form-input:focus {
+      border-color: var(--sky)
+    }
+
+    .form-select {
+      appearance: none;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='10' viewBox='0 0 24 24' fill='none' stroke='%236B7280' stroke-width='2'%3E%3Cpath d='M6 9l6 6 6-6'/%3E%3C/svg%3E");
+      background-repeat: no-repeat;
+      background-position: right 14px center;
+      background-color: #fff
+    }
+
+    .form-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 14px
+    }
+
+    .form-textarea {
+      width: 100%;
+      height: 100px;
+      border: 1.5px solid var(--border);
+      border-radius: 10px;
+      padding: 12px 14px;
+      font-size: 14px;
+      font-family: 'Outfit', sans-serif;
+      outline: none;
+      resize: vertical;
+      color: var(--text)
+    }
+
+    .form-textarea:focus {
+      border-color: var(--sky)
+    }
+
+    /* ── FORM VALIDATION ── */
+    .form-input.error,
+    .form-textarea.error {
+      border-color: var(--red);
+      background: #FFF8F8
+    }
+
+    .form-input.error:focus,
+    .form-textarea.error:focus {
+      border-color: var(--red)
+    }
+
+    .field-error {
+      font-size: 11px;
+      color: var(--red);
+      font-weight: 600;
+      margin-top: 5px;
+      display: flex;
+      align-items: center;
+      gap: 4px
+    }
+
+    .field-error::before {
+      content: '';
+      display: inline-block;
+      width: 12px;
+      height: 12px;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 24 24' fill='none' stroke='%23DC2626' stroke-width='2.5' xmlns='http://www.w3.org/2000/svg'%3E%3Ccircle cx='12' cy='12' r='10'/%3E%3Cline x1='12' y1='8' x2='12' y2='12'/%3E%3Cline x1='12' y1='16' x2='12.01' y2='16'/%3E%3C/svg%3E");
+      background-size: contain;
+      background-repeat: no-repeat;
+      flex-shrink: 0
+    }
+
+    .upload-zone {
+      border: 2px dashed var(--border);
+      border-radius: 12px;
+      padding: 36px;
+      text-align: center;
+      cursor: pointer;
+      transition: all 0.2s;
+      background: var(--offwhite)
+    }
+
+    .upload-zone:hover {
+      border-color: var(--sky);
+      background: #F0F7FF
+    }
+
+    .upload-icon { font-size: 36px; margin-bottom: 10px }
+    .upload-txt { font-size: 14px; font-weight: 500; color: var(--text); margin-bottom: 4px }
+    .upload-sub { font-size: 12px; color: var(--muted) }
+
+    .post-footer {
+      padding: 0 28px 28px;
+      display: flex;
+      gap: 10px
+    }
+
+    .post-prev {
+      flex: 1; height: 46px; border: 1.5px solid var(--border);
+      background: #fff; color: var(--text); border-radius: 10px;
+      font-size: 14px; font-weight: 600; cursor: pointer; font-family: 'Outfit', sans-serif
+    }
+
+    .post-next {
+      flex: 2; height: 46px; background: var(--navy); color: #fff;
+      border: none; border-radius: 10px; font-size: 14px; font-weight: 600;
+      cursor: pointer; font-family: 'Outfit', sans-serif; transition: background 0.2s
+    }
+    .post-next:hover { background: var(--blue) }
+
+    /* ── DYNAMIC PROPERTY TYPE CARD SELECTOR ── */
+    .type-cards {
+      display: grid; grid-template-columns: repeat(3,1fr); gap: 10px; margin-bottom: 6px
+    }
+    .type-card {
+      border: 2px solid var(--border); border-radius: 12px; padding: 14px 10px;
+      text-align: center; cursor: pointer; transition: all 0.2s; background: #fff
+    }
+    .type-card:hover { border-color: var(--sky); background: #F0F9FF }
+    .type-card.selected { border-color: var(--navy); background: #EFF6FF }
+    .type-card-icon { display:flex; align-items:center; justify-content:center; margin-bottom: 6px; color: var(--navy) }
+    .type-card-lbl { font-size: 12px; font-weight: 700; color: var(--text); text-transform: uppercase; letter-spacing: 0.5px }
+
+    /* Dynamic fields fade-in */
+    @keyframes fieldsFadeIn { from { opacity:0; transform:translateY(8px) } to { opacity:1; transform:translateY(0) } }
+    .dynamic-fields-wrap { animation: fieldsFadeIn 0.25s ease }
+
+    /* Section header inside form */
+    .form-section-hd {
+      font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 1px;
+      color: var(--blue); margin: 20px 0 14px; display: flex; align-items: center; gap: 8px
+    }
+    .form-section-hd::after { content:''; flex:1; height:1px; background: var(--border) }
+
+    /* Checkbox row for parking */
+    .form-check-row { display:flex; align-items:center; gap:10px; margin-top:6px }
+    .form-check-row input[type=checkbox] { width:18px; height:18px; accent-color:var(--navy); cursor:pointer; flex-shrink:0 }
+    .form-check-row label { font-size:14px; color:var(--text); cursor:pointer }
+
+    /* Subtype select with fade */
+    #pf_subtype_wrap { margin-top:10px; animation: fieldsFadeIn 0.2s ease }
+    #pf_subtype_wrap.hidden { display:none }
+
+    /* ── SHARE MODAL ── */
+    .share-overlay {
+      position: fixed;
+      inset: 0;
+      background: rgba(0, 0, 0, 0.5);
+      z-index: 4000;
+      display: none;
+      align-items: center;
+      justify-content: center;
+      padding: 24px
+    }
+
+    .share-overlay.open {
+      display: flex
+    }
+
+    .share-modal {
+      background: #fff;
+      border-radius: 16px;
+      padding: 28px;
+      width: 100%;
+      max-width: 380px;
+      animation: modalIn 0.2s ease
+    }
+
+    .share-title {
+      font-size: 16px;
+      font-weight: 700;
+      color: var(--text);
+      margin-bottom: 20px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center
+    }
+
+    .share-opts {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 12px
+    }
+
+    .share-opt {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 6px;
+      cursor: pointer;
+      padding: 12px 8px;
+      border-radius: 10px;
+      transition: background 0.2s
+    }
+
+    .share-opt:hover {
+      background: var(--offwhite)
+    }
+
+    .share-opt-icon {
+      width: 52px;
+      height: 52px;
+      border-radius: 14px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 24px
+    }
+
+    .share-opt-lbl {
+      font-size: 11px;
+      color: var(--muted);
+      font-weight: 500
+    }
+
+    /* ── TOAST ── */
+    .toast {
+      position: fixed;
+      bottom: 32px;
+      right: 32px;
+      background: var(--navy);
+      color: #fff;
+      padding: 12px 24px;
+      border-radius: 10px;
+      font-size: 14px;
+      font-weight: 500;
+      z-index: 9999;
+      opacity: 0;
+      transform: translateY(10px);
+      transition: all 0.3s;
+      pointer-events: none;
+      max-width: 320px
+    }
+
+    .toast.show {
+      opacity: 1;
+      transform: translateY(0)
+    }
+
+    /* ── FLOATING WA ── */
+    .float-wa {
+      position: fixed;
+      bottom: 32px;
+      right: 32px;
+      width: 56px;
+      height: 56px;
+      border-radius: 50%;
+      background: #25D366;
+      border: none;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #fff;
+      font-size: 26px;
+      z-index: 500;
+      box-shadow: 0 4px 20px rgba(37, 211, 102, 0.4);
+      transition: transform 0.2s
+    }
+
+    .float-wa:hover {
+      transform: scale(1.08)
+    }
+
+    /* ── EMPTY / LOAD ── */
+    .empty-state {
+      text-align: center;
+      padding: 80px 40px;
+      grid-column: 1/-1
+    }
+
+    .empty-icon {
+      font-size: 56px;
+      margin-bottom: 16px
+    }
+
+    .empty-title {
+      font-size: 20px;
+      font-weight: 700;
+      color: var(--text);
+      margin-bottom: 6px;
+      font-family: 'Cormorant Garamond', serif
+    }
+
+    .empty-sub {
+      font-size: 14px;
+      color: var(--muted)
+    }
+
+    /* Animations */
+    @keyframes fadeUp {
+      from {
+        opacity: 0;
+        transform: translateY(20px)
+      }
+
+      to {
+        opacity: 1;
+        transform: translateY(0)
+      }
+    }
+
+    .p-card {
+      animation: fadeUp 0.4s ease both
+    }
+
+    .p-card:nth-child(1) {
+      animation-delay: 0.05s
+    }
+
+    .p-card:nth-child(2) {
+      animation-delay: 0.1s
+    }
+
+    .p-card:nth-child(3) {
+      animation-delay: 0.15s
+    }
+
+    .p-card:nth-child(4) {
+      animation-delay: 0.2s
+    }
+
+    .p-card:nth-child(5) {
+      animation-delay: 0.25s
+    }
+
+    .p-card:nth-child(6) {
+      animation-delay: 0.3s
+    }
+
+    /* ── FOOTER ── */
+    footer {
+      background: var(--navy);
+      color: rgba(255, 255, 255, 0.6);
+      padding: 60px 0 32px
+    }
+
+    .footer-inner {
+      max-width: 1400px;
+      margin: 0 auto;
+      padding: 0 40px
+    }
+
+    .footer-top {
+      display: grid;
+      grid-template-columns: 2fr 1fr 1fr 1fr;
+      gap: 48px;
+      margin-bottom: 48px
+    }
+
+    .footer-brand .logo {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 30px;
+      font-weight: 700;
+      color: #fff;
+      display: block;
+      margin-bottom: 14px
+    }
+
+    .footer-brand .logo span {
+      color: var(--gold2)
+    }
+
+    .footer-brand p {
+      font-size: 14px;
+      line-height: 1.7;
+      max-width: 280px;
+      font-weight: 300
+    }
+
+    .footer-col h4 {
+      font-size: 12px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.8px;
+      color: rgba(255, 255, 255, 0.4);
+      margin-bottom: 16px
+    }
+
+    .footer-col a {
+      display: block;
+      color: rgba(255, 255, 255, 0.6);
+      text-decoration: none;
+      font-size: 14px;
+      margin-bottom: 10px;
+      transition: color 0.2s;
+      font-weight: 300
+    }
+
+    .footer-col a:hover {
+      color: #fff
+    }
+
+    .footer-bottom {
+      border-top: 1px solid rgba(255, 255, 255, 0.1);
+      padding-top: 24px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 13px
+    }
+
+    /* ── MOBILE NAV TOGGLE ── */
+    .nav-hamburger {
+      display: none;
+      background: none;
+      border: none;
+      cursor: pointer;
+      padding: 4px;
+      color: #fff;
+      flex-shrink: 0
+    }
+
+    .mobile-nav-overlay {
+      display: none;
+      position: fixed;
+      inset: 0;
+      background: rgba(11, 28, 63, 0.5);
+      z-index: 998;
+      backdrop-filter: blur(2px)
+    }
+
+    .mobile-nav-overlay.open {
+      display: block
+    }
+
+    .mobile-nav-drawer {
+      position: fixed;
+      top: 0;
+      right: -300px;
+      width: 280px;
+      height: 100%;
+      background: var(--navy);
+      z-index: 999;
+      transition: right 0.3s ease;
+      padding: 80px 24px 32px;
+      overflow-y: auto;
+      display: flex;
+      flex-direction: column;
+      gap: 0
+    }
+
+    .mobile-nav-drawer.open {
+      right: 0
+    }
+
+    .mobile-nav-drawer a {
+      display: block;
+      color: rgba(255, 255, 255, 0.8);
+      text-decoration: none;
+      font-size: 16px;
+      font-weight: 500;
+      padding: 14px 0;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.08)
+    }
+
+    .mobile-nav-drawer a:hover {
+      color: #fff
+    }
+
+    .mobile-nav-drawer .nav-btn {
+      width: 100%;
+      text-align: center;
+      margin-top: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center
+    }
+
+    .mobile-drawer-close {
+      position: absolute;
+      top: 20px;
+      right: 20px;
+      background: rgba(255, 255, 255, 0.1);
+      border: none;
+      color: #fff;
+      width: 36px;
+      height: 36px;
+      border-radius: 50%;
+      cursor: pointer;
+      font-size: 18px;
+      display: flex;
+      align-items: center;
+      justify-content: center
+    }
+
+    /* ── RESPONSIVE: TABLET (<=1024px) ── */
+    @media(max-width:1024px) {
+      .nav-links {
+        display: none
+      }
+
+      .nav-actions {
+        display: none
+      }
+
+      .nav-hamburger {
+        display: flex
+      }
+
+      .nav-inner {
+        padding: 0 20px;
+        height: 60px
+      }
+
+      .nav-logo {
+        font-size: 24px
+      }
+
+      .hero-content {
+        padding: 100px 24px 40px
+      }
+
+      .hero h1 {
+        font-size: clamp(36px, 5vw, 56px)
+      }
+
+      .hero-sub {
+        font-size: 16px;
+        margin-bottom: 32px
+      }
+
+      .hero-stats {
+        gap: 24px;
+        margin-bottom: 36px;
+        flex-wrap: wrap
+      }
+
+      .hero-stat-val {
+        font-size: 28px
+      }
+
+      .search-bar {
+        flex-wrap: wrap;
+        gap: 8px;
+        padding: 12px;
+        justify-content: center
+      }
+
+      .search-tab-wrap {
+        margin-left: 0
+      }
+
+      .search-divider {
+        display: none
+      }
+
+      .search-field {
+        min-width: calc(50% - 8px);
+        padding: 8px 12px
+      }
+
+      .search-field label {
+        margin-bottom: 4px
+      }
+
+      .search-go {
+        width: 100%;
+        justify-content: center;
+        margin-top: 4px
+      }
+
+      .filter-inner {
+        padding: 0 20px;
+        height: auto;
+        min-height: 52px;
+        flex-wrap: wrap;
+        padding-top: 10px;
+        padding-bottom: 10px
+      }
+
+      .filter-bar {
+        top: 60px
+      }
+
+      .main {
+        padding: 24px 20px 60px
+      }
+
+      .layout {
+        grid-template-columns: 1fr
+      }
+
+      .sidebar {
+        position: static;
+        display: none
+      }
+
+      .sidebar.mobile-show {
+        display: block
+      }
+
+      .prop-grid {
+        grid-template-columns: 1fr 1fr;
+        gap: 16px
+      }
+
+      .modal-body {
+        grid-template-columns: 1fr
+      }
+
+      .modal-main {
+        border-right: none;
+        border-bottom: 1px solid var(--border)
+      }
+
+      .modal-gallery {
+        height: 280px
+      }
+
+      .footer-top {
+        grid-template-columns: 1fr 1fr;
+        gap: 32px
+      }
+
+      .footer-bottom {
+        flex-direction: column;
+        gap: 8px;
+        text-align: center
+      }
+
+      .grid-header {
+        flex-wrap: wrap;
+        gap: 12px
+      }
+
+      .post-modal {
+        max-width: 100%;
+        border-radius: 16px
+      }
+
+      .share-modal {
+        max-width: 100%
+      }
+
+      .trust-inner {
+        flex-wrap: wrap
+      }
+
+      .trust-item {
+        min-width: calc(50% - 1px);
+        border-right: none;
+        border-bottom: 1px solid var(--border)
+      }
+
+      .trust-item:nth-child(odd) {
+        border-right: 1px solid var(--border)
+      }
+
+      .stats-inner {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 24px
+      }
+
+      .stat-item {
+        border-right: none
+      }
+
+      .stats-bar {
+        padding: 28px 0
+      }
+    }
+
+    /* ── RESPONSIVE: MOBILE (<=768px) ── */
+    @media(max-width:768px) {
+      .hero {
+        min-height: auto
+      }
+
+      .hero-content {
+        padding: 90px 16px 32px
+      }
+
+      .hero h1 {
+        font-size: clamp(30px, 7vw, 44px);
+        margin-bottom: 16px
+      }
+
+      .hero-sub {
+        font-size: 14px;
+        margin-bottom: 24px;
+        max-width: 100%
+      }
+
+      .hero-label {
+        font-size: 10px;
+        padding: 5px 12px;
+        margin-bottom: 20px
+      }
+
+      .post-cta-card {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 14px;
+        padding: 16px;
+        margin-bottom: 28px
+      }
+
+      .post-cta-btn {
+        width: 100%;
+        justify-content: center
+      }
+
+      .hero-stats {
+        gap: 16px
+      }
+
+      .hero-stat-val {
+        font-size: 24px
+      }
+
+      .hero-stat-lbl {
+        font-size: 10px
+      }
+
+      .search-bar {
+        flex-direction: column;
+        border-radius: 12px;
+        padding: 10px
+      }
+
+      .search-tab-wrap {
+        justify-content: center;
+        margin-left: 0
+      }
+
+      .search-field {
+        min-width: 100%;
+        padding: 8px 12px
+      }
+
+      .filter-inner {
+        gap: 10px
+      }
+
+      .filter-chips {
+        gap: 6px
+      }
+
+      .chip {
+        height: 30px;
+        padding: 0 12px;
+        font-size: 12px
+      }
+
+      .filter-right {
+        width: 100%;
+        justify-content: space-between
+      }
+
+      .mobile-filter-btn {
+        display: flex
+      }
+
+      .main {
+        padding: 16px 16px 48px
+      }
+
+      .prop-grid {
+        grid-template-columns: 1fr;
+        gap: 16px
+      }
+
+      .p-card-img {
+        height: 180px
+      }
+
+      .modal {
+        border-radius: 14px
+      }
+
+      .modal-gallery {
+        height: 220px
+      }
+
+      .modal-main {
+        padding: 20px
+      }
+
+      .modal-sidebar {
+        padding: 20px
+      }
+
+      .modal-price {
+        font-size: 28px
+      }
+
+      .modal-title {
+        font-size: 18px
+      }
+
+      .modal-overlay {
+        padding: 12px
+      }
+
+      .post-overlay {
+        padding: 12px
+      }
+
+      .post-modal {
+        border-radius: 12px;
+        max-height: 95vh
+      }
+
+      .post-header {
+        padding: 18px 20px
+      }
+
+      .post-body,
+      .form-grid {
+        display: flex;
+        flex-direction: column
+      }
+
+      .post-footer {
+        padding: 0 20px 20px
+      }
+
+      .steps {
+        padding: 14px 16px;
+        flex-wrap: wrap;
+        gap: 4px
+      }
+
+      .step-lbl {
+        font-size: 10px
+      }
+
+      .footer-top {
+        grid-template-columns: 1fr;
+        gap: 24px
+      }
+
+      .footer-inner {
+        padding: 0 16px
+      }
+
+      footer {
+        padding: 40px 0 24px
+      }
+
+      .float-wa {
+        width: 48px;
+        height: 48px;
+        bottom: 20px;
+        right: 20px;
+        font-size: 22px
+      }
+
+      .float-wa svg {
+        width: 22px;
+        height: 22px
+      }
+
+      .toast {
+        bottom: 20px;
+        right: 16px;
+        left: 16px;
+        max-width: none;
+        text-align: center;
+        font-size: 13px;
+        padding: 10px 16px
+      }
+
+      .share-opts {
+        grid-template-columns: repeat(3, 1fr);
+        gap: 8px
+      }
+
+      .share-opt-icon {
+        width: 44px;
+        height: 44px;
+        border-radius: 12px
+      }
+
+      .share-modal {
+        padding: 20px;
+        border-radius: 12px
+      }
+
+      .grid-title {
+        font-size: 22px
+      }
+
+      .grid-title span {
+        font-size: 14px
+      }
+
+      .card-foot {
+        flex-wrap: wrap
+      }
+
+      .c-btn {
+        font-size: 11px;
+        height: 34px
+      }
+
+      .trust-inner {
+        flex-direction: column
+      }
+
+      .trust-item {
+        border-right: none !important;
+        border-bottom: 1px solid var(--border)
+      }
+
+      .trust-item:last-child {
+        border-bottom: none
+      }
+
+      .stats-inner {
+        grid-template-columns: repeat(2, 1fr)
+      }
+
+      .trust-inner {
+        padding: 0 16px
+      }
+
+      .stats-inner {
+        padding: 0 16px
+      }
+    }
+
+    /* ── RESPONSIVE: SMALL MOBILE (<=480px) ── */
+    @media(max-width:480px) {
+      .hero-content {
+        padding: 80px 12px 24px
+      }
+
+      .hero h1 {
+        font-size: 28px;
+        letter-spacing: -0.5px
+      }
+
+      .hero-sub {
+        font-size: 13px;
+        line-height: 1.6
+      }
+
+      .hero-stats {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 12px
+      }
+
+      .hero-stat-val {
+        font-size: 22px
+      }
+
+      .search-bar {
+        margin: 0 -4px
+      }
+
+      .p-card-body {
+        padding: 12px 14px 14px
+      }
+
+      .card-price {
+        font-size: 18px
+      }
+
+      .card-title {
+        font-size: 14px
+      }
+
+      .card-attrs {
+        gap: 10px
+      }
+
+      .c-attr {
+        font-size: 11px
+      }
+
+      .modal-attrs {
+        grid-template-columns: repeat(3, 1fr);
+        gap: 8px;
+        padding: 12px
+      }
+
+      .m-attr-val {
+        font-size: 16px
+      }
+
+      .contact-actions {
+        grid-template-columns: 1fr
+      }
+
+      .nav-inner {
+        padding: 0 12px
+      }
+
+      .nav-logo {
+        font-size: 22px
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <!-- TOAST -->
+  <div class="toast" id="toast"></div>
+
+  <!-- FLOATING WA -->
+  <button class="float-wa" onclick="waOpen()" title="Chat on WhatsApp">
+    <svg viewBox="0 0 24 24" fill="currentColor" width="26" height="26">
+      <path
+        d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z" />
+    </svg>
+  </button>
+
+  <!-- NAV -->
+  <nav id="mainNav">
+    <div class="nav-inner">
+      <a href="#" class="nav-logo">Big<span>Deals</span></a>
+      <div class="nav-links">
+        <a href="#listings">Buy</a>
+        <a href="#listings">Rent</a>
+        <a href="#listings">New Projects</a>
+        <a href="#listings">Commercial</a>
+        <a href="tel:+919567510999">Contact</a>
+
+      </div>
+      <div class="nav-actions">
+        <button class="nav-btn nav-btn-ghost" onclick="openSaved()"><svg viewBox="0 0 24 24" fill="none"
+            stroke="currentColor" stroke-width="2" width="14" height="14" style="margin-right:5px;vertical-align:-2px">
+            <path
+              d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z" />
+          </svg> Saved</button>
+        <button class="nav-btn nav-btn-gold" onclick="openPost()">+ Post Property</button>
+      </div>
+      <button class="nav-hamburger" onclick="toggleMobileNav()" aria-label="Menu">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="24" height="24">
+          <line x1="3" y1="6" x2="21" y2="6" />
+          <line x1="3" y1="12" x2="21" y2="12" />
+          <line x1="3" y1="18" x2="21" y2="18" />
+        </svg>
+      </button>
+    </div>
+  </nav>
+
+  <!-- MOBILE NAV DRAWER -->
+  <div class="mobile-nav-overlay" id="mobileNavOverlay" onclick="closeMobileNav()"></div>
+  <div class="mobile-nav-drawer" id="mobileNavDrawer">
+    <button class="mobile-drawer-close" onclick="closeMobileNav()">&times;</button>
+    <a href="#listings" onclick="closeMobileNav()">Buy</a>
+    <a href="#listings" onclick="closeMobileNav()">Rent</a>
+    <a href="#listings" onclick="closeMobileNav()">New Projects</a>
+    <a href="#listings" onclick="closeMobileNav()">Commercial</a>
+    <a href="tel:+919567510999" onclick="closeMobileNav()">Contact</a>
+
+    <button class="nav-btn nav-btn-ghost" onclick="closeMobileNav();openSaved()" style="margin-top:16px"><svg
+        viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="14" height="14"
+        style="margin-right:5px;vertical-align:-2px">
+        <path
+          d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z" />
+      </svg> Saved</button>
+    <button class="nav-btn nav-btn-gold" onclick="closeMobileNav();openPost()" style="margin-top:8px">+ Post
+      Property</button>
+  </div>
+
+  <!-- HERO -->
+  <section class="hero">
+    <div class="hero-bg"></div>
+    <div class="hero-pattern"></div>
+    <div class="hero-glow"></div>
+    <div class="hero-glow2"></div>
+    <div class="hero-content">
+      <div class="hero-label">Kerala's Premier Real Estate Platform</div>
+      <h1>Find Your <em>Dream</em><br>Home in Kerala</h1>
+      <p class="hero-sub">Discover verified properties across Kochi, Thrissur, Calicut and beyond. Trusted by thousands
+        of families.</p>
+      <!-- Search -->
+      <div class="search-bar" style="position: relative; z-index: 9999;">
+        <div class="search-tab-wrap">
+          <button class="search-tab active" onclick="setSearchTab(this,'buy')">Buy</button>
+          <button class="search-tab" onclick="setSearchTab(this,'rent')">Rent</button>
+          <button class="search-tab" onclick="setSearchTab(this,'new')">New</button>
+        </div>
+        <div class="search-divider"></div>
+        <div class="search-field" style="position: relative; z-index: 9999;">
+          <label>Location</label>
+          <input id="heroSearch" placeholder="City, area, project..." autocomplete="off">
+          <div id="fuzzySuggestions" class="suggestions-dropdown"></div>
+        </div>
+        <div class="search-divider"></div>
+        <div class="search-field">
+          <label>Property Type</label>
+          <select id="heroType" onchange="heroFilter()">
+            <option value="">Any type</option>
+            <option value="apartment">Apartment</option>
+            <option value="villa">Villa</option>
+            <option value="house">House</option>
+            <option value="land">Land / Plot</option>
+          </select>
+        </div>
+        <div class="search-divider"></div>
+        <div class="search-field">
+          <label>Budget</label>
+          <select id="heroBudget">
+            <option value="">Any budget</option>
+            <option value="50">Up to ₹50 Lakh</option>
+            <option value="100">Up to ₹1 Cr</option>
+            <option value="200">Up to ₹2 Cr</option>
+            <option value="500">Up to ₹5 Cr</option>
+          </select>
+        </div>
+        <button class="search-go"
+          onclick="if(document.getElementById('fuzzySuggestions')) document.getElementById('fuzzySuggestions').classList.remove('active'); scrollToListings()">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" width="16" height="16">
+            <circle cx="11" cy="11" r="8" />
+            <path d="m21 21-4.35-4.35" />
+          </svg>
+          Search
+        </button>
+      </div>
+
+      <div class="post-cta-card">
+        <div class="post-cta-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" width="28" height="28">
+            <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z" />
+            <polyline points="9 22 9 12 15 12 15 22" />
+          </svg>
+        </div>
+        <div class="post-cta-text">
+          <div class="post-cta-title">Post Your Property</div>
+          <div class="post-cta-sub">Reach thousands of buyers & tenants across Kerala — free listing in minutes.</div>
+        </div>
+        <button class="post-cta-btn" onclick="openPost()">
+          Post Now
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" width="14" height="14">
+            <path d="M5 12h14M12 5l7 7-7 7" />
+          </svg>
+        </button>
+      </div>
+    </div>
+  </section>
+
+  <!-- FILTER BAR -->
+  <div class="filter-bar" id="listings">
+    <div class="filter-inner">
+      <div class="filter-chips" id="filterChips">
+        <button class="chip active" onclick="setChip(this,'all')">All Properties</button>
+        <button class="chip" onclick="setChip(this,'apartment')"><svg viewBox="0 0 24 24" fill="none"
+            stroke="currentColor" stroke-width="2" width="13" height="13" style="margin-right:4px;vertical-align:-2px">
+            <rect x="2" y="3" width="20" height="18" rx="2" />
+            <line x1="8" y1="21" x2="8" y2="3" />
+            <line x1="16" y1="21" x2="16" y2="3" />
+            <line x1="2" y1="9" x2="22" y2="9" />
+            <line x1="2" y1="15" x2="22" y2="15" />
+          </svg> Apartment</button>
+        <button class="chip" onclick="setChip(this,'villa')"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor"
+            stroke-width="2" width="13" height="13" style="margin-right:4px;vertical-align:-2px">
+            <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z" />
+            <polyline points="9 22 9 12 15 12 15 22" />
+          </svg> Villa</button>
+        <button class="chip" onclick="setChip(this,'house')"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor"
+            stroke-width="2" width="13" height="13" style="margin-right:4px;vertical-align:-2px">
+            <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z" />
+            <polyline points="9 22 9 12 15 12 15 22" />
+          </svg> House</button>
+        <button class="chip" onclick="setChip(this,'land')"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor"
+            stroke-width="2" width="13" height="13" style="margin-right:4px;vertical-align:-2px">
+            <path d="M3 17l4-8 4 4 4-6 4 10" />
+            <line x1="3" y1="21" x2="21" y2="21" />
+          </svg> Land / Plot</button>
+        <button class="chip" onclick="setChip(this,'verified')"><svg viewBox="0 0 24 24" fill="none"
+            stroke="currentColor" stroke-width="2" width="13" height="13" style="margin-right:4px;vertical-align:-2px">
+            <path d="M12 2l3 7h7l-5.5 4 2 7L12 16l-6.5 4 2-7L2 9h7z" />
+          </svg> Verified Only</button>
+        <button class="chip" onclick="setChip(this,'new')"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor"
+            stroke-width="2" width="13" height="13" style="margin-right:4px;vertical-align:-2px">
+            <circle cx="12" cy="12" r="10" />
+            <line x1="12" y1="8" x2="12" y2="16" />
+            <line x1="8" y1="12" x2="16" y2="12" />
+          </svg> New Listings</button>
+      </div>
+      <div class="filter-right">
+        <button class="mobile-filter-btn" onclick="openFilterSheet()">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="14" height="14">
+            <line x1="4" y1="6" x2="20" y2="6" />
+            <line x1="8" y1="12" x2="16" y2="12" />
+            <line x1="11" y1="18" x2="13" y2="18" />
+          </svg>
+          Filters
+        </button>
+        <span class="result-txt"><strong id="resultCount">12</strong> properties</span>
+        <select class="sort-select" onchange="sortProps(this.value)">
+          <option value="newest">Newest First</option>
+          <option value="price-asc">Price: Low to High</option>
+          <option value="price-desc">Price: High to Low</option>
+          <option value="verified">Verified First</option>
+        </select>
+      </div>
+    </div>
+  </div>
+
+  <!-- MOBILE FILTER SHEET -->
+  <div class="filter-sheet-overlay" id="filterSheetOverlay" onclick="closeFilterSheet()"></div>
+  <div class="filter-sheet" id="filterSheet">
+    <div class="filter-sheet-header">
+      <div class="filter-sheet-title">Filter Properties</div>
+      <button class="filter-sheet-close" onclick="closeFilterSheet()">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="16" height="16">
+          <line x1="18" y1="6" x2="6" y2="18" />
+          <line x1="6" y1="6" x2="18" y2="18" />
+        </svg>
+      </button>
+    </div>
+    <div class="filter-sheet-body">
+      <div class="sidebar-section">
+        <div class="sidebar-title">Price Range</div>
+        <div class="price-inputs">
+          <input class="price-inp" placeholder="Min ₹" id="sheetPriceMin">
+          <input class="price-inp" placeholder="Max ₹" id="sheetPriceMax">
+        </div>
+      </div>
+      <div class="sidebar-section">
+        <div class="sidebar-title">Property Type</div>
+        <div class="type-grid">
+          <div class="type-opt sel" onclick="sheetTypeOpt(this,'all')"><span class="type-opt-icon"><svg
+                viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="22" height="22">
+                <rect x="2" y="3" width="8" height="8" rx="1" />
+                <rect x="14" y="3" width="8" height="8" rx="1" />
+                <rect x="2" y="15" width="8" height="8" rx="1" />
+                <rect x="14" y="15" width="8" height="8" rx="1" />
+              </svg></span>All</div>
+          <div class="type-opt" onclick="sheetTypeOpt(this,'apartment')"><span class="type-opt-icon"><svg
+                viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="22" height="22">
+                <rect x="2" y="3" width="20" height="18" rx="2" />
+                <line x1="8" y1="21" x2="8" y2="3" />
+                <line x1="16" y1="21" x2="16" y2="3" />
+                <line x1="2" y1="9" x2="22" y2="9" />
+                <line x1="2" y1="15" x2="22" y2="15" />
+              </svg></span>Apartment</div>
+          <div class="type-opt" onclick="sheetTypeOpt(this,'villa')"><span class="type-opt-icon"><svg
+                viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="22" height="22">
+                <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z" />
+                <polyline points="9 22 9 12 15 12 15 22" />
+              </svg></span>Villa</div>
+          <div class="type-opt" onclick="sheetTypeOpt(this,'house')"><span class="type-opt-icon"><svg
+                viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="22" height="22">
+                <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z" />
+                <polyline points="9 22 9 12 15 12 15 22" />
+              </svg></span>House</div>
+          <div class="type-opt" onclick="sheetTypeOpt(this,'land')"><span class="type-opt-icon"><svg viewBox="0 0 24 24"
+                fill="none" stroke="currentColor" stroke-width="2" width="22" height="22">
+                <path d="M3 17l4-8 4 4 4-6 4 10" />
+                <line x1="3" y1="21" x2="21" y2="21" />
+              </svg></span>Land</div>
+          <div class="type-opt" onclick="sheetTypeOpt(this,'commercial')"><span class="type-opt-icon"><svg
+                viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="22" height="22">
+                <rect x="2" y="3" width="20" height="18" rx="2" />
+                <line x1="8" y1="21" x2="8" y2="3" />
+                <line x1="16" y1="21" x2="16" y2="3" />
+                <line x1="2" y1="9" x2="22" y2="9" />
+                <line x1="2" y1="15" x2="22" y2="15" />
+              </svg></span>Commercial</div>
+        </div>
+      </div>
+      <div class="sidebar-section">
+        <div class="sidebar-title">Bedrooms</div>
+        <div class="bhk-row">
+          <button class="bhk-btn sel" onclick="toggleBhk(this)">Any</button>
+          <button class="bhk-btn" onclick="toggleBhk(this)">1 BHK</button>
+          <button class="bhk-btn" onclick="toggleBhk(this)">2 BHK</button>
+          <button class="bhk-btn" onclick="toggleBhk(this)">3 BHK</button>
+          <button class="bhk-btn" onclick="toggleBhk(this)">4+ BHK</button>
+        </div>
+      </div>
+      <div class="sidebar-section">
+        <div class="sidebar-title">Must-Haves</div>
+        <div class="toggle-row"><span class="toggle-lbl">Pool</span><button class="toggle"
+            onclick="this.classList.toggle('on')"></button></div>
+        <div class="toggle-row"><span class="toggle-lbl">Gym</span><button class="toggle"
+            onclick="this.classList.toggle('on')"></button></div>
+        <div class="toggle-row"><span class="toggle-lbl">Furnished</span><button class="toggle"
+            onclick="this.classList.toggle('on')"></button></div>
+        <div class="toggle-row"><span class="toggle-lbl">Parking</span><button class="toggle"
+            onclick="this.classList.toggle('on')"></button></div>
+        <div class="toggle-row"><span class="toggle-lbl">Verified Only</span><button class="toggle"
+            onclick="this.classList.toggle('on')"></button></div>
+      </div>
+    </div>
+    <div class="filter-sheet-footer">
+      <button class="clear-btn" onclick="clearFilters();closeFilterSheet()">Clear All</button>
+      <button class="apply-btn" onclick="toast('Filters applied');closeFilterSheet()">Apply Filters</button>
+    </div>
+  </div>
+
+  <!-- MAIN CONTENT -->
+  <div class="main">
+    <div class="layout">
+      <!-- Sidebar -->
+      <aside class="sidebar">
+        <div class="sidebar-section">
+          <div class="sidebar-title">Price Range</div>
+          <div class="price-inputs">
+            <input class="price-inp" placeholder="Min ₹" id="priceMin">
+            <input class="price-inp" placeholder="Max ₹" id="priceMax">
+          </div>
+        </div>
+        <div class="sidebar-section">
+          <div class="sidebar-title">Property Type</div>
+          <div class="type-grid">
+            <div class="type-opt sel" onclick="toggleTypeOpt(this,'all')"><span class="type-opt-icon"><svg
+                  viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="22" height="22">
+                  <rect x="2" y="3" width="8" height="8" rx="1" />
+                  <rect x="14" y="3" width="8" height="8" rx="1" />
+                  <rect x="2" y="15" width="8" height="8" rx="1" />
+                  <rect x="14" y="15" width="8" height="8" rx="1" />
+                </svg></span>All</div>
+            <div class="type-opt" onclick="toggleTypeOpt(this,'apartment')"><span class="type-opt-icon"><svg
+                  viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="22" height="22">
+                  <rect x="2" y="3" width="20" height="18" rx="2" />
+                  <line x1="8" y1="21" x2="8" y2="3" />
+                  <line x1="16" y1="21" x2="16" y2="3" />
+                  <line x1="2" y1="9" x2="22" y2="9" />
+                  <line x1="2" y1="15" x2="22" y2="15" />
+                </svg></span>Apartment</div>
+            <div class="type-opt" onclick="toggleTypeOpt(this,'villa')"><span class="type-opt-icon"><svg
+                  viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="22" height="22">
+                  <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z" />
+                  <polyline points="9 22 9 12 15 12 15 22" />
+                </svg></span>Villa</div>
+            <div class="type-opt" onclick="toggleTypeOpt(this,'house')"><span class="type-opt-icon"><svg
+                  viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="22" height="22">
+                  <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z" />
+                  <polyline points="9 22 9 12 15 12 15 22" />
+                </svg></span>House</div>
+            <div class="type-opt" onclick="toggleTypeOpt(this,'land')"><span class="type-opt-icon"><svg
+                  viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="22" height="22">
+                  <path d="M3 17l4-8 4 4 4-6 4 10" />
+                  <line x1="3" y1="21" x2="21" y2="21" />
+                </svg></span>Land</div>
+            <div class="type-opt" onclick="toggleTypeOpt(this,'commercial')"><span class="type-opt-icon"><svg
+                  viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="22" height="22">
+                  <rect x="2" y="3" width="20" height="18" rx="2" />
+                  <line x1="8" y1="21" x2="8" y2="3" />
+                  <line x1="16" y1="21" x2="16" y2="3" />
+                  <line x1="2" y1="9" x2="22" y2="9" />
+                  <line x1="2" y1="15" x2="22" y2="15" />
+                </svg></span>Commercial</div>
+          </div>
+        </div>
+        <div class="sidebar-section">
+          <div class="sidebar-title">Bedrooms</div>
+          <div class="bhk-row">
+            <button class="bhk-btn sel" onclick="toggleBhk(this)">Any</button>
+            <button class="bhk-btn" onclick="toggleBhk(this)">1 BHK</button>
+            <button class="bhk-btn" onclick="toggleBhk(this)">2 BHK</button>
+            <button class="bhk-btn" onclick="toggleBhk(this)">3 BHK</button>
+            <button class="bhk-btn" onclick="toggleBhk(this)">4+ BHK</button>
+          </div>
+        </div>
+        <div class="sidebar-section">
+          <div class="sidebar-title">Must-Haves</div>
+          <div class="toggle-row"><span class="toggle-lbl">Pool</span><button class="toggle"
+              onclick="this.classList.toggle('on')"></button></div>
+          <div class="toggle-row"><span class="toggle-lbl">Gym</span><button class="toggle"
+              onclick="this.classList.toggle('on')"></button></div>
+          <div class="toggle-row"><span class="toggle-lbl">Furnished</span><button class="toggle"
+              onclick="this.classList.toggle('on')"></button></div>
+          <div class="toggle-row"><span class="toggle-lbl">Parking</span><button class="toggle"
+              onclick="this.classList.toggle('on')"></button></div>
+          <div class="toggle-row"><span class="toggle-lbl">Verified Only</span><button class="toggle"
+              onclick="this.classList.toggle('on')"></button></div>
+        </div>
+        <div class="sidebar-section">
+          <button class="apply-btn" onclick="toast('Filters applied')">Apply Filters</button>
+          <button class="clear-btn" onclick="clearFilters()">Clear All</button>
+        </div>
+      </aside>
+
+      <!-- Grid -->
+      <div>
+        <div class="grid-header">
+          <div class="grid-title">Kerala Properties <span id="gridCount">(12)</span></div>
+          <div class="view-toggle">
+            <button class="view-btn active" title="Grid view">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="14" height="14">
+                <rect x="3" y="3" width="7" height="7" />
+                <rect x="14" y="3" width="7" height="7" />
+                <rect x="3" y="14" width="7" height="7" />
+                <rect x="14" y="14" width="7" height="7" />
+              </svg>
+            </button>
+            <button class="view-btn" title="List view" onclick="toast('List view coming soon')">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="14" height="14">
+                <line x1="3" y1="6" x2="21" y2="6" />
+                <line x1="3" y1="12" x2="21" y2="12" />
+                <line x1="3" y1="18" x2="21" y2="18" />
+              </svg>
+            </button>
+          </div>
+        </div>
+        <div class="prop-grid" id="propGrid"></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- DETAIL MODAL -->
+  <div class="modal-overlay" id="detailOverlay" onclick="closeModal(event,this)">
+    <div class="modal" id="detailModal">
+      <div class="modal-gallery">
+        <div class="img-bg" id="modalGallery"></div>
+        <button class="modal-close" onclick="closeDetail()">✕</button>
+        <button class="modal-share" onclick="openShare()">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="16" height="16">
+            <circle cx="18" cy="5" r="3" />
+            <circle cx="6" cy="12" r="3" />
+            <circle cx="18" cy="19" r="3" />
+            <line x1="8.59" y1="13.51" x2="15.42" y2="17.49" />
+            <line x1="15.41" y1="6.51" x2="8.59" y2="10.49" />
+          </svg>
+        </button>
+      </div>
+      <div class="modal-body">
+        <div class="modal-main">
+          <div class="modal-badges" id="modalBadges"></div>
+          <div class="modal-price" id="modalPrice"></div>
+          <div class="modal-title" id="modalTitle"></div>
+          <div class="modal-loc"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="14"
+              height="14">
+              <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z" />
+              <circle cx="12" cy="10" r="3" />
+            </svg><span id="modalLoc"></span></div>
+          <div class="modal-attrs" id="modalAttrs"></div>
+          <div class="modal-section-title">About this property</div>
+          <p class="modal-desc" id="modalDesc"></p>
+          <div class="modal-section-title">Amenities</div>
+          <div class="amenities" id="modalAmenities"></div>
+          <div class="modal-section-title">Location</div>
+          <div class="map-box"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="16"
+              height="16" style="margin-right:6px;vertical-align:-3px">
+              <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z" />
+              <circle cx="12" cy="10" r="3" />
+            </svg> Google Maps — <span id="modalMapLoc"></span></div>
+        </div>
+        <div class="modal-sidebar">
+          <div class="contact-brand">
+            <div class="contact-logo-box">BD</div>
+            <div>
+              <div class="contact-name-lg">BigDeals Real Estate</div>
+              <div class="contact-sub-lg">+91 95675 10999 · bigdeals.pro</div>
+            </div>
+          </div>
+          <div class="contact-actions">
+            <button class="contact-btn cb-call" onclick="window.location.href='tel:+919567510999'"><svg
+                viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="14" height="14"
+                style="margin-right:5px">
+                <path
+                  d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 12a19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 3.62 1h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L7.91 8.6a16 16 0 0 0 5.5 5.5l.96-.96a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z" />
+              </svg> Call Now</button>
+            <button class="contact-btn cb-wa" onclick="waOpen(currentProp && currentProp.id)"><svg viewBox="0 0 24 24"
+                fill="currentColor" width="14" height="14" style="margin-right:5px">
+                <path
+                  d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z" />
+              </svg> WhatsApp</button>
+          </div>
+          <div class="modal-section-title" style="margin-bottom:12px">Quick Inquiry</div>
+          <div class="inquiry-form">
+            <input class="inq-input" placeholder="Your full name">
+            <input class="inq-input" placeholder="Phone number">
+            <input class="inq-input" placeholder="Email address">
+            <textarea class="inq-textarea"
+              placeholder="I'm interested in this property and would like to schedule a visit..."></textarea>
+            <button class="inq-submit" onclick="submitEnquiry()">Send Inquiry</button>
+          </div>
+          <div class="verified-note" id="modalVerNote" style="display:none">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" width="14" height="14"
+              style="flex-shrink:0">
+              <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14" />
+              <polyline points="22 4 12 14.01 9 11.01" />
+            </svg>
+            Verified by BigDeals team — visited within the last 14 days
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- POST LISTING MODAL -->
+  <div class="post-overlay" id="postOverlay" onclick="closeModal(event,this)">
+    <div class="post-modal">
+      <div class="post-header">
+        <div class="post-header-title">Post Your Property on BigDeals</div>
+        <button class="post-close" onclick="closePost()">✕</button>
+      </div>
+      <div class="steps" id="postSteps"></div>
+      <div id="postBody"></div>
+    </div>
+  </div>
+
+  <!-- SHARE MODAL -->
+  <div class="share-overlay" id="shareOverlay" onclick="closeModal(event,this)">
+    <div class="share-modal">
+      <div class="share-title">Share this property <span
+          onclick="document.getElementById('shareOverlay').classList.remove('open')"
+          style="cursor:pointer;color:var(--muted);font-weight:400;font-size:20px">✕</span></div>
+      <div class="share-opts">
+        <div class="share-opt" onclick="shareVia('whatsapp')">
+          <div class="share-opt-icon" style="background:#E7FFF0"><svg viewBox="0 0 24 24" fill="#25D366" width="28"
+              height="28">
+              <path
+                d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z" />
+            </svg></div>
+          <div class="share-opt-lbl">WhatsApp</div>
+        </div>
+        <div class="share-opt" onclick="shareVia('facebook')">
+          <div class="share-opt-icon" style="background:#E7F0FF"><svg viewBox="0 0 24 24" fill="#1877F2" width="28"
+              height="28">
+              <path
+                d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z" />
+            </svg></div>
+          <div class="share-opt-lbl">Facebook</div>
+        </div>
+        <div class="share-opt" onclick="shareVia('email')">
+          <div class="share-opt-icon" style="background:#FFF3E0"><svg viewBox="0 0 24 24" fill="none" stroke="#F97316"
+              stroke-width="2" width="28" height="28">
+              <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z" />
+              <polyline points="22,6 12,13 2,6" />
+            </svg></div>
+          <div class="share-opt-lbl">Email</div>
+        </div>
+        <div class="share-opt" onclick="shareVia('copy')">
+          <div class="share-opt-icon" style="background:#F1F5F9"><svg viewBox="0 0 24 24" fill="none" stroke="#64748B"
+              stroke-width="2" width="28" height="28">
+              <rect x="9" y="9" width="13" height="13" rx="2" />
+              <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1" />
+            </svg></div>
+          <div class="share-opt-lbl">Copy Link</div>
+        </div>
+        <div class="share-opt" onclick="shareVia('sms')">
+          <div class="share-opt-icon" style="background:#F0FFF4"><svg viewBox="0 0 24 24" fill="none" stroke="#10B981"
+              stroke-width="2" width="28" height="28">
+              <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z" />
+            </svg></div>
+          <div class="share-opt-lbl">Message</div>
+        </div>
+        <div class="share-opt" onclick="shareVia('twitter')">
+          <div class="share-opt-icon" style="background:#F0F9FF"><svg viewBox="0 0 24 24" fill="#1DA1F2" width="28"
+              height="28">
+              <path
+                d="M23 3a10.9 10.9 0 01-3.14 1.53 4.48 4.48 0 00-7.86 3v1A10.66 10.66 0 013 4s-4 9 5 13a11.64 11.64 0 01-7 2c9 5 20 0 20-11.5a4.5 4.5 0 00-.08-.83A7.72 7.72 0 0023 3z" />
+            </svg></div>
+          <div class="share-opt-lbl">Twitter/X</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- FOOTER -->
+  <footer>
+    <div class="footer-inner">
+      <div class="footer-top">
+        <div class="footer-brand">
+          <a href="#" class="logo">Big<span>Deals</span></a>
+          <p>Kerala's most trusted real estate platform. Connecting buyers, sellers and investors across God's Own
+            Country and beyond.</p>
+        </div>
+        <div class="footer-col">
+          <h4>Browse</h4>
+          <a href="#">Buy Property</a>
+          <a href="#">Rent Property</a>
+          <a href="#">New Projects</a>
+          <a href="#">Commercial</a>
+          <a href="#">Land & Plots</a>
+        </div>
+        <div class="footer-col">
+          <h4>Cities</h4>
+          <a href="#">Kochi</a>
+          <a href="#">Thrissur</a>
+          <a href="#">Calicut</a>
+          <a href="#">Trivandrum</a>
+          <a href="#">Alleppey</a>
+        </div>
+        <div class="footer-col">
+          <h4>Company</h4>
+          <a href="#">About BigDeals</a>
+          <a href="#">Post a Property</a>
+          <a href="/admin/" style="margin-top:12px;opacity:0.8;font-size:13px"><svg viewBox="0 0 24 24" fill="none"
+              stroke="currentColor" stroke-width="2" width="13" height="13"
+              style="vertical-align:-2px;margin-right:4px">
+              <rect x="3" y="11" width="18" height="11" rx="2" />
+              <path d="M7 11V7a5 5 0 0 1 10 0v4" />
+            </svg>Admin Portal</a>
+          <a href="#">Careers</a>
+          <a href="#">Privacy Policy</a>
+          <a href="#">Contact Us</a>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <span>© 2026 BigDeals Real Estate. All rights reserved.</span>
+        <span>Made with ♥ for Kerala</span>
+      </div>
+    </div>
+  </footer>
+
+
+  <script>
+
+    // CSRF helper
+    function getCookie(name) {
+      const v = document.cookie.match('(^|;)\\s*' + name + '\\s*=\\s*([^;]+)');
+      return v ? v.pop() : '';
+    }
+    const CSRF = getCookie('csrftoken') || '{{ csrf_token }}';
+
+    // XSS escape helper
+    function esc(s) {
+      if (!s) return '';
+      const d = document.createElement('div');
+      d.textContent = s;
+      return d.innerHTML;
+    }
+
+    let saved = JSON.parse(localStorage.getItem('bd_saved') || '[]');
+    let activeChip = 'all', activeSearch = '', activeType = '', currentProp = null;
+    let postStepN = 1;
+    let postFormData = {};
+    let allProperties = [];
+
+    // Mobile Swipe Gesture
+    let touchStartX = 0;
+    function handleTouchStart(e) {
+      touchStartX = e.changedTouches[0].screenX;
+    }
+    function handleTouchEnd(e, propId) {
+      const touchEndX = e.changedTouches[0].screenX;
+      if (touchStartX - touchEndX > 40) updateGridGallery(propId, 1); // Swipe Left (Next)
+      if (touchEndX - touchStartX > 40) updateGridGallery(propId, -1); // Swipe Right (Prev)
+    }
+
+    function getBadges(p) {
+      let h = '';
+      if (p.verified) h += `<span class="badge b-verified"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" width="10" height="10" style="margin-right:3px;vertical-align:-1px"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>Verified</span>`;
+      if (p.label === 'new') h += `<span class="badge b-new">New</span>`;
+      if (p.label === 'reduced') h += `<span class="badge b-reduced">Price Reduced</span>`;
+      if (p.label === 'contract') h += `<span class="badge b-contract">Under Contract</span>`;
+      return h;
+    }
+
+    function updateGridGallery(id, dir) {
+      if (!window.gridGalleries || !window.gridGalleries[id]) return;
+      const gal = window.gridGalleries[id];
+      gal.idx += dir;
+      if (gal.idx < 0) gal.idx = gal.urls.length - 1;
+      if (gal.idx >= gal.urls.length) gal.idx = 0;
+      document.getElementById('grid-img-' + id).style.backgroundImage = `url('${gal.urls[gal.idx]}')`;
+    }
+
+    function renderGrid(props, append = false) {
+      const g = document.getElementById('propGrid');
+      if (!props || !props.length) {
+        if (!append) g.innerHTML = '<div class="empty-state"><div class="empty-icon"><svg viewBox="0 0 24 24" fill="none" stroke="#9CA3AF" stroke-width="1.5" width="56" height="56"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg></div><div class="empty-title">No properties found</div><div class="empty-sub">Try adjusting your filters or search terms</div></div>';
+        return;
+      }
+
+      const fragment = document.createDocumentFragment();
+
+      for (const p of props) {
+        if (!p) continue;
+        try {
+          const pid = String(p.id);
+          const isLiked = saved.includes(pid) || saved.includes(Number(p.id));
+          const mapHref = (p.mapUrl && p.mapUrl !== 'None')
+            ? (p.mapUrl.includes('<iframe') ? (p.mapUrl.match(/src="([^"]+)"/) || [])[1] : p.mapUrl)
+            : '';
+          const displayImg = p.imageUrl ||
+            'https://images.unsplash.com/photo-1560518883-ce09059eeffa?ixlib=rb-4.0.3&auto=format&fit=crop&w=1000&q=80';
+
+          let galleryArr = (p.gallery && p.gallery.length) ? [displayImg, ...p.gallery] : [displayImg];
+          galleryArr = [...new Set(galleryArr)].filter(Boolean);
+          window.gridGalleries = window.gridGalleries || {};
+          window.gridGalleries[pid] = { urls: galleryArr, idx: 0 };
+
+          // ── CARD WRAPPER ──
+          const card = document.createElement('div');
+          card.className = 'p-card reveal';
+          card.addEventListener('click', () => openDetail(pid));
+
+          // ── IMAGE SECTION ──
+          const imgDiv = document.createElement('div');
+          imgDiv.className = 'p-card-img';
+          imgDiv.id = 'grid-img-' + pid;
+          imgDiv.style.backgroundImage = 'url(' + JSON.stringify(displayImg) + ')';
+          imgDiv.addEventListener('touchstart', handleTouchStart);
+          imgDiv.addEventListener('touchend', (e) => handleTouchEnd(e, pid));
+
+          const img = document.createElement('img');
+          img.src = displayImg;
+          img.loading = 'lazy';
+          img.style.display = 'none';
+          img.alt = esc(p.title);
+          imgDiv.appendChild(img);
+
+          // Nav arrows
+          if (galleryArr.length > 1) {
+            const prev = document.createElement('div');
+            prev.setAttribute('aria-label', 'Previous image');
+            prev.style.cssText = 'position:absolute;left:8px;top:50%;transform:translateY(-50%);width:28px;height:28px;background:rgba(255,255,255,0.9);border-radius:50%;display:flex;align-items:center;justify-content:center;cursor:pointer;z-index:2';
+            prev.innerHTML = '<svg viewBox="0 0 24 24" fill="none" stroke="#333" stroke-width="2" width="16" height="16"><polyline points="15 18 9 12 15 6"/></svg>';
+            prev.addEventListener('click', (e) => { e.stopPropagation(); updateGridGallery(pid, -1); });
+            imgDiv.appendChild(prev);
+
+            const next = document.createElement('div');
+            next.setAttribute('aria-label', 'Next image');
+            next.style.cssText = 'position:absolute;right:8px;top:50%;transform:translateY(-50%);width:28px;height:28px;background:rgba(255,255,255,0.9);border-radius:50%;display:flex;align-items:center;justify-content:center;cursor:pointer;z-index:2';
+            next.innerHTML = '<svg viewBox="0 0 24 24" fill="none" stroke="#333" stroke-width="2" width="16" height="16"><polyline points="9 18 15 12 9 6"/></svg>';
+            next.addEventListener('click', (e) => { e.stopPropagation(); updateGridGallery(pid, 1); });
+            imgDiv.appendChild(next);
+          }
+
+          // Badges
+          const badgesDiv = document.createElement('div');
+          badgesDiv.className = 'card-badges';
+          badgesDiv.innerHTML = getBadges(p);
+          imgDiv.appendChild(badgesDiv);
+
+          // Like button
+          const likeBtn = document.createElement('button');
+          likeBtn.className = 'card-like';
+          likeBtn.id = 'lk' + pid;
+          likeBtn.setAttribute('aria-label', 'Save Property');
+          likeBtn.style.zIndex = '2';
+          likeBtn.innerHTML = isLiked
+            ? '<svg viewBox="0 0 24 24" fill="#DC2626" stroke="#DC2626" stroke-width="2" width="16" height="16"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>'
+            : '<svg viewBox="0 0 24 24" fill="none" stroke="#9CA3AF" stroke-width="2" width="16" height="16"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>';
+          likeBtn.addEventListener('click', (e) => { e.stopPropagation(); toggleSave(pid); });
+          imgDiv.appendChild(likeBtn);
+
+          card.appendChild(imgDiv);
+
+          // ── BODY SECTION ──
+          const body = document.createElement('div');
+          body.className = 'p-card-body';
+
+          body.innerHTML =
+            '<div class="card-price">' + esc(p.price) + '</div>' +
+            '<div class="card-title">' + esc(p.title) + '</div>' +
+            '<div class="card-loc" style="display:flex;align-items:center;min-height:16px;">' +
+            '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="11" height="11"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>' +
+            '<span style="margin-right:6px;">' + esc(p.location) + '</span>' +
+            (mapHref ? '<a href="' + mapHref + '" target="_blank" onclick="event.stopPropagation()" style="color:#2563EB;display:flex;align-items:center;background:#EFF6FF;padding:2px 6px;border-radius:4px;font-size:10px;font-weight:600;text-decoration:none;">Map</a>' : '') +
+            '</div>' +
+            '<div class="card-divider"></div>' +
+            '<div class="card-attrs">' +
+            (() => {
+              // Resolve main_type: prefer new field, fall back from p.type for legacy
+              const TYPE_MAP = {apartment:'residential',villa:'residential',house:'residential',penthouse:'residential',office:'commercial',shop:'commercial',building:'commercial',commercial:'commercial',land:'land'};
+              const mt = p.main_type || TYPE_MAP[p.type] || 'residential';
+              const det = p.details || {};
+              const attrs = [];
+              if (mt === 'land') {
+                // Land: plot size + land type
+                const ps = det.plot_size || p.area;
+                if (ps && ps !== 'Not specified' && ps !== '\u2014' && ps !== 'None')
+                  attrs.push('<div class="c-attr"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="12" height="12"><path d="M3 17l4-8 4 4 4-6 4 10"/><line x1="3" y1="21" x2="21" y2="21"/></svg> ' + ps + '</div>');
+                const lt = det.land_type;
+                if (lt) attrs.push('<div class="c-attr"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="12" height="12"><rect x="2" y="3" width="20" height="14" rx="2"/><path d="M8 21h8M12 17v4"/></svg> ' + lt.charAt(0).toUpperCase() + lt.slice(1) + '</div>');
+              } else if (mt === 'commercial') {
+                // Commercial: area + furnishing
+                const a = det.area || p.area;
+                if (a && a !== 'Not specified' && a !== '\u2014' && a !== 'None')
+                  attrs.push('<div class="c-attr"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="12" height="12"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18"/><path d="M9 21V9"/></svg> ' + a + '</div>');
+                const fn = det.furnishing;
+                if (fn) attrs.push('<div class="c-attr"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="12" height="12"><path d="M20 9V6a2 2 0 0 0-2-2H6a2 2 0 0 0-2 2v3"/><path d="M2 11v5a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2v-5a2 2 0 0 0-4 0v2H6v-2a2 2 0 0 0-4 0z"/></svg> ' + fn.replace(/-/g,' ').replace(/\b\w/g,c=>c.toUpperCase()) + '</div>');
+              } else {
+                // Residential: beds + baths only
+                const beds  = det.bedrooms  !== undefined ? det.bedrooms  : p.beds;
+                const baths = det.bathrooms !== undefined ? det.bathrooms : p.baths;
+                if (beds  && beds  > 0) attrs.push('<div class="c-attr"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="12" height="12"><path d="M2 4v16"/><path d="M2 8h18a2 2 0 0 1 2 2v10"/><path d="M2 17h20"/><path d="M6 8v9"/></svg> ' + beds  + ' Bed'  + (beds  > 1 ? 's' : '') + '</div>');
+                if (baths && baths > 0) attrs.push('<div class="c-attr"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="12" height="12"><path d="M4 12h16a1 1 0 0 1 1 1v3a4 4 0 0 1-4 4H7a4 4 0 0 1-4-4v-3a1 1 0 0 1 1-1z"/><path d="M6 12V5a2 2 0 0 1 2-2h3v2.25"/></svg> ' + baths + ' Bath' + (baths > 1 ? 's' : '') + '</div>');
+              }
+              return attrs.join('') || '<div class="c-attr" style="color:#9CA3AF">—</div>';
+            })() +
+            '</div>';
+
+          // Footer buttons
+          const foot = document.createElement('div');
+          foot.className = 'card-foot';
+
+          const waBtn = document.createElement('button');
+          waBtn.className = 'c-btn c-btn-wa';
+          waBtn.innerHTML = '<svg viewBox="0 0 24 24" fill="currentColor" width="13" height="13" style="margin-right:4px"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg> WhatsApp';
+          waBtn.addEventListener('click', (e) => { e.stopPropagation(); waOpen(pid); });
+          foot.appendChild(waBtn);
+
+          const detailBtn = document.createElement('button');
+          detailBtn.className = 'c-btn c-btn-outline';
+          detailBtn.textContent = 'View Details';
+          detailBtn.addEventListener('click', (e) => { e.stopPropagation(); openDetail(pid); });
+          foot.appendChild(detailBtn);
+
+          const shareBtn = document.createElement('button');
+          shareBtn.className = 'c-btn c-btn-icon';
+          shareBtn.innerHTML = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="14" height="14"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><line x1="8.59" y1="13.51" x2="15.42" y2="17.49"/><line x1="15.41" y1="6.51" x2="8.59" y2="10.49"/></svg>';
+          shareBtn.addEventListener('click', (e) => { e.stopPropagation(); openShare(pid); });
+          foot.appendChild(shareBtn);
+
+          body.appendChild(foot);
+          card.appendChild(body);
+          fragment.appendChild(card);
+        } catch (e) {
+          console.error('Card render error for', p ? p.id : 'unknown', e);
+        }
+      }
+
+      if (!append) {
+        g.innerHTML = '';
+        g.appendChild(fragment);
+      } else {
+        g.appendChild(fragment);
+      }
+
+      if (window.revealObs) {
+        document.querySelectorAll('#propGrid .reveal:not(.visible)').forEach(el => revealObs.observe(el));
+      }
+      const count = document.querySelectorAll('#propGrid .p-card').length;
+      const resCount = document.getElementById('resultCount');
+      if (resCount) resCount.textContent = count;
+      const gridCount = document.getElementById('gridCount');
+      if (gridCount) gridCount.textContent = '(' + count + ')';
+    }
+
+
+
+
+    // API Fetcher and Rendering
+    let currentPage = 1;
+    let totalPages = 1;
+    let isFetching = false;
+    let debounceTimer;
+
+    function renderSkeletons() {
+      const g = document.getElementById('propGrid');
+      g.innerHTML = Array(6).fill(`
+        <div class="p-card skeleton-card" style="min-height:360px;"></div>
+      `).join('');
+    }
+
+    async function fetchProperties(page = 1, append = false) {
+      if (isFetching) return;
+      isFetching = true;
+      if (!append) renderSkeletons();
+
+      currentPage = page;
+      const params = new URLSearchParams({ page: currentPage });
+      if (activeSearch) params.append('q', activeSearch);
+      if (activeType && activeType !== 'all') params.append('type', activeType);
+      if (activeChip && activeChip !== 'all' && activeChip !== 'user' && activeChip !== 'new' && activeChip !== 'verified') {
+        params.append('type', activeChip);
+      }
+
+      try {
+        const res = await fetch('/api/properties/?' + params.toString());
+        const data = await res.json();
+
+        totalPages = data.total_pages;
+
+        // Custom backend mappings if verified/new requested (we might need to handle this closer in backend, but frontend filter for now)
+        let props = data.properties.map(p => ({
+          ...p,
+          svgIcon: p.type,
+          iconColor: '#059669',
+          bg: '#F0FFF4'
+        }));
+
+        if (activeChip === 'verified') props = props.filter(p => p.verified);
+        if (activeChip === 'new') props = props.filter(p => p.label === 'new');
+        if (activeChip === 'user') props = props.filter(p => p.label === 'user');
+
+        if (append) {
+          allProperties = [...allProperties, ...props];
+          renderGrid(props, true);
+        } else {
+          allProperties = props;
+          renderGrid(props);
+        }
+
+        // Render Load More button if has next page
+        const loadMoreBox = document.getElementById('loadMoreContainer') || (() => {
+          const div = document.createElement('div');
+          div.id = 'loadMoreContainer';
+          div.style = 'text-align:center; padding: 40px;';
+          document.getElementById('propGrid').after(div);
+          return div;
+        })();
+
+        if (data.has_next) {
+          loadMoreBox.innerHTML = `<button class="btn btn-outline" style="border-radius:24px; padding:10px 30px" onclick="fetchProperties(${currentPage + 1}, true)">Load More</button>`;
+        } else {
+          loadMoreBox.innerHTML = '';
+        }
+      } catch (e) {
+        console.error("API error:", e);
+      } finally {
+        isFetching = false;
+      }
+    }
+
+    function heroFilter() {
+      clearTimeout(debounceTimer);
+      debounceTimer = setTimeout(() => {
+        activeSearch = document.getElementById('heroSearch').value.trim();
+        activeType = document.getElementById('heroType').value;
+        const suggBox = document.getElementById('fuzzySuggestions');
+
+        if (activeSearch.length > 0) {
+          const query = activeSearch.toLowerCase().split(' ');
+          let matches = allProperties.filter(p => {
+            if (p.status !== 'approved') return false;
+            const searchSpace = `${p.title} ${p.location} ${p.type} ${p.developer || ''}`.toLowerCase();
+            return query.every(token => searchSpace.includes(token));
+          }).slice(0, 5); // top 5 suggestions
+
+          if (matches.length > 0) {
+            suggBox.innerHTML = matches.map(p => `
+                    <div style="padding:12px 16px; cursor:pointer; border-bottom:1px solid #E5E7EB; display:flex; align-items:center; gap:12px; transition:background 0.2s" 
+                         onmouseover="this.style.background='#F9FAFB'" 
+                         onmouseout="this.style.background='transparent'"
+                         onclick="document.getElementById('fuzzySuggestions').classList.remove('active'); openDetail('${p.id}');">
+                      <div style="width:40px;height:40px;border-radius:6px;background:url('${p.imageUrl}') center/cover flex-shrink:0;"></div>
+
+                      <div>
+                        <div style="font-size:14px;font-weight:600;color:#111827">${p.title}</div>
+                        <div style="font-size:12px;color:#6B7280">${p.location} • ${p.price}</div>
+                      </div>
+                    </div>
+                `).join('');
+            suggBox.classList.add('active');
+          } else {
+            suggBox.innerHTML = '<div style="padding:12px 16px; font-size:13px; color:#6B7280; text-align:center">No matches found</div>';
+            suggBox.classList.add('active');
+          }
+        } else {
+          if (suggBox) suggBox.classList.remove('active');
+        }
+
+      }, 300);
+    }
+
+    function setChip(el, val) {
+      document.querySelectorAll('.chip').forEach(c => c.classList.remove('active'));
+      el.classList.add('active');
+      activeChip = val;
+      fetchProperties(1);
+    }
+
+    function parsePrice(priceStr) {
+      if (!priceStr) return 0;
+      const s = priceStr.replace(/[₹,\s]/g, '').toLowerCase();
+      const crMatch = s.match(/([\d.]+)\s*cr/);
+      if (crMatch) return parseFloat(crMatch[1]) * 10000000;
+      const lakhMatch = s.match(/([\d.]+)\s*lakh/);
+      if (lakhMatch) return parseFloat(lakhMatch[1]) * 100000;
+      const plain = parseFloat(s.replace(/[^0-9.]/g, ''));
+      return isNaN(plain) ? 0 : plain;
+    }
+
+    let currentSort = 'newest';
+
+    function sortProps(val) {
+      currentSort = val;
+      let sorted = [...allProperties];
+      if (val === 'price-asc') {
+        sorted.sort((a, b) => parsePrice(a.price) - parsePrice(b.price));
+      } else if (val === 'price-desc') {
+        sorted.sort((a, b) => parsePrice(b.price) - parsePrice(a.price));
+      } else if (val === 'verified') {
+        sorted.sort((a, b) => (b.verified ? 1 : 0) - (a.verified ? 1 : 0));
+      }
+      // 'newest' keeps original fetch order
+      renderGrid(sorted);
+    }
+
+    document.addEventListener('click', function (e) {
+      const searchBox = document.getElementById('heroSearch');
+      const suggBox = document.getElementById('fuzzySuggestions');
+      if (searchBox && !searchBox.contains(e.target) && suggBox && !suggBox.contains(e.target)) {
+        if (suggBox) suggBox.classList.remove('active');
+      }
+    });
+
+    // Handle initial form recovery from auto-save caching
+    window.addEventListener('DOMContentLoaded', () => {
+      const recovered = localStorage.getItem('bd_form_autosave');
+      if (recovered) {
+        try {
+          postFormData = JSON.parse(recovered);
+        } catch (e) { }
+      }
+      const searchBox = document.getElementById('heroSearch');
+      if (searchBox) {
+        searchBox.addEventListener('input', heroFilter);
+      }
+      fetchProperties(1);
+    });
+
+    // Auto-save routine globally caching any modifications on postFormData whenever step switches
+    function autoSaveForm() {
+      localStorage.setItem('bd_form_autosave', JSON.stringify(postFormData));
+    }
+
+    function scrollToListings() {
+      heroFilter();
+      document.getElementById('listings').scrollIntoView({ behavior: 'smooth' });
+    }
+    function setSearchTab(el, v) { document.querySelectorAll('.search-tab').forEach(t => t.classList.remove('active')); el.classList.add('active') }
+    function toggleTypeOpt(el, v) { document.querySelectorAll('.type-opt').forEach(o => o.classList.remove('sel')); el.classList.add('sel'); activeChip = v; fetchProperties(1) }
+    function toggleBhk(el) { document.querySelectorAll('.bhk-btn').forEach(b => b.classList.remove('sel')); el.classList.add('sel') }
+    function clearFilters() {
+      activeChip = 'all';
+      activeSearch = '';
+      activeType = '';
+      currentSort = 'newest';
+      // Reset chip UI
+      document.querySelectorAll('.chip').forEach(c => c.classList.remove('active'));
+      const firstChip = document.querySelector('.chip');
+      if (firstChip) firstChip.classList.add('active');
+      // Reset search input
+      const heroSearch = document.getElementById('heroSearch');
+      if (heroSearch) heroSearch.value = '';
+      // Reset type dropdown
+      const heroType = document.getElementById('heroType');
+      if (heroType) heroType.value = '';
+      // Reset sort dropdown
+      const sortSel = document.querySelector('.sort-select');
+      if (sortSel) sortSel.value = 'newest';
+      // Reset BHK buttons
+      document.querySelectorAll('.bhk-btn').forEach(b => b.classList.remove('sel'));
+      // Reset filter sheet type options
+      document.querySelectorAll('.type-opt').forEach(o => o.classList.remove('sel'));
+      const firstTypeOpt = document.querySelector('.type-opt');
+      if (firstTypeOpt) firstTypeOpt.classList.add('sel');
+      // Fetch fresh results
+      fetchProperties(1);
+      toast('Filters cleared');
+    }
+
+    function toggleSave(id) {
+      const btn = document.getElementById('lk' + id);
+      const likedSvg = '<svg viewBox="0 0 24 24" fill="#DC2626" stroke="#DC2626" stroke-width="2" width="16" height="16"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>';
+      const unlikedSvg = '<svg viewBox="0 0 24 24" fill="none" stroke="#9CA3AF" stroke-width="2" width="16" height="16"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>';
+      if (saved.includes(id)) { saved = saved.filter(x => x !== id); if (btn) btn.innerHTML = unlikedSvg; toast('Removed from saved') }
+      else { saved.push(id); if (btn) btn.innerHTML = likedSvg; toast('Saved to your list!') }
+      localStorage.setItem('bd_saved', JSON.stringify(saved));
+    }
+
+    function getPropSvg(p) {
+      const svgs = {
+        apartment: `<svg viewBox="0 0 24 24" fill="none" stroke="${p.iconColor}" stroke-width="1.2" width="72" height="72"><rect x="2" y="3" width="20" height="18" rx="2"/><line x1="8" y1="21" x2="8" y2="3"/><line x1="16" y1="21" x2="16" y2="3"/><line x1="2" y1="9" x2="22" y2="9"/><line x1="2" y1="15" x2="22" y2="15"/></svg>`,
+        villa: `<svg viewBox="0 0 24 24" fill="none" stroke="${p.iconColor}" stroke-width="1.2" width="72" height="72"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>`,
+        house: `<svg viewBox="0 0 24 24" fill="none" stroke="${p.iconColor}" stroke-width="1.2" width="72" height="72"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/><rect x="11" y="6" width="2" height="3" rx="0.5"/></svg>`,
+        land: `<svg viewBox="0 0 24 24" fill="none" stroke="${p.iconColor}" stroke-width="1.2" width="72" height="72"><path d="M3 17l4-8 4 4 4-6 4 10"/><line x1="3" y1="21" x2="21" y2="21"/></svg>`,
+        penthouse: `<svg viewBox="0 0 24 24" fill="none" stroke="${p.iconColor}" stroke-width="1.2" width="72" height="72"><rect x="2" y="3" width="20" height="18" rx="2"/><line x1="8" y1="21" x2="8" y2="3"/><line x1="16" y1="21" x2="16" y2="3"/><line x1="2" y1="9" x2="22" y2="9"/><line x1="2" y1="15" x2="22" y2="15"/><path d="M9 6h6"/></svg>`
+      };
+      return svgs[p.svgIcon] || svgs.apartment;
+    }
+
+    function getModalSvg(p) {
+      const svgs = {
+        apartment: `<svg viewBox="0 0 24 24" fill="none" stroke="${p.iconColor}" stroke-width="0.8" width="160" height="160"><rect x="2" y="3" width="20" height="18" rx="2"/><line x1="8" y1="21" x2="8" y2="3"/><line x1="16" y1="21" x2="16" y2="3"/><line x1="2" y1="9" x2="22" y2="9"/><line x1="2" y1="15" x2="22" y2="15"/></svg>`,
+        villa: `<svg viewBox="0 0 24 24" fill="none" stroke="${p.iconColor}" stroke-width="0.8" width="160" height="160"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>`,
+        house: `<svg viewBox="0 0 24 24" fill="none" stroke="${p.iconColor}" stroke-width="0.8" width="160" height="160"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/><rect x="11" y="6" width="2" height="3" rx="0.5"/></svg>`,
+        land: `<svg viewBox="0 0 24 24" fill="none" stroke="${p.iconColor}" stroke-width="0.8" width="160" height="160"><path d="M3 17l4-8 4 4 4-6 4 10"/><line x1="3" y1="21" x2="21" y2="21"/></svg>`,
+        penthouse: `<svg viewBox="0 0 24 24" fill="none" stroke="${p.iconColor}" stroke-width="0.8" width="160" height="160"><rect x="2" y="3" width="20" height="18" rx="2"/><line x1="8" y1="21" x2="8" y2="3"/><line x1="16" y1="21" x2="16" y2="3"/><line x1="2" y1="9" x2="22" y2="9"/><line x1="2" y1="15" x2="22" y2="15"/><path d="M9 6h6"/></svg>`
+      };
+      return svgs[p.svgIcon] || svgs.apartment;
+    }
+
+    function updateGallery(dir) {
+      if (!window.currentGallery) return;
+      window.currentGalleryIdx += dir;
+      if (window.currentGalleryIdx < 0) window.currentGalleryIdx = window.currentGallery.length - 1;
+      if (window.currentGalleryIdx >= window.currentGallery.length) window.currentGalleryIdx = 0;
+      document.getElementById('modalGallery').style.backgroundImage = `url('${window.currentGallery[window.currentGalleryIdx]}')`;
+      const ind = document.getElementById('galleryIndicator');
+      if (ind) ind.textContent = `${window.currentGalleryIdx + 1} / ${window.currentGallery.length}`;
+    }
+
+    function openDetail(id) {
+      currentProp = allProperties.find(p => p.id === id || String(p.id) === String(id));
+      if (!currentProp) return;
+      const p = currentProp;
+
+      let galleryArr = p.gallery && p.gallery.length ? [p.imageUrl, ...p.gallery] : [p.imageUrl];
+      galleryArr = [...new Set(galleryArr)]; // deduplicate
+      window.currentGallery = galleryArr;
+      window.currentGalleryIdx = 0;
+
+      document.getElementById('modalGallery').style.cssText = `background: url('${galleryArr[0]}') center/cover; display:flex;align-items:center;justify-content:center;position:relative;transition:background-image 0.3s ease-in-out`;
+
+      let arrowsHtml = galleryArr.length > 1 ? `<div onclick="event.stopPropagation();updateGallery(-1)" style="position:absolute;left:12px;width:36px;height:36px;background:rgba(255,255,255,0.9);border-radius:50%;display:flex;align-items:center;justify-content:center;cursor:pointer;box-shadow:0 4px 6px rgba(0,0,0,0.1);transition:transform 0.1s" onmousedown="this.style.transform='scale(0.95)'" onmouseup="this.style.transform='scale(1)'"><svg viewBox="0 0 24 24" fill="none" stroke="#333" stroke-width="2" width="20" height="20"><polyline points="15 18 9 12 15 6"/></svg></div><div onclick="event.stopPropagation();updateGallery(1)" style="position:absolute;right:12px;width:36px;height:36px;background:rgba(255,255,255,0.9);border-radius:50%;display:flex;align-items:center;justify-content:center;cursor:pointer;box-shadow:0 4px 6px rgba(0,0,0,0.1);transition:transform 0.1s" onmousedown="this.style.transform='scale(0.95)'" onmouseup="this.style.transform='scale(1)'"><svg viewBox="0 0 24 24" fill="none" stroke="#333" stroke-width="2" width="20" height="20"><polyline points="9 18 15 12 9 6"/></svg></div><div id="galleryIndicator" style="position:absolute;bottom:12px;background:rgba(0,0,0,0.65);color:white;padding:4px 10px;border-radius:12px;font-size:12px;font-weight:600;letter-spacing:1px;backdrop-filter:blur(4px)">1 / ${galleryArr.length}</div>` : '';
+
+      document.getElementById('modalGallery').innerHTML = arrowsHtml;
+      document.getElementById('modalBadges').innerHTML = getBadges(p);
+      document.getElementById('modalPrice').textContent = p.price;
+      document.getElementById('modalTitle').textContent = p.title;
+      document.getElementById('modalLoc').textContent = p.location;
+
+      const mapBox = document.querySelector('.map-box');
+      const mapTitle = mapBox.previousElementSibling; // The "Location" title
+
+      if (p.mapUrl && (p.mapUrl.includes('<iframe') || p.mapUrl.includes('/embed/'))) {
+        mapBox.style.display = 'flex';
+        if (mapTitle) mapTitle.style.display = 'block';
+        mapBox.style.padding = '0';
+        let finalSrc = p.mapUrl;
+        if (p.mapUrl.includes('<iframe')) {
+          finalSrc = (p.mapUrl.match(/src="([^"]+)"/) || [])[1] || p.mapUrl;
+        }
+        mapBox.innerHTML = `<iframe src="${finalSrc}" width="100%" height="100%" style="border:0;border-radius:12px;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>`;
+      } else if (p.mapUrl && p.mapUrl.startsWith('http')) {
+        mapBox.style.display = 'flex';
+        if (mapTitle) mapTitle.style.display = 'block';
+        mapBox.style.padding = '20px';
+        mapBox.style.position = 'relative';
+        mapBox.innerHTML = `
+          <div style="text-align:center;">
+            <div style="margin-bottom:12px; color:var(--muted); font-size:13px;">Exact location available via link</div>
+            <a href="${p.mapUrl}" target="_blank" class="c-btn" style="background:#2563EB; color:white; border:none; text-decoration:none; display:inline-flex; align-items:center; gap:8px; padding:10px 20px; font-weight:600; border-radius:8px; box-shadow:0 4px 6px rgba(0,0,0,0.1);">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="16" height="16"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+              Open Google Maps
+            </a>
+          </div>
+        `;
+      } else {
+        mapBox.style.display = 'none';
+        if (mapTitle) mapTitle.style.display = 'none';
+      }
+      document.getElementById('modalDesc').textContent = p.desc;
+      const isLand = p.type === 'land';
+      document.getElementById('modalAttrs').innerHTML = isLand ?
+        `<div class="m-attr"><div class="m-attr-val">${p.area}</div><div class="m-attr-lbl">Plot Area</div></div><div class="m-attr"><div class="m-attr-val">Land</div><div class="m-attr-lbl">Type</div></div>` :
+        `<div class="m-attr"><div class="m-attr-val">${p.beds}</div><div class="m-attr-lbl">Bedrooms</div></div><div class="m-attr"><div class="m-attr-val">${p.baths}</div><div class="m-attr-lbl">Bathrooms</div></div><div class="m-attr"><div class="m-attr-val">${p.area}</div><div class="m-attr-lbl">Total Area</div></div>`;
+
+      let ams = [];
+      if (Array.isArray(p.amenities)) ams = p.amenities;
+      else if (typeof p.amenities === 'string') ams = p.amenities.split(',').map(a => a.trim()).filter(a => a);
+
+      document.getElementById('modalAmenities').innerHTML = ams.map(a => `<span class="amenity">${a}</span>`).join('');
+      document.getElementById('modalVerNote').style.display = p.verified ? 'flex' : 'none';
+      document.getElementById('detailOverlay').classList.add('open');
+      document.body.style.overflow = 'hidden';
+    }
+    function closeDetail() { document.getElementById('detailOverlay').classList.remove('open'); document.body.style.overflow = '' }
+    function closeModal(e, overlay) { if (e.target === overlay) { overlay.classList.remove('open'); document.body.style.overflow = '' } }
+
+    function openShare(id) { document.getElementById('shareOverlay').classList.add('open') }
+    function shareVia(v) {
+      document.getElementById('shareOverlay').classList.remove('open');
+      const msgs = { whatsapp: 'Opening WhatsApp...', facebook: 'Opening Facebook...', email: 'Opening email...', copy: '🔗 Link copied to clipboard!', sms: 'Opening messages...', twitter: 'Opening Twitter/X...' };
+      toast(msgs[v] || 'Sharing...');
+    }
+
+    // ══════════════════════════════════════════════════════════════════
+    // PROPERTY CONFIG — Single Source of Truth (shared with admin.html)
+    // ══════════════════════════════════════════════════════════════════
+    const PROPERTY_CONFIG = {
+      residential: {
+        hasSubtype: true,
+        label: 'Residential',
+        icon: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="26" height="26"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>`,
+        subtypes: [
+          { value: 'apartment', label: 'Apartment' },
+          { value: 'villa',     label: 'Villa' },
+          { value: 'house',     label: 'House' }
+        ],
+        fields: ['bedrooms', 'bathrooms', 'area', 'parking', 'furnishing', 'floor']
+      },
+      commercial: {
+        hasSubtype: true,
+        label: 'Commercial',
+        icon: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="26" height="26"><rect x="2" y="3" width="20" height="18" rx="2"/><line x1="8" y1="21" x2="8" y2="3"/><line x1="16" y1="21" x2="16" y2="3"/><line x1="2" y1="9" x2="22" y2="9"/><line x1="2" y1="15" x2="22" y2="15"/></svg>`,
+        subtypes: [
+          { value: 'office',   label: 'Office' },
+          { value: 'shop',     label: 'Shop' },
+          { value: 'building', label: 'Building' }
+        ],
+        fields: ['area', 'parking', 'furnishing']
+      },
+      land: {
+        hasSubtype: false,
+        label: 'Land / Plot',
+        icon: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="26" height="26"><path d="M3 17l4-8 4 4 4-6 4 10"/><line x1="3" y1="21" x2="21" y2="21"/></svg>`,
+        subtypes: [],
+        fields: ['plot_size', 'land_type']
+      }
+    };
+
+    // Field metadata: label, placeholder, type, options
+    const FIELD_META = {
+      bedrooms:   { label: 'Bedrooms',      placeholder: 'e.g. 3',            type: 'number' },
+      bathrooms:  { label: 'Bathrooms',     placeholder: 'e.g. 2',            type: 'number' },
+      area:       { label: 'Built-up Area', placeholder: 'e.g. 1,450 sq.ft',  type: 'text' },
+      parking:    { label: 'Parking',       type: 'checkbox' },
+      furnishing: { label: 'Furnishing',    type: 'select',
+                    options: ['unfurnished','semi-furnished','fully-furnished'] },
+      floor:      { label: 'Floor Number',  placeholder: 'e.g. 3',            type: 'number' },
+      plot_size:  { label: 'Plot Size',     placeholder: 'e.g. 5,000 sq.ft',  type: 'text' },
+      land_type:  { label: 'Land Type',     type: 'select',
+                    options: ['residential','agricultural','commercial','industrial'] }
+    };
+
+    // ── Render subtype dropdown into a container element ──
+    function renderSubtype(containerEl, mainType, currentVal) {
+      containerEl.innerHTML = '';
+      const cfg = PROPERTY_CONFIG[mainType];
+      if (!cfg || !cfg.hasSubtype) return;
+      const wrap = document.createElement('div');
+      wrap.id = 'pf_subtype_wrap';
+      wrap.innerHTML = `<label class="form-label">Subtype</label>
+        <select id="pf_subtype" class="form-input form-select">
+          ${cfg.subtypes.map(s => `<option value="${s.value}"${currentVal===s.value?' selected':''}>${s.label}</option>`).join('')}
+        </select>`;
+      containerEl.appendChild(wrap);
+    }
+
+    // ── Render dynamic property-type fields into a container element ──
+    function renderFields(containerEl, mainType, currentValues) {
+      containerEl.innerHTML = '';
+      const cfg = PROPERTY_CONFIG[mainType];
+      if (!cfg) return;
+      const vals = currentValues || {};
+      const wrap = document.createElement('div');
+      wrap.className = 'dynamic-fields-wrap';
+
+      cfg.fields.forEach(fieldKey => {
+        const meta = FIELD_META[fieldKey];
+        if (!meta) return;
+        const grp = document.createElement('div');
+        grp.className = 'form-group';
+
+        if (meta.type === 'checkbox') {
+          grp.innerHTML = `<div class="form-check-row">
+            <input type="checkbox" id="pf_${fieldKey}" ${vals[fieldKey] ? 'checked' : ''}>
+            <label for="pf_${fieldKey}">${meta.label}</label>
+          </div>`;
+        } else if (meta.type === 'select') {
+          grp.innerHTML = `<label class="form-label">${meta.label}</label>
+            <select id="pf_${fieldKey}" class="form-input form-select">
+              ${meta.options.map(o => `<option value="${o}"${vals[fieldKey]===o?' selected':''}>${o.charAt(0).toUpperCase()+o.slice(1).replace(/-/g,' ')}</option>`).join('')}
+            </select>`;
+        } else {
+          grp.innerHTML = `<label class="form-label">${meta.label}</label>
+            <input id="pf_${fieldKey}" class="form-input" type="${meta.type||'text'}"
+              placeholder="${meta.placeholder||''}" value="${esc(String(vals[fieldKey]||''))}">`;
+        }
+        wrap.appendChild(grp);
+      });
+      containerEl.appendChild(wrap);
+    }
+
+    // ── Collect all visible dynamic field values into a plain object ──
+    function collectDynamicFields(mainType) {
+      const cfg = PROPERTY_CONFIG[mainType];
+      if (!cfg) return {};
+      const out = {};
+      cfg.fields.forEach(fieldKey => {
+        const el = document.getElementById('pf_' + fieldKey);
+        if (!el) return;
+        if (el.type === 'checkbox') out[fieldKey] = el.checked;
+        else if (el.value !== '') out[fieldKey] = el.type === 'number' ? Number(el.value) : el.value.trim();
+      });
+      return out;
+    }
+
+    // ── Price formatter ──
+    function formatPriceInput(el) {
+      let v = el.value.replace(/,/g, '').trim();
+      if (!v || isNaN(v)) return;
+      let num = Number(v);
+      if (num >= 10000000) el.value = '₹' + parseFloat((num/10000000).toFixed(2)) + ' Cr';
+      else if (num >= 100000) el.value = '₹' + parseFloat((num/100000).toFixed(2)) + ' Lakhs';
+      else el.value = '₹' + num.toLocaleString('en-IN');
+    }
+
+    // ══ POST STEPS CONFIG ══
+    const POST_STEPS = [
+      { label: 'Basic Info' },
+      { label: 'Details'    },
+      { label: 'Media'      },
+      { label: 'Contact'    }
+    ];
+
+    const postGalleryDt = new DataTransfer();
+
+    function handleGalleryImages(input) {
+      if (input.files) {
+        Array.from(input.files).forEach(f => postGalleryDt.items.add(f));
+        input.files = postGalleryDt.files;
+        renderPublicGallery();
+      }
+    }
+
+    function renderPublicGallery() {
+      const container = document.getElementById('pf_gallery_preview');
+      if (!container) return;
+      container.innerHTML = '';
+      Array.from(postGalleryDt.files).forEach((file, index) => {
+        const isCover = window.postCoverIndex === index;
+        container.innerHTML += `<div style="position:relative;width:80px;height:80px;border-radius:8px;background:url('${URL.createObjectURL(file)}') center/cover;border:${isCover?'3px solid #3B82F6':'1px solid #E5E7EB'}">
+          <div onclick="removePublicGallery(${index})" style="position:absolute;top:-6px;right:-6px;background:red;color:white;width:20px;height:20px;border-radius:50%;text-align:center;line-height:20px;font-size:12px;cursor:pointer">✕</div>
+          ${isCover?`<div style="position:absolute;bottom:0;left:0;right:0;background:#3B82F6;color:white;font-size:10px;text-align:center;padding:3px;font-weight:700">★ Cover</div>`
+          :`<div onclick="window.postCoverIndex=${index};renderPublicGallery()" style="position:absolute;bottom:4px;left:4px;right:4px;background:rgba(0,0,0,0.7);color:white;font-size:10px;text-align:center;padding:4px;border-radius:4px;cursor:pointer;font-weight:600">Set Cover</div>`}
+        </div>`;
+      });
+      const gi = document.getElementById('pf_gallery');
+      if (gi) gi.files = postGalleryDt.files;
+    }
+
+    function removePublicGallery(index) {
+      if (!confirm('Remove this image?')) return;
+      postGalleryDt.items.remove(index);
+      if (window.postCoverIndex === index) window.postCoverIndex = undefined;
+      renderPublicGallery();
+    }
+
+    // ── Build HTML for each step ──
+    function buildStepHtml(stepN) {
+      const mt = postFormData.pf_main_type || 'residential';
+      if (stepN === 1) {
+        // Section 1: Basic Info + Type selection
+        const typeCards = Object.entries(PROPERTY_CONFIG).map(([k,v]) =>
+          `<div class="type-card${mt===k?' selected':''}" onclick="pfSelectType('${k}',this)" id="tc_${k}">
+            <div class="type-card-icon">${v.icon}</div>
+            <div class="type-card-lbl">${v.label}</div>
+          </div>`
+        ).join('');
+        return `
+          <div class="form-group"><label class="form-label">Property Title *</label>
+            <input id="pf_title" class="form-input" placeholder="e.g. 3BHK Luxury Apartment in Kochi" value="${esc(postFormData.pf_title||'')}">
+          </div>
+          <div class="form-grid">
+            <div class="form-group"><label class="form-label">Asking Price *</label>
+              <input id="pf_price" class="form-input" placeholder="e.g. 85,00,000" onblur="formatPriceInput(this)" value="${esc(postFormData.pf_price||'')}">
+            </div>
+            <div class="form-group"><label class="form-label">City / Location *</label>
+              <input id="pf_location" class="form-input" placeholder="e.g. Kakkanad, Kochi" value="${esc(postFormData.pf_location||'')}">
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="form-label">Property Category *</label>
+            <div class="type-cards">${typeCards}</div>
+          </div>
+          <div id="pf_subtype_container"></div>`;
+      }
+      if (stepN === 2) {
+        // Section 2: Dynamic fields based on main_type
+        return `<div class="form-section-hd">Property Details</div>
+          <div id="pf_dynamic_fields_container"></div>
+          <div class="form-group" style="margin-top:18px">
+            <label class="form-label">Description</label>
+            <textarea id="pf_desc" class="form-textarea" placeholder="Describe the property — highlights, condition, nearby landmarks...">${esc(postFormData.pf_desc||'')}</textarea>
+          </div>
+          <div class="form-group">
+            <label class="form-label">Amenities</label>
+            <input id="pf_amenities" class="form-input" placeholder="Pool, Gym, Security, Generator..." value="${esc(postFormData.pf_amenities||'')}">
+          </div>`;
+      }
+      if (stepN === 3) {
+        // Section 3: Media / Extras
+        return `<div class="form-section-hd">Media &amp; Location</div>
+          <div class="form-group">
+            <label class="form-label">Property Images <span style="font-weight:400;color:var(--muted)">(click first image to set cover)</span></label>
+            <input type="file" id="pf_gallery" class="form-input" accept="image/*" multiple style="padding:10px;" onchange="handleGalleryImages(this)">
+            <div id="pf_gallery_preview" style="display:flex;flex-wrap:wrap;gap:8px;margin-top:10px;"></div>
+            <div class="upload-sub" style="margin-top:8px">JPG, PNG up to 5MB each</div>
+          </div>
+          <div class="form-group">
+            <label class="form-label">Video Tour URL <span style="font-weight:400;color:var(--muted)">(optional)</span></label>
+            <input id="pf_video" class="form-input" placeholder="YouTube or Drive link" value="${esc(postFormData.pf_video||'')}">
+          </div>
+          <div class="form-group">
+            <label class="form-label">Google Maps URL <span style="font-weight:400;color:var(--muted)">(optional)</span></label>
+            <input id="pf_map" class="form-input" placeholder="Google Maps embed or share link" value="${esc(postFormData.pf_map||'')}">
+          </div>`;
+      }
+      // Step 4: Contact
+      return `<div class="form-group"><label class="form-label">Your Full Name *</label>
+          <input id="pf_name" class="form-input" placeholder="Full name" value="${esc(postFormData.pf_name||'')}">
+        </div>
+        <div class="form-grid">
+          <div class="form-group"><label class="form-label">Phone Number *</label>
+            <input id="pf_phone" class="form-input" type="tel" placeholder="+91 98765 43210" value="${esc(postFormData.pf_phone||'')}">
+          </div>
+          <div class="form-group"><label class="form-label">Email Address</label>
+            <input id="pf_email" class="form-input" placeholder="you@email.com" value="${esc(postFormData.pf_email||'')}">
+          </div>
+        </div>
+        <div style="background:#EFF6FF;border:1px solid #BFDBFE;border-radius:12px;padding:18px;margin-top:16px">
+          <div style="font-size:13px;font-weight:700;color:#1E40AF;margin-bottom:6px">📋 What happens next?</div>
+          <div style="font-size:13px;color:#374151;line-height:1.6">Your listing will be reviewed by our team within 24 hours. Once approved, it goes live and reaches thousands of buyers across Kerala.</div>
+        </div>`;
+    }
+
+    // ── Type card selection handler ──
+    function pfSelectType(mainType, cardEl) {
+      document.querySelectorAll('.type-card').forEach(c => c.classList.remove('selected'));
+      cardEl.classList.add('selected');
+      postFormData.pf_main_type = mainType;
+      postFormData.pf_subtype = '';
+      // Re-render subtype
+      const stc = document.getElementById('pf_subtype_container');
+      if (stc) renderSubtype(stc, mainType, '');
+    }
+
+    function openPost() {
+      // Always reset form state on fresh open so no stale data bleeds through
+      if (!postFormData || !postFormData._reopened) {
+        postFormData = { pf_main_type: 'residential', pf_subtype: '', pf_details: {} };
+        // Clear any leftover images from a previous session
+        while (postGalleryDt.items.length) postGalleryDt.items.remove(0);
+        window.postCoverIndex = undefined;
+      }
+      postFormData._reopened = true;
+      postStepN = 1;
+      document.getElementById('postOverlay').classList.add('open');
+      document.body.style.overflow = 'hidden';
+      renderPost();
+    }
+    function closePost() {
+      document.getElementById('postOverlay').classList.remove('open');
+      document.body.style.overflow = '';
+    }
+
+    function renderPost() {
+      const s = postStepN;
+      // Render step indicators
+      document.getElementById('postSteps').innerHTML = POST_STEPS.map((st, i) => {
+        const n = i + 1;
+        const cls = n < s ? 'done' : n === s ? 'current' : 'upcoming';
+        return (i > 0 ? `<div class="step-line ${n <= s ? 'done' : ''}"></div>` : '') +
+          `<div class="step"><div class="step-num ${cls}">${n < s ?
+            '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" width="12" height="12"><polyline points="20 6 9 17 4 12"/></svg>' : n
+          }</div><span class="step-lbl ${n===s?'current':''}">${st.label}</span></div>`;
+      }).join('');
+
+      const isLast = s === POST_STEPS.length;
+      document.getElementById('postBody').innerHTML =
+        `<div class="post-body">${buildStepHtml(s)}</div>
+         <div class="post-footer">
+           ${s > 1 ? `<button class="post-prev" onclick="collectStepData();postStepN--;renderPost()">← Back</button>` : ''}
+           <button class="post-next" style="${s===1?'flex:1':''}" onclick="nextPost()">${isLast ? 'Submit Listing' : 'Continue →'}</button>
+         </div>`;
+
+      // After HTML injected, hydrate dynamic sections
+      if (s === 1) {
+        const stc = document.getElementById('pf_subtype_container');
+        if (stc) renderSubtype(stc, postFormData.pf_main_type || 'residential', postFormData.pf_subtype || '');
+      }
+      if (s === 2) {
+        const dfc = document.getElementById('pf_dynamic_fields_container');
+        if (dfc) renderFields(dfc, postFormData.pf_main_type || 'residential', postFormData.pf_details || {});
+      }
+    }
+
+    function collectStepData() {
+      // Basic fields
+      ['pf_title','pf_price','pf_location','pf_desc','pf_amenities','pf_video','pf_map','pf_name','pf_phone','pf_email'].forEach(id => {
+        const el = document.getElementById(id);
+        if (el) postFormData[id] = el.value.trim();
+      });
+      // Subtype
+      const stEl = document.getElementById('pf_subtype');
+      if (stEl) postFormData.pf_subtype = stEl.value;
+      // Dynamic property-type fields → collect into details object
+      const mt = postFormData.pf_main_type || 'residential';
+      postFormData.pf_details = collectDynamicFields(mt);
+      autoSaveForm();
+    }
+
+    // ── Field validation ──
+    function clearFieldErrors() {
+      document.querySelectorAll('.field-error').forEach(el => el.remove());
+      document.querySelectorAll('.form-input.error,.form-textarea.error').forEach(el => el.classList.remove('error'));
+    }
+    function showFieldError(id, msg) {
+      const el = document.getElementById(id);
+      if (!el) return;
+      el.classList.add('error');
+      const errEl = document.createElement('div');
+      errEl.className = 'field-error';
+      errEl.textContent = msg;
+      el.parentNode.insertBefore(errEl, el.nextSibling);
+    }
+
+    function validateStep() {
+      collectStepData();
+      clearFieldErrors();
+      let valid = true;
+      if (postStepN === 1) {
+        [['pf_title','Property title is required'],['pf_price','Asking price is required'],['pf_location','Location is required']].forEach(([id,msg]) => {
+          if (!(postFormData[id]||'').trim()) { showFieldError(id,msg); valid=false; }
+        });
+        if (!postFormData.pf_main_type) { toast('Please select a property category'); valid=false; }
+      }
+      if (postStepN === 4) {
+        if (!(postFormData.pf_name||'').trim()) { showFieldError('pf_name','Your full name is required'); valid=false; }
+        const ph = (postFormData.pf_phone||'').replace(/[\s+\-()]/g,'').replace(/^91/,'');
+        if (!ph) { showFieldError('pf_phone','Phone number is required'); valid=false; }
+        else if (!/^\d{10}$/.test(ph)) { showFieldError('pf_phone','Enter a valid 10-digit mobile number'); valid=false; }
+        const em = (postFormData.pf_email||'').trim();
+        if (em && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(em)) { showFieldError('pf_email','Enter a valid email address'); valid=false; }
+      }
+      return valid;
+    }
+
+    function nextPost() {
+      if (!validateStep()) return;
+      if (postStepN < POST_STEPS.length) { postStepN++; renderPost(); return; }
+
+      // ── Final submission ──
+      collectStepData();
+      const mt  = postFormData.pf_main_type || 'residential';
+      const st  = postFormData.pf_subtype || '';
+      const det = postFormData.pf_details || {};
+
+      const payload = new FormData();
+      payload.append('title',      postFormData.pf_title    || 'Untitled Property');
+      payload.append('price',      postFormData.pf_price    || '—');
+      payload.append('location',   postFormData.pf_location || '—');
+      payload.append('main_type',  mt);
+      payload.append('sub_type',   st);
+      payload.append('details',    JSON.stringify(det));
+      // Legacy flat fields for display compat
+      payload.append('property_type', st || mt);
+      payload.append('beds',  String(det.bedrooms  || ''));
+      payload.append('baths', String(det.bathrooms || ''));
+      payload.append('area',  String(det.area || det.plot_size || ''));
+      payload.append('desc',  postFormData.pf_desc      || '');
+      payload.append('amenities', postFormData.pf_amenities || '');
+      payload.append('video', postFormData.pf_video    || '');
+      payload.append('map_url', postFormData.pf_map   || '');
+      payload.append('contact', postFormData.pf_phone  || '—');
+      payload.append('email',   postFormData.pf_email  || '');
+      payload.append('name',    postFormData.pf_name   || '—');
+
+      // ── Read images from persistent DataTransfer (survives DOM step changes) ──
+      if (postGalleryDt.files.length > 0) {
+        for (let i = 0; i < postGalleryDt.files.length; i++) payload.append('images', postGalleryDt.files[i]);
+        if (window.postCoverIndex !== undefined) payload.append('cover_index', window.postCoverIndex);
+      }
+      payload.append('csrfmiddlewaretoken', CSRF);
+
+      const btn = document.querySelector('.post-next');
+      if (btn) { btn.disabled = true; btn.textContent = 'Submitting…'; }
+
+      fetch('/admin/add/', { method: 'POST', headers: { 'X-CSRFToken': CSRF }, body: payload })
+        .then(() => {
+          postFormData = {};
+          localStorage.removeItem('bd_form_autosave');
+          document.getElementById('postBody').innerHTML =
+            `<div class="post-body" style="text-align:center;padding:60px 28px">
+              <div style="margin-bottom:20px"><svg viewBox="0 0 24 24" fill="none" stroke="#059669" stroke-width="1.5" width="72" height="72"><circle cx="12" cy="12" r="10"/><polyline points="22 4 12 14.01 9 11.01"/></svg></div>
+              <div style="font-family:'Cormorant Garamond',serif;font-size:28px;font-weight:700;color:var(--navy);margin-bottom:10px">Listing Submitted!</div>
+              <p style="font-size:15px;color:var(--muted);line-height:1.7;max-width:340px;margin:0 auto 20px">Your property has been submitted for review. Our team will verify and publish it within 24 hours.</p>
+              <div style="background:#FEF3C7;border:1px solid #FCD34D;border-radius:10px;padding:14px 20px;font-size:13px;color:#92400E;max-width:340px;margin:0 auto 28px;display:flex;align-items:center;gap:10px">
+                <svg viewBox="0 0 24 24" fill="none" stroke="#D97706" stroke-width="2" width="18" height="18" style="flex-shrink:0"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+                <span>Your listing is <strong>pending admin approval</strong> before going live.</span>
+              </div>
+              <button class="post-next" style="max-width:180px;margin:0 auto;display:block" onclick="closePost();window.location.reload();">Done</button>
+            </div>`;
+          document.getElementById('postSteps').innerHTML = '';
+        })
+        .catch(() => { toast('Submission failed — please try again'); if (btn) { btn.disabled=false; btn.textContent='Submit Listing'; } });
+    }
+    async function openSaved() {
+      if (!saved.length) { toast('No saved properties yet — tap the heart icon on any listing'); return; }
+
+      // Navigate to saved list using the API
+      renderSkeletons();
+      const params = new URLSearchParams({ ids: saved.join(',') });
+
+      try {
+        const res = await fetch('/api/properties/?' + params.toString());
+        const data = await res.json();
+        const props = data.properties.map(p => ({
+          ...p,
+          svgIcon: p.type,
+          iconColor: '#059669',
+          bg: '#F0FFF4'
+        }));
+
+        document.getElementById('propGrid').innerHTML = '';
+        renderGrid(props);
+        document.getElementById('properties').scrollIntoView({ behavior: 'smooth' });
+
+        toast(`Viewing ${props.length} saved propert${props.length > 1 ? 'ies' : 'y'}`);
+      } catch (e) {
+        toast('Failed to load saved properties');
+      }
+    }
+
+    // Mobile filter sheet
+    function openFilterSheet() {
+      document.getElementById('filterSheetOverlay').classList.add('open');
+      document.getElementById('filterSheet').classList.add('open');
+      document.body.style.overflow = 'hidden';
+    }
+    function closeFilterSheet() {
+      document.getElementById('filterSheetOverlay').classList.remove('open');
+      document.getElementById('filterSheet').classList.remove('open');
+      document.body.style.overflow = '';
+    }
+    function sheetTypeOpt(el, type) {
+      el.closest('.type-grid').querySelectorAll('.type-opt').forEach(o => o.classList.remove('sel'));
+      el.classList.add('sel');
+    }
+
+    function waOpen(pid) {
+      const p = pid ? allProperties.find(x => String(x.id) === String(pid)) : null;
+      let text;
+      if (p) {
+        text = `Hi BigDeals! I'm interested in *${p.title}* located at *${p.location}*, priced at *${p.price}* (ID: ${p.id}). Please share more details.`;
+      } else {
+        text = "Hi BigDeals! I'm interested in a property listing. Please share more details.";
+      }
+      window.open('https://wa.me/919567510999?text=' + encodeURIComponent(text), '_blank');
+    }
+
+    function openEnquiry(pid) {
+      // Pre-fill the Quick Inquiry textarea in the detail modal with property context
+      const p = pid ? allProperties.find(x => String(x.id) === String(pid)) : currentProp;
+      const textarea = document.querySelector('.inq-textarea');
+      if (textarea && p) {
+        textarea.value = `Hi, I'm interested in "${p.title}" in ${p.location}, priced at ${p.price} (ID: ${p.id}). I'd like to schedule a visit or get more details.`;
+      }
+      // Scroll sidebar into view
+      const inqForm = document.querySelector('.inquiry-form');
+      if (inqForm) inqForm.scrollIntoView({ behavior: 'smooth', block: 'center' });
+    }
+
+    function submitEnquiry() {
+      const name = document.querySelector('.inq-input[placeholder="Your full name"]')?.value.trim();
+      const phone = document.querySelector('.inq-input[placeholder="Phone number"]')?.value.trim();
+      const msg = document.querySelector('.inq-textarea')?.value.trim();
+      if (!name || !phone) { toast('Please enter your name and phone number'); return; }
+      const p = currentProp;
+      const propInfo = p ? ` for "${p.title}" (${p.price})` : '';
+      const text = `Hi BigDeals!%0a*Name:* ${encodeURIComponent(name)}%0a*Phone:* ${encodeURIComponent(phone)}%0a*Enquiry${encodeURIComponent(propInfo)}:*%0a${encodeURIComponent(msg)}`;
+      window.open('https://wa.me/919567510999?text=' + text, '_blank');
+    }
+
+    function toast(msg) {
+      const t = document.getElementById('toast');
+      t.textContent = msg; t.classList.add('show');
+      clearTimeout(window._toastTimer);
+      window._toastTimer = setTimeout(() => t.classList.remove('show'), 2800);
+    }
+    function openShare() { document.getElementById('shareOverlay').classList.add('open') }
+
+    // Mobile nav
+    function toggleMobileNav() {
+      document.getElementById('mobileNavOverlay').classList.toggle('open');
+      document.getElementById('mobileNavDrawer').classList.toggle('open');
+      document.body.style.overflow = document.getElementById('mobileNavDrawer').classList.contains('open') ? 'hidden' : '';
+    }
+    function closeMobileNav() {
+      document.getElementById('mobileNavOverlay').classList.remove('open');
+      document.getElementById('mobileNavDrawer').classList.remove('open');
+      document.body.style.overflow = '';
+    }
+
+    // Nav scroll effect & Back to top
+    window.addEventListener('scroll', () => {
+      document.getElementById('mainNav').classList.toggle('scrolled', window.scrollY > 10);
+    });
+
+    // Scroll reveal
+    const revealObs = new IntersectionObserver((entries) => {
+      entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); revealObs.unobserve(e.target) } });
+    }, { threshold: 0.12 });
+    document.querySelectorAll('.reveal').forEach(el => revealObs.observe(el));
+
+    // Initial render
+    fetchProperties(1);
+  </script>
+</body>
+
+</html>
