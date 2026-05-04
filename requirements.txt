@@ -7,3 +7,4 @@ psycopg2-binary==2.9.11
 psycopg2-pool==1.2
 python-dotenv==1.2.2
 sqlparse==0.5.5
+gunicorn
