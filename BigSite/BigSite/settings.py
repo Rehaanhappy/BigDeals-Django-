@@ -24,7 +24,7 @@ load_dotenv(dotenv_path=env_path)
 # Security settings from .env
 SECRET_KEY = os.getenv('DJANGO_SECRET_KEY', 'django-insecure-fallback-for-dev-only')
 DEBUG = os.getenv('DEBUG', 'False') == 'True'
-ALLOWED_HOSTS = os.getenv('ALLOWED_HOSTS', 'localhost,127.0.0.1').split(',')
+ALLOWED_HOSTS = os.getenv('ALLOWED_HOSTS', 'localhost,127.0.0.1','bigdeals-django.onrender.com').split(',')
 
 
 # Application definition
