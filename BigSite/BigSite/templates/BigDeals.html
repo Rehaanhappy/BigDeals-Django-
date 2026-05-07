@@ -3034,7 +3034,8 @@
       <div class="nav-links">
         <a href="#listings">Buy</a>
         <a href="#listings">Rent</a>
-        <a href="#listings">New Projects</a>
+        <a href="pre_launch.html">Pre-launch Offers</a>
+        <a href="builder_projects.html">Builder Projects</a>
         <a href="#listings">Commercial</a>
         <a href="tel:+919567510999">Contact</a>
 
@@ -3063,7 +3064,8 @@
     <button class="mobile-drawer-close" onclick="closeMobileNav()">&times;</button>
     <a href="#listings" onclick="closeMobileNav()">Buy</a>
     <a href="#listings" onclick="closeMobileNav()">Rent</a>
-    <a href="#listings" onclick="closeMobileNav()">New Projects</a>
+    <a href="pre_launch.html" onclick="closeMobileNav()">Pre-launch Offers</a>
+    <a href="builder_projects.html" onclick="closeMobileNav()">Builder Projects</a>
     <a href="#listings" onclick="closeMobileNav()">Commercial</a>
     <a href="tel:+919567510999" onclick="closeMobileNav()">Contact</a>
 
@@ -4339,6 +4341,7 @@
     // ── Build HTML for each step ──
     function buildStepHtml(stepN) {
       const mt = postFormData.pf_main_type || 'residential';
+      const lt = postFormData.pf_listing_type || 'sale';
       if (stepN === 1) {
         // Section 1: Basic Info + Type selection
         const typeCards = Object.entries(PROPERTY_CONFIG).map(([k,v]) =>
@@ -4347,7 +4350,16 @@
             <div class="type-card-lbl">${v.label}</div>
           </div>`
         ).join('');
+        // Determine if project name field should show (apartment or villa subtype)
+        const showProjectName = (postFormData.pf_subtype === 'apartment' || postFormData.pf_subtype === 'villa') && mt === 'residential';
         return `
+          <div class="form-group">
+            <label class="form-label">Listing Type *</label>
+            <div class="search-tab-wrap" style="display:inline-flex;margin-left:0">
+              <button type="button" class="search-tab${lt==='sale'?' active':''}" id="lt_sale" onclick="pfSetListingType('sale',this)">For Sale</button>
+              <button type="button" class="search-tab${lt==='rent'?' active':''}" id="lt_rent" onclick="pfSetListingType('rent',this)">For Rent</button>
+            </div>
+          </div>
           <div class="form-group"><label class="form-label">Property Title *</label>
             <input id="pf_title" class="form-input" placeholder="e.g. 3BHK Luxury Apartment in Kochi" value="${esc(postFormData.pf_title||'')}">
           </div>
@@ -4363,7 +4375,11 @@
             <label class="form-label">Property Category *</label>
             <div class="type-cards">${typeCards}</div>
           </div>
-          <div id="pf_subtype_container"></div>`;
+          <div id="pf_subtype_container"></div>
+          <div id="pf_project_name_wrap" style="${showProjectName?'':'display:none'}" class="form-group">
+            <label class="form-label">Project / Society Name</label>
+            <input id="pf_project_name" class="form-input" placeholder="e.g. Sobha City, Prestige Acacia" value="${esc(postFormData.pf_project_name||'')}">
+          </div>`;
       }
       if (stepN === 2) {
         // Section 2: Dynamic fields based on main_type
@@ -4414,6 +4430,13 @@
         </div>`;
     }
 
+    // ── Listing type (Sale / Rent) handler ──
+    function pfSetListingType(val, btn) {
+      postFormData.pf_listing_type = val;
+      document.querySelectorAll('#lt_sale,#lt_rent').forEach(b => b.classList.remove('active'));
+      if (btn) btn.classList.add('active');
+    }
+
     // ── Type card selection handler ──
     function pfSelectType(mainType, cardEl) {
       document.querySelectorAll('.type-card').forEach(c => c.classList.remove('selected'));
@@ -4423,6 +4446,9 @@
       // Re-render subtype
       const stc = document.getElementById('pf_subtype_container');
       if (stc) renderSubtype(stc, mainType, '');
+      // Hide project name when switching away from residential
+      const pnw = document.getElementById('pf_project_name_wrap');
+      if (pnw) pnw.style.display = 'none';
     }
 
     function openPost() {
@@ -4467,7 +4493,20 @@
       // After HTML injected, hydrate dynamic sections
       if (s === 1) {
         const stc = document.getElementById('pf_subtype_container');
-        if (stc) renderSubtype(stc, postFormData.pf_main_type || 'residential', postFormData.pf_subtype || '');
+        if (stc) {
+          renderSubtype(stc, postFormData.pf_main_type || 'residential', postFormData.pf_subtype || '');
+          // Watch subtype changes to show/hide project name field
+          const subtypeSel = document.getElementById('pf_subtype');
+          if (subtypeSel) {
+            subtypeSel.addEventListener('change', function() {
+              const pnw = document.getElementById('pf_project_name_wrap');
+              if (pnw) pnw.style.display = (this.value === 'apartment' || this.value === 'villa') ? '' : 'none';
+            });
+            // Fire immediately in case subtype already set
+            const pnw = document.getElementById('pf_project_name_wrap');
+            if (pnw) pnw.style.display = (subtypeSel.value === 'apartment' || subtypeSel.value === 'villa') ? '' : 'none';
+          }
+        }
       }
       if (s === 2) {
         const dfc = document.getElementById('pf_dynamic_fields_container');
@@ -4477,10 +4516,13 @@
 
     function collectStepData() {
       // Basic fields
-      ['pf_title','pf_price','pf_location','pf_desc','pf_amenities','pf_video','pf_map','pf_name','pf_phone','pf_email'].forEach(id => {
+      ['pf_title','pf_price','pf_location','pf_desc','pf_amenities','pf_video','pf_map','pf_name','pf_phone','pf_email','pf_project_name'].forEach(id => {
         const el = document.getElementById(id);
         if (el) postFormData[id] = el.value.trim();
       });
+      // Listing type (sale / rent)
+      const ltActive = document.querySelector('#lt_sale.active,#lt_rent.active');
+      if (ltActive) postFormData.pf_listing_type = ltActive.id === 'lt_sale' ? 'sale' : 'rent';
       // Subtype
       const stEl = document.getElementById('pf_subtype');
       if (stEl) postFormData.pf_subtype = stEl.value;
@@ -4537,12 +4579,14 @@
       const det = postFormData.pf_details || {};
 
       const payload = new FormData();
-      payload.append('title',      postFormData.pf_title    || 'Untitled Property');
-      payload.append('price',      postFormData.pf_price    || '—');
-      payload.append('location',   postFormData.pf_location || '—');
-      payload.append('main_type',  mt);
-      payload.append('sub_type',   st);
-      payload.append('details',    JSON.stringify(det));
+      payload.append('title',        postFormData.pf_title    || 'Untitled Property');
+      payload.append('price',        postFormData.pf_price    || '—');
+      payload.append('location',     postFormData.pf_location || '—');
+      payload.append('main_type',    mt);
+      payload.append('sub_type',     st);
+      payload.append('details',      JSON.stringify(det));
+      payload.append('listing_type', postFormData.pf_listing_type || 'sale');
+      payload.append('project_name', postFormData.pf_project_name || '');
       // Legacy flat fields for display compat
       payload.append('property_type', st || mt);
       payload.append('beds',  String(det.bedrooms  || ''));
