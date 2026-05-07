@@ -23,7 +23,7 @@ from properties.views import (
     update_property_status, delete_image, delete_property,
     admin_login, admin_logout, api_properties,
     pre_launch_view, builder_projects_view,
-    buy_view, rent_view, commercial_view
+    buy_view, rent_view, commercial_view, contact_view
 )
 
 urlpatterns = [
@@ -34,6 +34,7 @@ urlpatterns = [
     path('buy/', buy_view, name='buy'),
     path('rent/', rent_view, name='rent'),
     path('commercial/', commercial_view, name='commercial'),
+    path('contact/', contact_view, name='contact'),
     path('api/properties/', api_properties, name='api-properties'),
     path('admin/', admin_dashboard_view, name='custom-admin'),
     path('admin/login/', admin_login, name='admin-login'),
