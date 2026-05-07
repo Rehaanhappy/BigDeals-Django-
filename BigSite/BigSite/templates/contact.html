@@ -62,8 +62,8 @@
     .hero-sub { font-size:18px; color:rgba(255,255,255,0.6); max-width:580px; margin:0 auto; line-height:1.7; font-weight:300; animation:heroFadeUp 0.7s ease 0.4s both }
 
     /* ── CONTACT LAYOUT ── */
-    .contact-wrap { max-width:1200px; margin:-90px auto 0; position:relative; z-index:10; padding:0 40px 0; display:grid; grid-template-columns:1fr 1.2fr; gap:48px; align-items:start }
-    .contact-info { display:flex; flex-direction:column }
+    .contact-wrap { max-width:1200px; margin:60px auto; padding:0 40px; display:grid; grid-template-columns:1fr 1.2fr; gap:48px; align-items:start }
+    .contact-info { display:flex; flex-direction:column; padding-top:0 }
     .contact-info-title { font-family:'Cormorant Garamond',serif; font-size:28px; font-weight:600; color:var(--navy); margin-bottom:8px; margin-top:4px }
     .contact-info-sub { font-size:14px; color:var(--muted); margin-bottom:24px; line-height:1.7 }
     .contact-methods { display:flex; flex-direction:column; gap:14px; margin-bottom:28px }
@@ -131,7 +131,7 @@
     .team-btn-ph { background:#EFF6FF; color:var(--blue); border:1px solid #BFDBFE } .team-btn-ph:hover { background:var(--blue); color:#fff }
     .section-pb { padding-bottom:80px }
 
-    @media(max-width:1024px){ .contact-wrap,.page-section{ grid-template-columns:1fr; padding-left:24px; padding-right:24px } .contact-wrap{ margin-top:-40px } .blog-grid,.team-grid{ grid-template-columns:1fr 1fr } }
+    @media(max-width:1024px){ .contact-wrap,.page-section{ padding-left:24px; padding-right:24px } .contact-wrap{ margin:40px auto; grid-template-columns:1fr } .blog-grid,.team-grid{ grid-template-columns:1fr 1fr } }
     @media(max-width:768px){ .contact-wrap,.page-section{ padding-left:16px; padding-right:16px } .form-card{ padding:24px } .form-row{ grid-template-columns:1fr } .blog-grid,.team-grid{ grid-template-columns:1fr } }
 
     /* ── LISTINGS SECTION ── */
@@ -326,48 +326,6 @@
       </form>
     </div>
 
-  </div>
-
-  <!-- NEWS / BLOG -->
-  <div class="page-section">
-    <div class="sec-hd">
-      <div class="sec-badge">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="12" height="12"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/></svg>
-        Insights &amp; Updates
-      </div>
-      <h2>Real Estate News &amp; Tips</h2>
-      <p>Stay informed with Kerala's property market trends, investment tips and legal guides.</p>
-      <div class="sec-rule"></div>
-    </div>
-    <div class="blog-grid">
-      <div class="blog-card">
-        <div class="blog-thumb t1">📈</div>
-        <div class="blog-body">
-          <div class="blog-tag">Market Trends</div>
-          <h3>Kochi Property Prices Rise 12% in Q1 2026</h3>
-          <p>Demand for apartments near metro stations and IT corridors continues to push valuations upward across Ernakulam district.</p>
-          <div class="blog-meta"><span>May 2, 2026 · 4 min read</span><a href="#" class="blog-read">Read →</a></div>
-        </div>
-      </div>
-      <div class="blog-card">
-        <div class="blog-thumb t2">🏛️</div>
-        <div class="blog-body">
-          <div class="blog-tag">Legal Guide</div>
-          <h3>Understanding RERA: A Buyer's Complete Guide</h3>
-          <p>Everything you need to know about Kerala RERA, your rights as a buyer, and how to verify registered projects before investing.</p>
-          <div class="blog-meta"><span>Apr 18, 2026 · 6 min read</span><a href="#" class="blog-read">Read →</a></div>
-        </div>
-      </div>
-      <div class="blog-card">
-        <div class="blog-thumb t3">💡</div>
-        <div class="blog-body">
-          <div class="blog-tag">Investment Tips</div>
-          <h3>5 Emerging Micro-Markets to Watch in Kerala</h3>
-          <p>From Thrissur's tech park belt to Calicut's waterfront developments — these are the locations savvy investors are betting on in 2026.</p>
-          <div class="blog-meta"><span>Apr 5, 2026 · 5 min read</span><a href="#" class="blog-read">Read →</a></div>
-        </div>
-      </div>
-    </div>
   </div>
 
   <!-- MANAGEMENT TEAM -->
