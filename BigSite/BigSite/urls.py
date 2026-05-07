@@ -21,12 +21,19 @@ from django.conf.urls.static import static
 from properties.views import (
     home_view, admin_dashboard_view, add_property,
     update_property_status, delete_image, delete_property,
-    admin_login, admin_logout, api_properties
+    admin_login, admin_logout, api_properties,
+    pre_launch_view, builder_projects_view,
+    buy_view, rent_view, commercial_view
 )
 
 urlpatterns = [
     path('django-admin/', admin.site.urls),
     path('', home_view, name='home'),
+    path('pre_launch.html', pre_launch_view, name='pre_launch'),
+    path('builder_projects.html', builder_projects_view, name='builder_projects'),
+    path('buy/', buy_view, name='buy'),
+    path('rent/', rent_view, name='rent'),
+    path('commercial/', commercial_view, name='commercial'),
     path('api/properties/', api_properties, name='api-properties'),
     path('admin/', admin_dashboard_view, name='custom-admin'),
     path('admin/login/', admin_login, name='admin-login'),

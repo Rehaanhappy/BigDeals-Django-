@@ -1,0 +1,258 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Rent Property in Kerala — BigDeals Real Estate</title>
+  <meta name="description" content="Find verified rental properties across Kerala. Apartments, villas and houses for rent in Kochi, Thrissur, Calicut and more on BigDeals.">
+  <link
+    href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400;1,600&family=Outfit:wght@300;400;500;600&display=swap"
+    rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0 }
+    :root {
+      --navy: #0B1C3F; --navy2: #152a5a; --blue: #1B56CC; --sky: #3B82F6;
+      --gold: #C9A84C; --gold2: #E8C96A; --cream: #FDFAF5; --offwhite: #F7F4EE;
+      --text: #1a1a2e; --muted: #6B7280; --border: #E5E0D8;
+    }
+    html { scroll-behavior: smooth }
+    body { font-family: 'Outfit', sans-serif; background: var(--cream); color: var(--text); overflow-x: hidden }
+
+    @keyframes heroFadeUp { from { opacity:0; transform:translateY(28px) } to { opacity:1; transform:translateY(0) } }
+    @keyframes heroPulse { 0%,100%{ opacity:1; transform:scale(1) } 50%{ opacity:0.6; transform:scale(1.4) } }
+
+    /* ── NAV ── */
+    nav { position:fixed; top:0; left:0; right:0; z-index:1000; background:rgba(11,28,63,0.97); backdrop-filter:blur(12px); box-shadow:0 2px 20px rgba(0,0,0,0.2) }
+    .nav-inner { max-width:1400px; margin:0 auto; padding:0 40px; height:72px; display:flex; align-items:center; justify-content:space-between }
+    .nav-logo { font-family:'Cormorant Garamond',serif; font-size:28px; font-weight:700; color:#fff; letter-spacing:-0.5px; text-decoration:none }
+    .nav-logo span { color:var(--gold2) }
+    .nav-links { display:flex; align-items:center; gap:36px }
+    .nav-links a { color:rgba(255,255,255,0.8); text-decoration:none; font-size:14px; font-weight:500; transition:color 0.2s; position:relative; padding-bottom:2px }
+    .nav-links a::after { content:''; position:absolute; bottom:-2px; left:0; width:0; height:2px; background:var(--gold2); border-radius:2px; transition:width 0.25s ease }
+    .nav-links a:hover, .nav-links a.active { color:#fff }
+    .nav-links a:hover::after, .nav-links a.active::after { width:100% }
+    .nav-actions { display:flex; align-items:center; gap:12px }
+    .nav-btn { height:38px; padding:0 20px; border-radius:6px; font-size:13px; font-weight:600; cursor:pointer; transition:all 0.2s; font-family:'Outfit',sans-serif }
+    .nav-btn-ghost { background:transparent; border:1.5px solid rgba(255,255,255,0.35); color:#fff }
+    .nav-btn-ghost:hover { background:rgba(255,255,255,0.1) }
+    .nav-btn-gold { background:var(--gold); border:none; color:var(--navy) }
+    .nav-btn-gold:hover { background:var(--gold2) }
+    .nav-hamburger { display:none; background:none; border:none; cursor:pointer; padding:4px; color:#fff; flex-shrink:0 }
+    .mobile-nav-overlay { display:none; position:fixed; inset:0; background:rgba(11,28,63,0.5); z-index:998; backdrop-filter:blur(2px) }
+    .mobile-nav-overlay.open { display:block }
+    .mobile-nav-drawer { position:fixed; top:0; right:-300px; width:280px; height:100%; background:var(--navy); z-index:999; transition:right 0.3s ease; padding:80px 24px 32px; overflow-y:auto; display:flex; flex-direction:column }
+    .mobile-nav-drawer.open { right:0 }
+    .mobile-nav-drawer a { display:block; color:rgba(255,255,255,0.8); text-decoration:none; font-size:16px; font-weight:500; padding:14px 0; border-bottom:1px solid rgba(255,255,255,0.08) }
+    .mobile-nav-drawer a:hover { color:#fff }
+    .mobile-nav-drawer .nav-btn { width:100%; text-align:center; margin-top:8px; display:flex; align-items:center; justify-content:center }
+    .mobile-drawer-close { position:absolute; top:20px; right:20px; background:rgba(255,255,255,0.1); border:none; color:#fff; width:36px; height:36px; border-radius:50%; cursor:pointer; font-size:18px; display:flex; align-items:center; justify-content:center }
+
+    /* ── HERO ── */
+    .hero { min-height:60vh; background:var(--navy); position:relative; display:flex; flex-direction:column; justify-content:center; overflow:hidden; padding-top:72px }
+    .hero-bg { position:absolute; inset:0; background:linear-gradient(135deg,#0B1C3F 0%,#152a5a 40%,#1B3A7A 100%); z-index:0 }
+    .hero-pattern { position:absolute; inset:0; opacity:0.04; background-image:repeating-linear-gradient(0deg,transparent,transparent 60px,rgba(255,255,255,1) 60px,rgba(255,255,255,1) 61px),repeating-linear-gradient(90deg,transparent,transparent 60px,rgba(255,255,255,1) 60px,rgba(255,255,255,1) 61px); z-index:1 }
+    .hero-glow { position:absolute; top:-20%; right:-10%; width:700px; height:700px; border-radius:50%; background:radial-gradient(circle,rgba(201,168,76,0.12) 0%,transparent 70%); z-index:1 }
+    .hero-glow2 { position:absolute; bottom:-20%; left:-5%; width:500px; height:500px; border-radius:50%; background:radial-gradient(circle,rgba(59,130,246,0.1) 0%,transparent 70%); z-index:1 }
+    .hero-content { position:relative; z-index:2; max-width:1400px; margin:0 auto; padding:80px 40px 72px; width:100%; text-align:center }
+    .hero-label { display:inline-flex; align-items:center; gap:8px; background:rgba(201,168,76,0.15); border:1px solid rgba(201,168,76,0.3); border-radius:20px; padding:6px 16px; font-size:12px; font-weight:600; color:var(--gold2); letter-spacing:1px; text-transform:uppercase; margin-bottom:28px; animation:heroFadeUp 0.6s ease 0.1s both }
+    .hero-label::before { content:''; width:6px; height:6px; border-radius:50%; background:var(--gold2); animation:heroPulse 2s ease infinite }
+    .hero h1 { font-family:'Cormorant Garamond',serif; font-size:clamp(40px,5vw,72px); font-weight:600; color:#fff; line-height:1.08; letter-spacing:-1px; margin-bottom:20px; animation:heroFadeUp 0.7s ease 0.25s both }
+    .hero h1 em { font-style:italic; color:var(--gold2) }
+    .hero-sub { font-size:18px; color:rgba(255,255,255,0.6); max-width:580px; margin:0 auto; line-height:1.7; font-weight:300; animation:heroFadeUp 0.7s ease 0.4s both }
+
+    /* ── LISTINGS SECTION ── */
+    .listings-section { padding:60px 0 80px }
+    .section-inner { max-width:1400px; margin:0 auto; padding:0 40px }
+    .section-hd { text-align:center; margin-bottom:48px }
+    .section-hd-label { display:inline-flex; align-items:center; gap:6px; font-size:11px; font-weight:700; text-transform:uppercase; letter-spacing:1.5px; color:var(--blue); background:#EFF6FF; border:1px solid #BFDBFE; border-radius:20px; padding:5px 14px; margin-bottom:14px }
+    .section-hd h2 { font-family:'Cormorant Garamond',serif; font-size:clamp(28px,4vw,42px); font-weight:600; color:var(--text); line-height:1.2; margin-bottom:12px }
+    .section-hd p { font-size:15px; color:var(--muted); max-width:540px; margin:0 auto; line-height:1.7; font-weight:300 }
+    .section-rule { width:48px; height:3px; background:linear-gradient(90deg,var(--gold),var(--gold2)); border-radius:2px; margin:16px auto 0 }
+    .prop-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:24px }
+
+    .coming-soon-wrap { grid-column:1/-1; text-align:center; padding:80px 40px; background:#fff; border-radius:20px; border:1px solid var(--border) }
+    .coming-soon-icon { font-size:56px; margin-bottom:20px }
+    .coming-soon-title { font-family:'Cormorant Garamond',serif; font-size:30px; font-weight:600; color:var(--navy); margin-bottom:10px }
+    .coming-soon-sub { font-size:15px; color:var(--muted); max-width:440px; margin:0 auto; line-height:1.7 }
+    .cta-btn { margin-top:28px; display:inline-flex; align-items:center; gap:8px; height:46px; padding:0 28px; background:var(--navy); color:#fff; border:none; border-radius:10px; font-size:14px; font-weight:600; cursor:pointer; font-family:'Outfit',sans-serif; transition:background 0.2s; text-decoration:none }
+    .cta-btn:hover { background:var(--blue) }
+
+    /* ── FOOTER ── */
+    footer { background:var(--navy); color:rgba(255,255,255,0.6); padding:60px 0 32px }
+    .footer-inner { max-width:1400px; margin:0 auto; padding:0 40px }
+    .footer-top { display:grid; grid-template-columns:2fr 1fr 1fr 1fr; gap:48px; margin-bottom:48px }
+    .footer-brand .logo { font-family:'Cormorant Garamond',serif; font-size:30px; font-weight:700; color:#fff; display:block; margin-bottom:14px; text-decoration:none }
+    .footer-brand .logo span { color:var(--gold2) }
+    .footer-brand p { font-size:14px; line-height:1.7; max-width:280px; font-weight:300 }
+    .footer-col h4 { font-size:12px; font-weight:700; text-transform:uppercase; letter-spacing:0.8px; color:rgba(255,255,255,0.4); margin-bottom:16px }
+    .footer-col a { display:block; color:rgba(255,255,255,0.6); text-decoration:none; font-size:14px; margin-bottom:10px; transition:color 0.2s; font-weight:300 }
+    .footer-col a:hover { color:#fff }
+    .footer-bottom { border-top:1px solid rgba(255,255,255,0.1); padding-top:24px; display:flex; justify-content:space-between; align-items:center; font-size:13px }
+
+    .toast { position:fixed; bottom:32px; right:32px; background:var(--navy); color:#fff; padding:12px 24px; border-radius:10px; font-size:14px; font-weight:500; z-index:9999; opacity:0; transform:translateY(10px); transition:all 0.3s; pointer-events:none; max-width:320px }
+    .toast.show { opacity:1; transform:translateY(0) }
+
+    @media(max-width:1024px) {
+      .nav-links, .nav-actions { display:none }
+      .nav-hamburger { display:flex }
+      .nav-inner { padding:0 20px; height:60px }
+      .hero-content { padding:60px 24px 56px }
+      .prop-grid { grid-template-columns:1fr 1fr }
+      .footer-top { grid-template-columns:1fr 1fr; gap:32px }
+      .footer-bottom { flex-direction:column; gap:8px; text-align:center }
+    }
+    @media(max-width:768px) {
+      .hero-content { padding:48px 16px 48px }
+      .hero h1 { font-size:clamp(32px,7vw,48px) }
+      .hero-sub { font-size:15px }
+      .section-inner { padding:0 16px }
+      .prop-grid { grid-template-columns:1fr }
+      .footer-top { grid-template-columns:1fr; gap:24px }
+      .footer-inner { padding:0 16px }
+      .toast { bottom:20px; right:16px; left:16px; max-width:none; text-align:center }
+    }
+  </style>
+</head>
+
+<body>
+
+  <div class="toast" id="toast"></div>
+
+  <!-- NAV -->
+  <nav id="mainNav">
+    <div class="nav-inner">
+      <a href="/" class="nav-logo">Big<span>Deals</span></a>
+      <div class="nav-links">
+        <a href="/buy/">Buy</a>
+        <a href="/rent/" class="active">Rent</a>
+        <a href="/pre_launch.html">Pre-launch Offers</a>
+        <a href="/builder_projects.html">Builder Projects</a>
+        <a href="/commercial/">Commercial</a>
+        <a href="tel:+919567510999">Contact</a>
+      </div>
+      <div class="nav-actions">
+        <button class="nav-btn nav-btn-ghost" onclick="window.location.href='/'">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="14" height="14" style="margin-right:5px;vertical-align:-2px"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
+          All Listings</button>
+        <button class="nav-btn nav-btn-gold" onclick="window.location.href='/'">+ Post Property</button>
+      </div>
+      <button class="nav-hamburger" onclick="toggleMobileNav()" aria-label="Menu">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="24" height="24"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
+      </button>
+    </div>
+  </nav>
+
+  <!-- MOBILE NAV DRAWER -->
+  <div class="mobile-nav-overlay" id="mobileNavOverlay" onclick="closeMobileNav()"></div>
+  <div class="mobile-nav-drawer" id="mobileNavDrawer">
+    <button class="mobile-drawer-close" onclick="closeMobileNav()">&times;</button>
+    <a href="/buy/" onclick="closeMobileNav()">Buy</a>
+    <a href="/rent/" onclick="closeMobileNav()">Rent</a>
+    <a href="/pre_launch.html" onclick="closeMobileNav()">Pre-launch Offers</a>
+    <a href="/builder_projects.html" onclick="closeMobileNav()">Builder Projects</a>
+    <a href="/commercial/" onclick="closeMobileNav()">Commercial</a>
+    <a href="tel:+919567510999" onclick="closeMobileNav()">Contact</a>
+    <button class="nav-btn nav-btn-gold" onclick="closeMobileNav();window.location.href='/'" style="margin-top:16px">+ Post Property</button>
+  </div>
+
+  <!-- HERO -->
+  <section class="hero">
+    <div class="hero-bg"></div>
+    <div class="hero-pattern"></div>
+    <div class="hero-glow"></div>
+    <div class="hero-glow2"></div>
+    <div class="hero-content">
+      <div class="hero-label">Rental Listings</div>
+      <h1>Rent a <em>Perfect</em><br>Home in Kerala</h1>
+      <p class="hero-sub">Discover furnished and unfurnished rental properties across Kerala's top cities. Monthly and long-term leases — verified and ready to move in.</p>
+    </div>
+  </section>
+
+  <!-- LISTINGS SECTION -->
+  <section class="listings-section">
+    <div class="section-inner">
+      <div class="section-hd">
+        <div class="section-hd-label">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="12" height="12"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
+          Properties for Rent
+        </div>
+        <h2>Rent Property in Kerala</h2>
+        <p>Verified rental listings across Kochi, Thrissur, Calicut and more — find your next home with confidence.</p>
+        <div class="section-rule"></div>
+      </div>
+
+      <!-- Property cards injected here by JS -->
+      <div class="prop-grid" id="rentGrid">
+        <div class="coming-soon-wrap">
+          <div class="coming-soon-icon">🔑</div>
+          <div class="coming-soon-title">Rental Listings Coming Soon</div>
+          <p class="coming-soon-sub">We're putting together the best rental properties in Kerala. Browse all listings on our main page while we get this section ready for you.</p>
+          <a href="/" class="cta-btn">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="16" height="16"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
+            View All Listings
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer>
+    <div class="footer-inner">
+      <div class="footer-top">
+        <div class="footer-brand">
+          <a href="/" class="logo">Big<span>Deals</span></a>
+          <p>Kerala's most trusted real estate platform. Connecting buyers, sellers and investors across God's Own Country and beyond.</p>
+        </div>
+        <div class="footer-col">
+          <h4>Browse</h4>
+          <a href="/buy/">Buy Property</a>
+          <a href="/rent/">Rent Property</a>
+          <a href="/pre_launch.html">Pre-launch Offers</a>
+          <a href="/builder_projects.html">Builder Projects</a>
+          <a href="/commercial/">Commercial</a>
+        </div>
+        <div class="footer-col">
+          <h4>Cities</h4>
+          <a href="#">Kochi</a>
+          <a href="#">Thrissur</a>
+          <a href="#">Calicut</a>
+          <a href="#">Trivandrum</a>
+          <a href="#">Alleppey</a>
+        </div>
+        <div class="footer-col">
+          <h4>Company</h4>
+          <a href="#">About BigDeals</a>
+          <a href="/">Post a Property</a>
+          <a href="#">Privacy Policy</a>
+          <a href="#">Contact Us</a>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <span>© 2026 BigDeals Real Estate. All rights reserved.</span>
+        <span>Made with ♥ for Kerala</span>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    function toast(msg) {
+      const t = document.getElementById('toast');
+      t.textContent = msg; t.classList.add('show');
+      clearTimeout(window._toastTimer);
+      window._toastTimer = setTimeout(() => t.classList.remove('show'), 2800);
+    }
+    function toggleMobileNav() {
+      document.getElementById('mobileNavOverlay').classList.toggle('open');
+      document.getElementById('mobileNavDrawer').classList.toggle('open');
+      document.body.style.overflow = document.getElementById('mobileNavDrawer').classList.contains('open') ? 'hidden' : '';
+    }
+    function closeMobileNav() {
+      document.getElementById('mobileNavOverlay').classList.remove('open');
+      document.getElementById('mobileNavDrawer').classList.remove('open');
+      document.body.style.overflow = '';
+    }
+  </script>
+</body>
+</html>

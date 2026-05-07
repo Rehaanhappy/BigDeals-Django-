@@ -91,6 +91,27 @@ def home_view(request):
     return render(request, 'BigDeals.html')
 
 
+def pre_launch_view(request):
+    return render(request, 'pre_launch.html')
+
+
+def builder_projects_view(request):
+    return render(request, 'builder_projects.html')
+
+
+def buy_view(request):
+    return render(request, 'buy.html')
+
+
+def rent_view(request):
+    return render(request, 'rent.html')
+
+
+def commercial_view(request):
+    return render(request, 'commercial.html')
+
+
+
 def api_properties(request):
     """
     JSON API for properties serving the frontend.
