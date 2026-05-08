@@ -4,7 +4,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>BigDeals — Premium Real Estate Kerala</title>
+  <title>BigDeals — Premium Real Estate India</title>
   <link
     href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400;1,600&family=Outfit:wght@300;400;500;600&display=swap"
     rel="stylesheet">
@@ -2419,88 +2419,7 @@
     }
 
     /* ── MOBILE NAV TOGGLE ── */
-    .nav-hamburger {
-      display: none;
-      background: none;
-      border: none;
-      cursor: pointer;
-      padding: 4px;
-      color: #fff;
-      flex-shrink: 0
-    }
-
-    .mobile-nav-overlay {
-      display: none;
-      position: fixed;
-      inset: 0;
-      background: rgba(11, 28, 63, 0.5);
-      z-index: 998;
-      backdrop-filter: blur(2px)
-    }
-
-    .mobile-nav-overlay.open {
-      display: block
-    }
-
-    .mobile-nav-drawer {
-      position: fixed;
-      top: 0;
-      right: -300px;
-      width: 280px;
-      height: 100%;
-      background: var(--navy);
-      z-index: 999;
-      transition: right 0.3s ease;
-      padding: 80px 24px 32px;
-      overflow-y: auto;
-      display: flex;
-      flex-direction: column;
-      gap: 0
-    }
-
-    .mobile-nav-drawer.open {
-      right: 0
-    }
-
-    .mobile-nav-drawer a {
-      display: block;
-      color: rgba(255, 255, 255, 0.8);
-      text-decoration: none;
-      font-size: 16px;
-      font-weight: 500;
-      padding: 14px 0;
-      border-bottom: 1px solid rgba(255, 255, 255, 0.08)
-    }
-
-    .mobile-nav-drawer a:hover {
-      color: #fff
-    }
-
-    .mobile-nav-drawer .nav-btn {
-      width: 100%;
-      text-align: center;
-      margin-top: 8px;
-      display: flex;
-      align-items: center;
-      justify-content: center
-    }
-
-    .mobile-drawer-close {
-      position: absolute;
-      top: 20px;
-      right: 20px;
-      background: rgba(255, 255, 255, 0.1);
-      border: none;
-      color: #fff;
-      width: 36px;
-      height: 36px;
-      border-radius: 50%;
-      cursor: pointer;
-      font-size: 18px;
-      display: flex;
-      align-items: center;
-      justify-content: center
-    }
+    .mobile-top-nav { display:none }
 
     /* ── RESPONSIVE: TABLET (<=1024px) ── */
     @media(max-width:1024px) {
@@ -2510,10 +2429,6 @@
 
       .nav-actions {
         display: none
-      }
-
-      .nav-hamburger {
-        display: flex
       }
 
       .nav-inner {
@@ -2677,6 +2592,10 @@
       .stats-bar {
         padding: 28px 0
       }
+      .mobile-top-nav { display:flex; gap:12px; align-items:center; justify-content:safe center; padding:0 20px 12px; overflow-x:auto; scroll-behavior:smooth; overscroll-behavior-x:contain; scroll-snap-type:x mandatory; -ms-overflow-style:none; scrollbar-width:none }
+      .mobile-top-nav::-webkit-scrollbar { display:none }
+      .mobile-top-nav a { white-space:nowrap; scroll-snap-align: center; padding:6px 16px; background:rgba(255,255,255,0.1); border:1px solid rgba(255,255,255,0.2); border-radius:20px; font-size:13px; font-weight:500; color:rgba(255,255,255,0.8); text-decoration:none; transition:all 0.2s; flex-shrink:0 }
+      .mobile-top-nav a:hover, .mobile-top-nav a.active { background:var(--gold); color:var(--navy); border-color:var(--gold) }
     }
 
     /* ── RESPONSIVE: MOBILE (<=768px) ── */
@@ -3048,36 +2967,17 @@
           </svg> Saved</button>
         <button class="nav-btn nav-btn-gold" onclick="openPost()">+ Post Property</button>
       </div>
-      <button class="nav-hamburger" onclick="toggleMobileNav()" aria-label="Menu">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="24" height="24">
-          <line x1="3" y1="6" x2="21" y2="6" />
-          <line x1="3" y1="12" x2="21" y2="12" />
-          <line x1="3" y1="18" x2="21" y2="18" />
-        </svg>
-      </button>
+    <div class="mobile-top-nav">
+      <a href="/buy/">Buy</a>
+      <a href="/rent/">Rent</a>
+      <a href="/pre_launch.html">Pre-launch</a>
+      <a href="/builder_projects.html">Builder Projects</a>
+      <a href="/commercial/">Commercial</a>
+      <a href="/contact/">Contact</a>
     </div>
   </nav>
 
   <!-- MOBILE NAV DRAWER -->
-  <div class="mobile-nav-overlay" id="mobileNavOverlay" onclick="closeMobileNav()"></div>
-  <div class="mobile-nav-drawer" id="mobileNavDrawer">
-    <button class="mobile-drawer-close" onclick="closeMobileNav()">&times;</button>
-    <a href="/buy/" onclick="closeMobileNav()">Buy</a>
-    <a href="/rent/" onclick="closeMobileNav()">Rent</a>
-    <a href="/pre_launch.html" onclick="closeMobileNav()">Pre-launch Offers</a>
-    <a href="/builder_projects.html" onclick="closeMobileNav()">Builder Projects</a>
-    <a href="/commercial/" onclick="closeMobileNav()">Commercial</a>
-    <a href="/contact/" onclick="closeMobileNav()">Contact</a>
-
-    <button class="nav-btn nav-btn-ghost" onclick="closeMobileNav();openSaved()" style="margin-top:16px"><svg
-        viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="14" height="14"
-        style="margin-right:5px;vertical-align:-2px">
-        <path
-          d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z" />
-      </svg> Saved</button>
-    <button class="nav-btn nav-btn-gold" onclick="closeMobileNav();openPost()" style="margin-top:8px">+ Post
-      Property</button>
-  </div>
 
   <!-- HERO -->
   <section class="hero">
@@ -3086,9 +2986,9 @@
     <div class="hero-glow"></div>
     <div class="hero-glow2"></div>
     <div class="hero-content">
-      <div class="hero-label">Kerala's Premier Real Estate Platform</div>
-      <h1>Find Your <em>Dream</em><br>Home in Kerala</h1>
-      <p class="hero-sub">Discover verified properties across Kochi, Thrissur, Calicut and beyond. Trusted by thousands
+      <div class="hero-label">India's Premier Real Estate Platform</div>
+      <h1>Find Your <em>Dream</em><br>Home in India</h1>
+      <p class="hero-sub">Discover verified properties across Mumbai, Delhi NCR, Bangalore and beyond. Trusted by thousands
         of families.</p>
       <!-- Search -->
       <div class="search-bar" style="position: relative; z-index: 9999;">
@@ -3144,7 +3044,7 @@
         </div>
         <div class="post-cta-text">
           <div class="post-cta-title">Post Your Property</div>
-          <div class="post-cta-sub">Reach thousands of buyers & tenants across Kerala — free listing in minutes.</div>
+          <div class="post-cta-sub">Reach thousands of buyers & tenants across India — free listing in minutes.</div>
         </div>
         <button class="post-cta-btn" onclick="openPost()">
           Post Now
@@ -3395,7 +3295,7 @@
       <!-- Grid -->
       <div>
         <div class="grid-header">
-          <div class="grid-title">Kerala Properties <span id="gridCount">(12)</span></div>
+          <div class="grid-title">India Properties <span id="gridCount">(12)</span></div>
           <div class="view-toggle">
             <button class="view-btn active" title="Grid view">
               <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="14" height="14">
@@ -3602,7 +3502,7 @@
         Insights &amp; Updates
       </div>
       <h2>Real Estate News &amp; Tips</h2>
-      <p>Stay informed with Kerala's property market trends, investment tips and legal guides.</p>
+      <p>Stay informed with India's property market trends, investment tips and legal guides.</p>
       <div class="blog-sec-rule"></div>
     </div>
     <div class="blog-grid-home">
@@ -3610,8 +3510,8 @@
         <div class="blog-thumb-home bt-blue">📈</div>
         <div class="blog-body-home">
           <div class="blog-tag-home">Market Trends</div>
-          <h3>Kochi Property Prices Rise 12% in Q1 2026</h3>
-          <p>Demand for apartments near metro stations and IT corridors continues to push valuations upward across Ernakulam district.</p>
+          <h3>Mumbai Property Prices Rise 12% in Q1 2026</h3>
+          <p>Demand for apartments near metro stations and IT corridors continues to push valuations upward across the Mumbai Metropolitan Region.</p>
           <div class="blog-meta-home"><span>May 2, 2026 · 4 min read</span><a href="#" class="blog-read-home">Read →</a></div>
         </div>
       </div>
@@ -3620,7 +3520,7 @@
         <div class="blog-body-home">
           <div class="blog-tag-home">Legal Guide</div>
           <h3>Understanding RERA: A Buyer's Complete Guide</h3>
-          <p>Everything you need to know about Kerala RERA, your rights as a buyer, and how to verify registered projects before investing.</p>
+          <p>Everything you need to know about State RERA, your rights as a buyer, and how to verify registered projects before investing.</p>
           <div class="blog-meta-home"><span>Apr 18, 2026 · 6 min read</span><a href="#" class="blog-read-home">Read →</a></div>
         </div>
       </div>
@@ -3628,8 +3528,8 @@
         <div class="blog-thumb-home bt-amber">💡</div>
         <div class="blog-body-home">
           <div class="blog-tag-home">Investment Tips</div>
-          <h3>5 Emerging Micro-Markets to Watch in Kerala</h3>
-          <p>From Thrissur's tech park belt to Calicut's waterfront developments — these are the locations savvy investors are betting on in 2026.</p>
+          <h3>5 Emerging Micro-Markets to Watch in India</h3>
+          <p>From Bangalore's tech corridors to Mumbai's waterfront developments — these are the locations savvy investors are betting on in 2026.</p>
           <div class="blog-meta-home"><span>Apr 5, 2026 · 5 min read</span><a href="#" class="blog-read-home">Read →</a></div>
         </div>
       </div>
@@ -3642,7 +3542,7 @@
       <div class="footer-top">
         <div class="footer-brand">
           <a href="#" class="logo">Big<span>Deals</span></a>
-          <p>Kerala's most trusted real estate platform. Connecting buyers, sellers and investors across God's Own
+          <p>India's most trusted real estate platform. Connecting buyers, sellers and investors across God's Own
             Country and beyond.</p>
         </div>
         <div class="footer-col">
@@ -3655,11 +3555,11 @@
         </div>
         <div class="footer-col">
           <h4>Cities</h4>
-          <a href="#">Kochi</a>
-          <a href="#">Thrissur</a>
-          <a href="#">Calicut</a>
-          <a href="#">Trivandrum</a>
-          <a href="#">Alleppey</a>
+          <a href="#">Mumbai</a>
+          <a href="#">Delhi NCR</a>
+          <a href="#">Bangalore</a>
+          <a href="#">Hyderabad</a>
+          <a href="#">Pune</a>
         </div>
         <div class="footer-col">
           <h4>Company</h4>
@@ -3678,7 +3578,7 @@
       </div>
       <div class="footer-bottom">
         <span>© 2026 BigDeals Real Estate. All rights reserved.</span>
-        <span>Made with ♥ for Kerala</span>
+        <span>Made with ♥ for India</span>
       </div>
     </div>
   </footer>
@@ -3909,9 +3809,6 @@
       const gridCount = document.getElementById('gridCount');
       if (gridCount) gridCount.textContent = '(' + count + ')';
     }
-
-
-
 
     // API Fetcher and Rendering
     let currentPage = 1;
@@ -4427,14 +4324,14 @@
             </div>
           </div>
           <div class="form-group"><label class="form-label">Property Title *</label>
-            <input id="pf_title" class="form-input" placeholder="e.g. 3BHK Luxury Apartment in Kochi" value="${esc(postFormData.pf_title||'')}">
+            <input id="pf_title" class="form-input" placeholder="e.g. 3BHK Luxury Apartment in Mumbai" value="${esc(postFormData.pf_title||'')}">
           </div>
           <div class="form-grid">
             <div class="form-group"><label class="form-label">Asking Price *</label>
               <input id="pf_price" class="form-input" placeholder="e.g. 85,00,000" onblur="formatPriceInput(this)" value="${esc(postFormData.pf_price||'')}">
             </div>
             <div class="form-group"><label class="form-label">City / Location *</label>
-              <input id="pf_location" class="form-input" placeholder="e.g. Kakkanad, Kochi" value="${esc(postFormData.pf_location||'')}">
+              <input id="pf_location" class="form-input" placeholder="e.g. Andheri, Mumbai" value="${esc(postFormData.pf_location||'')}">
             </div>
           </div>
           <div class="form-group">
@@ -4492,7 +4389,7 @@
         </div>
         <div style="background:#EFF6FF;border:1px solid #BFDBFE;border-radius:12px;padding:18px;margin-top:16px">
           <div style="font-size:13px;font-weight:700;color:#1E40AF;margin-bottom:6px">📋 What happens next?</div>
-          <div style="font-size:13px;color:#374151;line-height:1.6">Your listing will be reviewed by our team within 24 hours. Once approved, it goes live and reaches thousands of buyers across Kerala.</div>
+          <div style="font-size:13px;color:#374151;line-height:1.6">Your listing will be reviewed by our team within 24 hours. Once approved, it goes live and reaches thousands of buyers across India.</div>
         </div>`;
     }
 
@@ -4781,16 +4678,6 @@
     function openShare() { document.getElementById('shareOverlay').classList.add('open') }
 
     // Mobile nav
-    function toggleMobileNav() {
-      document.getElementById('mobileNavOverlay').classList.toggle('open');
-      document.getElementById('mobileNavDrawer').classList.toggle('open');
-      document.body.style.overflow = document.getElementById('mobileNavDrawer').classList.contains('open') ? 'hidden' : '';
-    }
-    function closeMobileNav() {
-      document.getElementById('mobileNavOverlay').classList.remove('open');
-      document.getElementById('mobileNavDrawer').classList.remove('open');
-      document.body.style.overflow = '';
-    }
 
     // Nav scroll effect & Back to top
     window.addEventListener('scroll', () => {
@@ -4805,6 +4692,22 @@
 
     // Initial render
     fetchProperties(1);
+  </script>
+  <script>
+    // Mobile top nav: center active pill on load, center any pill on tap
+    (function() {
+      var nav = document.querySelector('.mobile-top-nav');
+      if (!nav) return;
+      var active = nav.querySelector('a.active');
+      if (active) {
+        active.scrollIntoView({ behavior: 'instant', inline: 'center', block: 'nearest' });
+      }
+      nav.querySelectorAll('a').forEach(function(link) {
+        link.addEventListener('click', function() {
+          this.scrollIntoView({ behavior: 'smooth', inline: 'center', block: 'nearest' });
+        });
+      });
+    })();
   </script>
 </body>
 

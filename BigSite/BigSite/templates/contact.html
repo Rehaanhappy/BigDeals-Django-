@@ -5,7 +5,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Contact Us — BigDeals Real Estate</title>
-  <meta name="description" content="Contact BigDeals — Kerala's most trusted real estate platform. Call, WhatsApp or email us for property buying, selling, renting and investment enquiries.">
+  <meta name="description" content="Contact BigDeals — India's most trusted real estate platform. Call, WhatsApp or email us for property buying, selling, renting and investment enquiries.">
   <link
     href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400;1,600&family=Outfit:wght@300;400;500;600&display=swap"
     rel="stylesheet">
@@ -38,15 +38,7 @@
     .nav-btn-ghost:hover { background:rgba(255,255,255,0.1) }
     .nav-btn-gold { background:var(--gold); border:none; color:var(--navy) }
     .nav-btn-gold:hover { background:var(--gold2) }
-    .nav-hamburger { display:none; background:none; border:none; cursor:pointer; padding:4px; color:#fff; flex-shrink:0 }
-    .mobile-nav-overlay { display:none; position:fixed; inset:0; background:rgba(11,28,63,0.5); z-index:998; backdrop-filter:blur(2px) }
-    .mobile-nav-overlay.open { display:block }
-    .mobile-nav-drawer { position:fixed; top:0; right:-300px; width:280px; height:100%; background:var(--navy); z-index:999; transition:right 0.3s ease; padding:80px 24px 32px; overflow-y:auto; display:flex; flex-direction:column }
-    .mobile-nav-drawer.open { right:0 }
-    .mobile-nav-drawer a { display:block; color:rgba(255,255,255,0.8); text-decoration:none; font-size:16px; font-weight:500; padding:14px 0; border-bottom:1px solid rgba(255,255,255,0.08) }
-    .mobile-nav-drawer a:hover { color:#fff }
-    .mobile-nav-drawer .nav-btn { width:100%; text-align:center; margin-top:8px; display:flex; align-items:center; justify-content:center }
-    .mobile-drawer-close { position:absolute; top:20px; right:20px; background:rgba(255,255,255,0.1); border:none; color:#fff; width:36px; height:36px; border-radius:50%; cursor:pointer; font-size:18px; display:flex; align-items:center; justify-content:center }
+    .mobile-top-nav { display:none }
 
     /* ── HERO ── */
     .hero { min-height:45vh; background:var(--navy); position:relative; display:flex; flex-direction:column; justify-content:center; overflow:hidden; padding-top:72px }
@@ -168,12 +160,15 @@
 
     @media(max-width:1024px) {
       .nav-links, .nav-actions { display:none }
-      .nav-hamburger { display:flex }
       .nav-inner { padding:0 20px; height:60px }
-      .hero-content { padding:60px 24px 56px }
+      .hero-content { padding:108px 24px 56px }
       .prop-grid { grid-template-columns:1fr 1fr }
       .footer-top { grid-template-columns:1fr 1fr; gap:32px }
       .footer-bottom { flex-direction:column; gap:8px; text-align:center }
+      .mobile-top-nav { display:flex; gap:12px; align-items:center; justify-content:safe center; padding:0 20px 12px; overflow-x:auto; scroll-behavior:smooth; overscroll-behavior-x:contain; scroll-snap-type:x mandatory; -ms-overflow-style:none; scrollbar-width:none }
+      .mobile-top-nav::-webkit-scrollbar { display:none }
+      .mobile-top-nav a { white-space:nowrap; scroll-snap-align: center; padding:6px 16px; background:rgba(255,255,255,0.1); border:1px solid rgba(255,255,255,0.2); border-radius:20px; font-size:13px; font-weight:500; color:rgba(255,255,255,0.8); text-decoration:none; transition:all 0.2s; flex-shrink:0 }
+      .mobile-top-nav a:hover, .mobile-top-nav a.active { background:var(--gold); color:var(--navy); border-color:var(--gold) }
     }
     @media(max-width:768px) {
       .hero-content { padding:48px 16px 48px }
@@ -210,24 +205,17 @@
           All Listings</button>
         <button class="nav-btn nav-btn-gold" onclick="window.location.href='/'">+ Post Property</button>
       </div>
-      <button class="nav-hamburger" onclick="toggleMobileNav()" aria-label="Menu">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="24" height="24"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
-      </button>
+    <div class="mobile-top-nav">
+      <a href="/buy/">Buy</a>
+      <a href="/rent/">Rent</a>
+      <a href="/pre_launch.html">Pre-launch</a>
+      <a href="/builder_projects.html">Builder Projects</a>
+      <a href="/commercial/">Commercial</a>
+      <a href="/contact/" class="active">Contact</a>
     </div>
   </nav>
 
   <!-- MOBILE NAV DRAWER -->
-  <div class="mobile-nav-overlay" id="mobileNavOverlay" onclick="closeMobileNav()"></div>
-  <div class="mobile-nav-drawer" id="mobileNavDrawer">
-    <button class="mobile-drawer-close" onclick="closeMobileNav()">&times;</button>
-    <a href="/buy/" onclick="closeMobileNav()">Buy</a>
-    <a href="/rent/"  onclick="closeMobileNav()">Rent</a>
-    <a href="/pre_launch.html" onclick="closeMobileNav()">Pre-launch Offers</a>
-    <a href="/builder_projects.html" onclick="closeMobileNav()">Builder Projects</a>
-    <a href="/commercial/" onclick="closeMobileNav()">Commercial</a>
-    <a href="/contact/" onclick="closeMobileNav()">Contact</a>
-    <button class="nav-btn nav-btn-gold" onclick="closeMobileNav();window.location.href='/'" style="margin-top:16px">+ Post Property</button>
-  </div>
 
   <!-- HERO -->
   <section class="hero">
@@ -238,7 +226,7 @@
     <div class="hero-content">
       <div class="hero-label">Get In Touch</div>
       <h1>Let's Talk <em>Real Estate</em></h1>
-      <p class="hero-sub">Call, WhatsApp, or email us — our team is ready to help you buy, sell or rent the perfect property in Kerala.</p>
+      <p class="hero-sub">Call, WhatsApp, or email us — our team is ready to help you buy, sell or rent the perfect property in India.</p>
     </div>
   </section>
 
@@ -283,12 +271,12 @@
           </div>
           <div class="contact-item-text">
             <span class="contact-item-label">Office</span>
-            <span class="contact-item-val">Kochi, Kerala — India</span>
+            <span class="contact-item-val">Mumbai, Maharashtra — India</span>
           </div>
         </div>
       </div>
       <div class="map-embed">
-        <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d125521.54319806578!2d76.23867!3d9.9312!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3b080d514abec6bf%3A0xbd582caa5f6a2ee!2sKochi%2C%20Kerala!5e0!3m2!1sen!2sin!4v1683000000000" allowfullscreen loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+        <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d241317.11609823277!2d72.74109995!3d19.0821978!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3be7c6306644edc1%3A0x5da4ed8f8d648c69!2sMumbai%2C%20Maharashtra!5e0!3m2!1sen!2sin!4v1683000000000" allowfullscreen loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
       </div>
     </div>
 
@@ -336,7 +324,7 @@
         Our People
       </div>
       <h2>Meet the Team</h2>
-      <p>Experienced real estate professionals dedicated to finding you the perfect property in Kerala.</p>
+      <p>Experienced real estate professionals dedicated to finding you the perfect property in India.</p>
       <div class="sec-rule"></div>
     </div>
     <div class="team-grid">
@@ -344,7 +332,7 @@
         <div class="team-avatar av1">R</div>
         <div class="team-name">Rahul Menon</div>
         <div class="team-role">Founder &amp; CEO</div>
-        <p class="team-bio">15+ years in Kerala real estate. Specialises in luxury residential and commercial developments across Kochi and Thrissur.</p>
+        <p class="team-bio">15+ years in Indian real estate. Specialises in luxury residential and commercial developments across Mumbai and Delhi NCR.</p>
         <div class="team-contact">
           <a href="https://wa.me/919567510999" target="_blank" class="team-btn team-btn-wa">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="13" height="13"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"/></svg>
@@ -397,7 +385,7 @@
       <div class="footer-top">
         <div class="footer-brand">
           <a href="/" class="logo">Big<span>Deals</span></a>
-          <p>Kerala's most trusted real estate platform. Connecting buyers, sellers and investors across God's Own Country and beyond.</p>
+          <p>India's most trusted real estate platform. Connecting buyers, sellers and investors across India and beyond.</p>
         </div>
         <div class="footer-col">
           <h4>Browse</h4>
@@ -409,11 +397,11 @@
         </div>
         <div class="footer-col">
           <h4>Cities</h4>
-          <a href="#">Kochi</a>
-          <a href="#">Thrissur</a>
-          <a href="#">Calicut</a>
-          <a href="#">Trivandrum</a>
-          <a href="#">Alleppey</a>
+          <a href="#">Mumbai</a>
+          <a href="#">Delhi NCR</a>
+          <a href="#">Bangalore</a>
+          <a href="#">Hyderabad</a>
+          <a href="#">Pune</a>
         </div>
         <div class="footer-col">
           <h4>Company</h4>
@@ -425,7 +413,7 @@
       </div>
       <div class="footer-bottom">
         <span>© 2026 BigDeals Real Estate. All rights reserved.</span>
-        <span>Made with ♥ for Kerala</span>
+        <span>Made with ♥ for India</span>
       </div>
     </div>
   </footer>
@@ -436,16 +424,6 @@
       t.textContent = msg; t.classList.add('show');
       clearTimeout(window._toastTimer);
       window._toastTimer = setTimeout(() => t.classList.remove('show'), 2800);
-    }
-    function toggleMobileNav() {
-      document.getElementById('mobileNavOverlay').classList.toggle('open');
-      document.getElementById('mobileNavDrawer').classList.toggle('open');
-      document.body.style.overflow = document.getElementById('mobileNavDrawer').classList.contains('open') ? 'hidden' : '';
-    }
-    function closeMobileNav() {
-      document.getElementById('mobileNavOverlay').classList.remove('open');
-      document.getElementById('mobileNavDrawer').classList.remove('open');
-      document.body.style.overflow = '';
     }
     function submitContact(e) {
       e.preventDefault();
@@ -460,6 +438,24 @@
       window.open('https://wa.me/919567510999?text=' + text, '_blank');
       toast('Opening WhatsApp — we\'ll reply soon! ✅');
     }
+  </script>
+  <script>
+    // Mobile top nav: center active pill on load, center any pill on tap
+    (function() {
+      var nav = document.querySelector('.mobile-top-nav');
+      if (!nav) return;
+      // Center active pill on page load
+      var active = nav.querySelector('a.active');
+      if (active) {
+        active.scrollIntoView({ behavior: 'instant', inline: 'center', block: 'nearest' });
+      }
+      // Scroll clicked pill to center
+      nav.querySelectorAll('a').forEach(function(link) {
+        link.addEventListener('click', function() {
+          this.scrollIntoView({ behavior: 'smooth', inline: 'center', block: 'nearest' });
+        });
+      });
+    })();
   </script>
 </body>
 </html>

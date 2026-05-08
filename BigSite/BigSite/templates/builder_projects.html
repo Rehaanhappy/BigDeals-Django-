@@ -4,8 +4,8 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Builder Projects — BigDeals Kerala Real Estate</title>
-  <meta name="description" content="Explore top builder and developer projects in Kerala. Verified residential and commercial developments by trusted builders — from luxury villas to apartment complexes.">
+  <title>Builder Projects — BigDeals Indian Real Estate</title>
+  <meta name="description" content="Explore top builder and developer projects in India. Verified residential and commercial developments by trusted builders — from luxury villas to apartment complexes.">
   <link
     href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400;1,600&family=Outfit:wght@300;400;500;600&display=swap"
     rel="stylesheet">
@@ -68,15 +68,7 @@
     .nav-btn-ghost:hover { background:rgba(255,255,255,0.1); border-color:rgba(255,255,255,0.6) }
     .nav-btn-gold { background:var(--gold); border:none; color:var(--navy) }
     .nav-btn-gold:hover { background:var(--gold2) }
-    .nav-hamburger { display:none; background:none; border:none; cursor:pointer; padding:4px; color:#fff; flex-shrink:0 }
-    .mobile-nav-overlay { display:none; position:fixed; inset:0; background:rgba(11,28,63,0.5); z-index:998; backdrop-filter:blur(2px) }
-    .mobile-nav-overlay.open { display:block }
-    .mobile-nav-drawer { position:fixed; top:0; right:-300px; width:280px; height:100%; background:var(--navy); z-index:999; transition:right 0.3s ease; padding:80px 24px 32px; overflow-y:auto; display:flex; flex-direction:column; gap:0 }
-    .mobile-nav-drawer.open { right:0 }
-    .mobile-nav-drawer a { display:block; color:rgba(255,255,255,0.8); text-decoration:none; font-size:16px; font-weight:500; padding:14px 0; border-bottom:1px solid rgba(255,255,255,0.08) }
-    .mobile-nav-drawer a:hover { color:#fff }
-    .mobile-nav-drawer .nav-btn { width:100%; text-align:center; margin-top:8px; display:flex; align-items:center; justify-content:center }
-    .mobile-drawer-close { position:absolute; top:20px; right:20px; background:rgba(255,255,255,0.1); border:none; color:#fff; width:36px; height:36px; border-radius:50%; cursor:pointer; font-size:18px; display:flex; align-items:center; justify-content:center }
+    .mobile-top-nav { display:none }
 
     /* ── HERO ── */
     .hero {
@@ -163,6 +155,45 @@
     .section-hd p { font-size: 15px; color: var(--muted); max-width: 540px; margin: 0 auto; line-height: 1.7; font-weight: 300 }
     .section-rule { width: 48px; height: 3px; background: linear-gradient(90deg, var(--gold), var(--gold2)); border-radius: 2px; margin: 16px auto 0 }
     .prop-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px }
+    /* ── PROPERTY CARDS (synced from BigDeals.html) ── */
+    .prop-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:24px }
+    .p-card { background:#fff; border-radius:16px; overflow:hidden; border:1px solid var(--border); transition:all 0.3s cubic-bezier(0.25,0.46,0.45,0.94); cursor:pointer; position:relative }
+    .p-card::before { content:''; position:absolute; top:0; left:0; right:0; height:3px; background:linear-gradient(90deg,var(--blue),var(--sky)); opacity:0; transition:opacity 0.3s; z-index:1 }
+    .p-card:hover { transform:translateY(-6px); box-shadow:0 20px 60px rgba(11,28,63,0.14) }
+    .p-card:hover::before { opacity:1 }
+    .p-card-img { height:220px; position:relative; overflow:hidden; background:var(--offwhite); background-size:cover; background-position:center }
+    .p-card-img .img-bg { width:100%; height:100%; display:flex; align-items:center; justify-content:center; font-size:64px; transition:transform 0.5s cubic-bezier(0.25,0.46,0.45,0.94) }
+    .p-card:hover .img-bg { transform:scale(1.08) }
+    .card-badges { position:absolute; top:12px; left:12px; display:flex; flex-direction:column; gap:5px }
+    .badge { font-size:10px; font-weight:700; padding:4px 10px; border-radius:20px; letter-spacing:0.4px; text-transform:uppercase; display:inline-flex; align-items:center; gap:4px; backdrop-filter:blur(4px) }
+    .b-verified { background:rgba(236,253,245,0.95); color:#065F46; border:1px solid rgba(167,243,208,0.6) }
+    .b-new { background:rgba(219,234,254,0.95); color:#1E40AF; border:1px solid rgba(147,197,253,0.6) }
+    .b-reduced { background:rgba(254,243,199,0.95); color:#92400E; border:1px solid rgba(252,211,77,0.4) }
+    .card-like { position:absolute; top:12px; right:12px; width:36px; height:36px; border-radius:50%; background:rgba(255,255,255,0.95); border:none; cursor:pointer; display:flex; align-items:center; justify-content:center; font-size:16px; transition:all 0.2s; box-shadow:0 2px 12px rgba(0,0,0,0.15); backdrop-filter:blur(4px) }
+    .card-like:hover { transform:scale(1.2) }
+    .p-card-body { padding:16px 18px 20px }
+    .card-price { font-family:'Cormorant Garamond',serif; font-size:24px; font-weight:700; color:var(--navy); line-height:1 }
+    .card-title { font-size:15px; font-weight:600; color:var(--text); margin:4px 0 3px; line-height:1.3 }
+    .card-loc { font-size:12px; color:var(--muted); display:flex; align-items:center; gap:4px }
+    .card-divider { height:1px; background:var(--border); margin:12px 0 }
+    .card-attrs { display:flex; gap:16px }
+    .c-attr { display:flex; align-items:center; gap:5px; font-size:12px; color:var(--muted); font-weight:500 }
+    .card-foot { display:flex; gap:8px; margin-top:14px }
+    .c-btn { flex:1; height:36px; border-radius:8px; font-size:12px; font-weight:600; border:none; cursor:pointer; transition:all 0.2s; font-family:'Outfit',sans-serif; display:flex; align-items:center; justify-content:center; gap:5px }
+    .c-btn-wa { background:#25D366; color:#fff }
+    .c-btn-wa:hover { background:#1EB855 }
+    .c-btn-outline { background:#fff; color:var(--navy); border:1.5px solid var(--border) }
+    .c-btn-outline:hover { background:var(--navy); color:#fff; border-color:var(--navy) }
+    .skeleton-card { background:linear-gradient(90deg,#f0f0f0 25%,#e0e0e0 50%,#f0f0f0 75%); background-size:200% 100%; animation:shimmer 1.4s infinite; border-radius:16px; min-height:340px }
+    @keyframes shimmer { 0%{background-position:200% 0} 100%{background-position:-200% 0} }
+    .reveal { opacity:0; transform:translateY(20px); transition:opacity 0.5s ease,transform 0.5s ease }
+    .reveal.visible { opacity:1; transform:translateY(0) }
+    .empty-state { grid-column:1/-1; text-align:center; padding:80px 20px }
+    .empty-title { font-family:'Cormorant Garamond',serif; font-size:26px; font-weight:600; color:var(--navy); margin:16px 0 8px }
+    .empty-sub { font-size:14px; color:var(--muted) }
+    .load-more-wrap { text-align:center; padding:40px }
+    .load-more-btn { height:44px; padding:0 36px; background:#fff; border:1.5px solid var(--border); border-radius:24px; font-size:14px; font-weight:600; color:var(--navy); cursor:pointer; font-family:'Outfit',sans-serif; transition:all 0.2s }
+    .load-more-btn:hover { background:var(--navy); color:#fff; border-color:var(--navy) }
 
     /* Coming Soon Card */
     .coming-soon-wrap {
@@ -207,12 +238,15 @@
     /* ── RESPONSIVE ── */
     @media(max-width:1024px) {
       .nav-links, .nav-actions { display: none }
-      .nav-hamburger { display: flex }
       .nav-inner { padding: 0 20px; height: 60px }
       .hero-content { padding: 60px 24px 56px }
       .prop-grid { grid-template-columns: 1fr 1fr }
       .footer-top { grid-template-columns: 1fr 1fr; gap: 32px }
       .footer-bottom { flex-direction: column; gap: 8px; text-align: center }
+      .mobile-top-nav { display:flex; gap:12px; align-items:center; justify-content:safe center; padding:0 20px 12px; overflow-x:auto; scroll-behavior:smooth; overscroll-behavior-x:contain; scroll-snap-type:x mandatory; -ms-overflow-style:none; scrollbar-width:none }
+      .mobile-top-nav::-webkit-scrollbar { display:none }
+      .mobile-top-nav a { white-space:nowrap; scroll-snap-align: center; padding:6px 16px; background:rgba(255,255,255,0.1); border:1px solid rgba(255,255,255,0.2); border-radius:20px; font-size:13px; font-weight:500; color:rgba(255,255,255,0.8); text-decoration:none; transition:all 0.2s; flex-shrink:0 }
+      .mobile-top-nav a:hover, .mobile-top-nav a.active { background:var(--gold); color:var(--navy); border-color:var(--gold) }
     }
     @media(max-width:768px) {
       .hero-content { padding: 48px 16px 48px }
@@ -251,30 +285,17 @@
             <polyline points="9 22 9 12 15 12 15 22"/>
           </svg> Back to Listings</button>
       </div>
-      <button class="nav-hamburger" onclick="toggleMobileNav()" aria-label="Menu">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="24" height="24">
-          <line x1="3" y1="6" x2="21" y2="6"/>
-          <line x1="3" y1="12" x2="21" y2="12"/>
-          <line x1="3" y1="18" x2="21" y2="18"/>
-        </svg>
-      </button>
+    <div class="mobile-top-nav">
+      <a href="/buy/">Buy</a>
+      <a href="/rent/">Rent</a>
+      <a href="/pre_launch.html">Pre-launch</a>
+      <a href="/builder_projects.html" class="active">Builder Projects</a>
+      <a href="/commercial/">Commercial</a>
+      <a href="/contact/">Contact</a>
     </div>
   </nav>
 
   <!-- MOBILE NAV DRAWER -->
-  <div class="mobile-nav-overlay" id="mobileNavOverlay" onclick="closeMobileNav()"></div>
-  <div class="mobile-nav-drawer" id="mobileNavDrawer">
-    <button class="mobile-drawer-close" onclick="closeMobileNav()">&times;</button>
-    <a href="/buy/" onclick="closeMobileNav()">Buy</a>
-    <a href="/rent/" onclick="closeMobileNav()">Rent</a>
-    <a href="/pre_launch.html" onclick="closeMobileNav()">Pre-launch Offers</a>
-    <a href="/builder_projects.html" onclick="closeMobileNav()">Builder Projects</a>
-    <a href="/commercial/" onclick="closeMobileNav()">Commercial</a>
-    <a href="/contact/" onclick="closeMobileNav()">Contact</a>
-    <button class="nav-btn nav-btn-gold" onclick="closeMobileNav();window.location.href='/'" style="margin-top:16px">
-      Back to Listings
-    </button>
-  </div>
 
   <!-- HERO -->
   <section class="hero">
@@ -284,8 +305,8 @@
     <div class="hero-glow2"></div>
     <div class="hero-content">
       <div class="hero-label">Trusted Developers</div>
-      <h1>Builder <em>Projects</em><br>across Kerala</h1>
-      <p class="hero-sub">Explore verified developments from Kerala's most trusted builders. Quality-checked residential complexes, villas, and commercial spaces — all in one place.</p>
+      <h1>Builder <em>Projects</em><br>across India</h1>
+      <p class="hero-sub">Explore verified developments from India's most trusted builders. Quality-checked residential complexes, villas, and commercial spaces — all in one place.</p>
     </div>
   </section>
 
@@ -298,23 +319,13 @@
           Featured Developers
         </div>
         <h2>Builder Projects</h2>
-        <p>Quality residential and commercial projects from verified developers across Kerala — all background-checked by our team.</p>
+        <p>Quality residential and commercial projects from verified developers across India — all background-checked by our team.</p>
         <div class="section-rule"></div>
       </div>
 
       <!-- Property cards injected here by JS -->
-      <div class="prop-grid" id="builderProjectsGrid">
-        <div class="coming-soon-wrap">
-          <div class="coming-soon-icon">🏢</div>
-          <div class="coming-soon-title">Projects Coming Soon</div>
-          <p class="coming-soon-sub">We're onboarding Kerala's top developers and verifying their projects. Listings will appear here shortly. Interested builders can contact us to feature your projects.</p>
-          <button class="notify-btn" onclick="contactBuilder()">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="16" height="16"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
-            List Your Project
-          </button>
-        </div>
+      <div class="prop-grid" id="builderGrid"></div>
       </div>
-    </div>
   </section>
 
   <!-- FOOTER -->
@@ -323,7 +334,7 @@
       <div class="footer-top">
         <div class="footer-brand">
           <a href="/" class="logo">Big<span>Deals</span></a>
-          <p>Kerala's most trusted real estate platform. Connecting buyers, sellers and investors across God's Own Country and beyond.</p>
+          <p>India's most trusted real estate platform. Connecting buyers, sellers and investors across India and beyond.</p>
         </div>
         <div class="footer-col">
           <h4>Browse</h4>
@@ -335,11 +346,11 @@
         </div>
         <div class="footer-col">
           <h4>Cities</h4>
-          <a href="#">Kochi</a>
-          <a href="#">Thrissur</a>
-          <a href="#">Calicut</a>
-          <a href="#">Trivandrum</a>
-          <a href="#">Alleppey</a>
+          <a href="#">Mumbai</a>
+          <a href="#">Delhi NCR</a>
+          <a href="#">Bangalore</a>
+          <a href="#">Hyderabad</a>
+          <a href="#">Pune</a>
         </div>
         <div class="footer-col">
           <h4>Company</h4>
@@ -351,7 +362,7 @@
       </div>
       <div class="footer-bottom">
         <span>© 2026 BigDeals Real Estate. All rights reserved.</span>
-        <span>Made with ♥ for Kerala</span>
+        <span>Made with ♥ for India</span>
       </div>
     </div>
   </footer>
@@ -363,20 +374,186 @@
       clearTimeout(window._toastTimer);
       window._toastTimer = setTimeout(() => t.classList.remove('show'), 2800);
     }
-    function toggleMobileNav() {
-      document.getElementById('mobileNavOverlay').classList.toggle('open');
-      document.getElementById('mobileNavDrawer').classList.toggle('open');
-      document.body.style.overflow = document.getElementById('mobileNavDrawer').classList.contains('open') ? 'hidden' : '';
-    }
-    function closeMobileNav() {
-      document.getElementById('mobileNavOverlay').classList.remove('open');
-      document.getElementById('mobileNavDrawer').classList.remove('open');
-      document.body.style.overflow = '';
-    }
     function contactBuilder() {
       const text = 'Hi BigDeals! I\'d like to list my builder project on your platform. Please share the process.';
       window.open('https://wa.me/919567510999?text=' + encodeURIComponent(text), '_blank');
     }
+  </script>
+  <script>
+    // Mobile top nav: center active pill on load, center any pill on tap
+    (function() {
+      var nav = document.querySelector('.mobile-top-nav');
+      if (!nav) return;
+      // Center active pill on page load
+      var active = nav.querySelector('a.active');
+      if (active) {
+        active.scrollIntoView({ behavior: 'instant', inline: 'center', block: 'nearest' });
+      }
+      // Scroll clicked pill to center
+      nav.querySelectorAll('a').forEach(function(link) {
+        link.addEventListener('click', function() {
+          this.scrollIntoView({ behavior: 'smooth', inline: 'center', block: 'nearest' });
+        });
+      });
+    })();
+  </script>
+  <script>
+    (function(){
+      const GRID_ID = 'builderGrid';
+      const TYPE_FILTER = ''; // passed to ?type=
+      let allProps = [], currentPage = 1, totalPages = 1, isFetching = false;
+
+      function esc(s){ const d=document.createElement('div'); d.textContent=s||''; return d.innerHTML; }
+
+      function getBadges(p){
+        let h='';
+        if(p.verified) h+=`<span class="badge b-verified"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" width="10" height="10"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>Verified</span>`;
+        if(p.label==='new') h+=`<span class="badge b-new">New</span>`;
+        if(p.label==='reduced') h+=`<span class="badge b-reduced">Price Reduced</span>`;
+        return h;
+      }
+
+      function getAttrs(p){
+        const TYPE_MAP={apartment:'residential',villa:'residential',house:'residential',penthouse:'residential',office:'commercial',shop:'commercial',building:'commercial',commercial:'commercial',land:'land'};
+        const mt=p.main_type||TYPE_MAP[p.type]||'residential';
+        const det=p.details||{};
+        const attrs=[];
+        if(mt==='land'){
+          const ps=det.plot_size||p.area;
+          if(ps&&ps!=='Not specified'&&ps!=='—'&&ps!=='None') attrs.push(`<div class="c-attr"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="12" height="12"><path d="M3 17l4-8 4 4 4-6 4 10"/><line x1="3" y1="21" x2="21" y2="21"/></svg> ${ps}</div>`);
+        }else if(mt==='commercial'){
+          const a=det.area||p.area;
+          if(a&&a!=='Not specified'&&a!=='—'&&a!=='None') attrs.push(`<div class="c-attr"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="12" height="12"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18"/><path d="M9 21V9"/></svg> ${a}</div>`);
+          const fn=det.furnishing;
+          if(fn) attrs.push(`<div class="c-attr"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="12" height="12"><path d="M20 9V6a2 2 0 0 0-2-2H6a2 2 0 0 0-2 2v3"/><path d="M2 11v5a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2v-5a2 2 0 0 0-4 0v2H6v-2a2 2 0 0 0-4 0z"/></svg> ${fn.replace(/-/g,' ').replace(/\b\w/g,c=>c.toUpperCase())}</div>`);
+        }else{
+          const beds=det.bedrooms!==undefined?det.bedrooms:p.beds;
+          const baths=det.bathrooms!==undefined?det.bathrooms:p.baths;
+          if(beds&&beds>0) attrs.push(`<div class="c-attr"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="12" height="12"><path d="M2 4v16"/><path d="M2 8h18a2 2 0 0 1 2 2v10"/><path d="M2 17h20"/><path d="M6 8v9"/></svg> ${beds} Bed${beds>1?'s':''}</div>`);
+          if(baths&&baths>0) attrs.push(`<div class="c-attr"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="12" height="12"><path d="M4 12h16a1 1 0 0 1 1 1v3a4 4 0 0 1-4 4H7a4 4 0 0 1-4-4v-3a1 1 0 0 1 1-1z"/><path d="M6 12V5a2 2 0 0 1 2-2h3v2.25"/></svg> ${baths} Bath${baths>1?'s':''}</div>`);
+        }
+        return attrs.join('')||'<div class="c-attr" style="color:#9CA3AF">—</div>';
+      }
+
+      function waOpen(pid){
+        const p=allProps.find(x=>String(x.id)===String(pid));
+        const text=p?`Hi BigDeals! I'm interested in *${p.title}* at *${p.location}*, priced at *${p.price}* (ID:${p.id}). Please share more details.`:`Hi BigDeals! I'm interested in a property.`;
+        window.open('https://wa.me/919567510999?text='+encodeURIComponent(text),'_blank');
+      }
+
+      function openDetail(pid){
+        window.location.href='/?detail='+pid;
+      }
+
+      function toggleSave(pid){
+        let s=JSON.parse(localStorage.getItem('bd_saved')||'[]').map(String);
+        const i=s.indexOf(String(pid));
+        if(i>-1){s.splice(i,1);}else{s.push(String(pid));}
+        localStorage.setItem('bd_saved',JSON.stringify(s));
+        const btn=document.getElementById('lk'+pid);
+        if(btn) btn.innerHTML=i>-1?'<svg viewBox="0 0 24 24" fill="none" stroke="#9CA3AF" stroke-width="2" width="16" height="16"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>':'<svg viewBox="0 0 24 24" fill="#DC2626" stroke="#DC2626" stroke-width="2" width="16" height="16"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>';
+      }
+
+      function renderGrid(props, append){
+        const g=document.getElementById(GRID_ID);
+        if(!append) g.innerHTML='';
+        if(!props||!props.length){
+          if(!append) g.innerHTML='<div class="empty-state"><div class="empty-title">No listings yet</div><div class="empty-sub">Check back soon — new properties are added daily.</div><a href="/" style="display:inline-block;margin-top:20px;padding:10px 28px;background:var(--navy);color:#fff;border-radius:10px;text-decoration:none;font-weight:600">View All Listings</a></div>';
+          return;
+        }
+        const saved=JSON.parse(localStorage.getItem('bd_saved')||'[]').map(String);
+        const frag=document.createDocumentFragment();
+        for(const p of props){
+          const pid=String(p.id);
+          const liked=saved.includes(pid);
+          const img=p.imageUrl||'https://images.unsplash.com/photo-1560518883-ce09059eeffa?w=800&q=80';
+          const card=document.createElement('div');
+          card.className='p-card reveal';
+          card.onclick=()=>openDetail(pid);
+
+          const imgDiv=document.createElement('div');
+          imgDiv.className='p-card-img';
+          imgDiv.style.backgroundImage='url('+JSON.stringify(img)+')';
+
+          const badges=document.createElement('div');
+          badges.className='card-badges';
+          badges.innerHTML=getBadges(p);
+          imgDiv.appendChild(badges);
+
+          const likeBtn=document.createElement('button');
+          likeBtn.className='card-like';
+          likeBtn.id='lk'+pid;
+          likeBtn.setAttribute('aria-label','Save');
+          likeBtn.style.zIndex='2';
+          likeBtn.innerHTML=liked?'<svg viewBox="0 0 24 24" fill="#DC2626" stroke="#DC2626" stroke-width="2" width="16" height="16"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>':'<svg viewBox="0 0 24 24" fill="none" stroke="#9CA3AF" stroke-width="2" width="16" height="16"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>';
+          likeBtn.onclick=e=>{e.stopPropagation();toggleSave(pid);};
+          imgDiv.appendChild(likeBtn);
+          card.appendChild(imgDiv);
+
+          const body=document.createElement('div');
+          body.className='p-card-body';
+          const mapHref=(p.mapUrl&&p.mapUrl!=='None')?p.mapUrl:'';
+          body.innerHTML=
+            '<div class="card-price">'+esc(p.price)+'</div>'+
+            '<div class="card-title">'+esc(p.title)+'</div>'+
+            '<div class="card-loc"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="11" height="11"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg><span>'+esc(p.location)+'</span>'+(mapHref?'<a href="'+mapHref+'" target="_blank" onclick="event.stopPropagation()" style="margin-left:6px;color:#2563EB;background:#EFF6FF;padding:2px 6px;border-radius:4px;font-size:10px;font-weight:600;text-decoration:none;">Map</a>':'')+'</div>'+
+            '<div class="card-divider"></div>'+
+            '<div class="card-attrs">'+getAttrs(p)+'</div>';
+
+          const foot=document.createElement('div');
+          foot.className='card-foot';
+          const waBtn=document.createElement('button');
+          waBtn.className='c-btn c-btn-wa';
+          waBtn.innerHTML='<svg viewBox="0 0 24 24" fill="currentColor" width="13" height="13"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg> WhatsApp';
+          waBtn.onclick=e=>{e.stopPropagation();waOpen(pid);};
+          const detBtn=document.createElement('button');
+          detBtn.className='c-btn c-btn-outline';
+          detBtn.textContent='View Details';
+          detBtn.onclick=e=>{e.stopPropagation();openDetail(pid);};
+          foot.appendChild(waBtn); foot.appendChild(detBtn);
+          body.appendChild(foot);
+          card.appendChild(body);
+          frag.appendChild(card);
+        }
+        g.appendChild(frag);
+
+        // Reveal animation
+        const obs=new IntersectionObserver(entries=>{entries.forEach(e=>{if(e.isIntersecting){e.target.classList.add('visible');obs.unobserve(e.target);}});},{threshold:0.1});
+        g.querySelectorAll('.reveal:not(.visible)').forEach(el=>obs.observe(el));
+
+        // Load more
+        let lmw=document.getElementById('loadMoreWrap');
+        if(totalPages>currentPage){
+          if(!lmw){lmw=document.createElement('div');lmw.id='loadMoreWrap';lmw.className='load-more-wrap';g.after(lmw);}
+          lmw.innerHTML='<button class="load-more-btn" onclick="loadMore()">Load More</button>';
+        }else{
+          if(lmw) lmw.innerHTML='';
+        }
+      }
+
+      async function fetchProps(page,append){
+        if(isFetching)return; isFetching=true;
+        if(!append){
+          const g=document.getElementById(GRID_ID);
+          g.innerHTML=Array(6).fill('<div class="skeleton-card"></div>').join('');
+        }
+        try{
+          const params=new URLSearchParams({page});
+          if(TYPE_FILTER) params.append('type',TYPE_FILTER);
+          const res=await fetch('/api/properties/?'+params);
+          const data=await res.json();
+          totalPages=data.total_pages||1;
+          currentPage=page;
+          const props=data.properties||[];
+          if(append) allProps=[...allProps,...props]; else allProps=props;
+          renderGrid(append?props:allProps,append);
+        }catch(e){console.error(e);}
+        finally{isFetching=false;}
+      }
+
+      window.loadMore=function(){fetchProps(currentPage+1,true);};
+      fetchProps(1,false);
+    })();
   </script>
 </body>
 
