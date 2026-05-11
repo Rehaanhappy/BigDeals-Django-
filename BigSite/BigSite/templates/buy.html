@@ -636,6 +636,141 @@
   </footer>
 
     <script>
+    // =========================
+    // PLACEMENT FETCH
+    // Loads properties from the API that are tagged for this specific listing page.
+    // The ?placement=buy parameter filters server-side so only relevant properties appear.
+    // =========================
+    (function() {
+      const PLACEMENT = 'buy';
+      const GRID_ID   = 'buyGrid';
+
+      // Helper: safely escape text before putting it in HTML (prevents XSS)
+      function esc(s) {
+        const d = document.createElement('div');
+        d.textContent = s || '';
+        return d.innerHTML;
+      }
+
+      // Render skeleton loading cards while we wait for the API
+      function showSkeletons(grid) {
+        grid.innerHTML = Array(6).fill('<div class="skeleton-card"></div>').join('');
+      }
+
+      // Build a single property card element from the API data
+      function buildCard(p) {
+        const card = document.createElement('div');
+        card.className = 'p-card reveal';
+        card.onclick = () => {
+          if (window.bdOpenModal) window.bdOpenModal(p.id);
+        };
+
+        const imgBg = document.createElement('div');
+        imgBg.className = 'p-card-img';
+        if (p.imageUrl) imgBg.style.backgroundImage = `url('${p.imageUrl}')`;
+        imgBg.innerHTML = `<div class="img-bg">${p.imageUrl ? '' : '🏠'}</div>`;
+
+        const badges = document.createElement('div');
+        badges.className = 'card-badges';
+        if (p.verified) badges.innerHTML += `<span class="badge b-verified">✓ Verified</span>`;
+        if (p.label)    badges.innerHTML += `<span class="badge b-new">${esc(p.label)}</span>`;
+        imgBg.appendChild(badges);
+
+        const body = document.createElement('div');
+        body.className = 'p-card-body';
+
+        let mapHref = '';
+        if (p.mapUrl && p.mapUrl !== 'None') {
+          if (p.mapUrl.includes('<a')) {
+            const tmp = document.createElement('div');
+            tmp.innerHTML = p.mapUrl;
+            const link = tmp.querySelector('a');
+            mapHref = link ? link.href : '';
+          } else {
+            mapHref = p.mapUrl;
+          }
+        }
+
+        const det = p.details || {};
+        const beds  = det.bedrooms  !== undefined ? det.bedrooms  : (p.beds  || 0);
+        const baths = det.bathrooms !== undefined ? det.bathrooms : (p.baths || 0);
+        const area  = det.area || p.area || '';
+        const mt    = p.main_type || '';
+
+        let attrsHtml = '';
+        if (mt === 'land') {
+          attrsHtml = area ? `<div class="c-attr"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="12" height="12"><rect x="3" y="3" width="18" height="18" rx="2"/></svg>${esc(area)}</div>` : '';
+        } else if (mt === 'commercial') {
+          attrsHtml = area ? `<div class="c-attr"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="12" height="12"><rect x="3" y="3" width="18" height="18" rx="2"/></svg>${esc(area)}</div>` : '';
+        } else {
+          if (beds)  attrsHtml += `<div class="c-attr"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="12" height="12"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/></svg>${beds} Beds</div>`;
+          if (baths) attrsHtml += `<div class="c-attr"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="12" height="12"><path d="M9 6H5a2 2 0 0 0-2 2v3a1 1 0 0 0 1 1h14a1 1 0 0 0 1-1V8a2 2 0 0 0-2-2h-4"/></svg>${baths} Baths</div>`;
+          if (area)  attrsHtml += `<div class="c-attr"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="12" height="12"><rect x="3" y="3" width="18" height="18" rx="2"/></svg>${esc(area)}</div>`;
+        }
+
+        body.innerHTML = `
+          <div class="card-price">${esc(p.price)}</div>
+          <div class="card-title">${esc(p.title)}</div>
+          <div class="card-loc"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="11" height="11"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg><span>${esc(p.location)}</span>${mapHref ? `<a href="${mapHref}" target="_blank" onclick="event.stopPropagation()" style="margin-left:6px;color:#2563EB;background:#EFF6FF;padding:2px 6px;border-radius:4px;font-size:10px;font-weight:600;text-decoration:none;">Map</a>` : ''}</div>
+          <div class="card-divider"></div>
+          <div class="card-attrs">${attrsHtml}</div>
+        `;
+
+        const foot = document.createElement('div');
+        foot.className = 'card-foot';
+        foot.innerHTML = `
+          <button class="c-btn c-btn-outline" onclick="event.stopPropagation();window.bdOpenModal && window.bdOpenModal(${p.id})">View Details</button>
+          <button class="c-btn c-btn-wa" onclick="event.stopPropagation();window.location.href='https://wa.me/919567510999?text=Hi, I am interested in: ${encodeURIComponent(p.title)} - ${encodeURIComponent(p.price)}'">
+            <svg viewBox="0 0 24 24" fill="currentColor" width="12" height="12" style="margin-right:4px"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+            WhatsApp
+          </button>
+        `;
+        body.appendChild(foot);
+        card.appendChild(imgBg);
+        card.appendChild(body);
+
+        // Animate card into view when it enters the viewport
+        setTimeout(() => {
+          const obs = new IntersectionObserver(([entry]) => {
+            if (entry.isIntersecting) { card.classList.add('visible'); obs.disconnect(); }
+          }, { threshold: 0.1 });
+          obs.observe(card);
+        }, 50);
+
+        return card;
+      }
+
+      async function loadPlacements() {
+        const grid = document.getElementById(GRID_ID);
+        if (!grid) return;
+        showSkeletons(grid);
+
+        try {
+          // Fetch only properties tagged for this page's placement slug
+          const res = await fetch(`/api/properties/?placement=${PLACEMENT}&page=1`);
+          const data = await res.json();
+
+          // Store all fetched properties so the detail modal (bdOpenModal) can access them
+          window.bdAllProps = (window.bdAllProps || []);
+          data.properties.forEach(p => {
+            if (!window.bdAllProps.find(x => x.id === p.id)) window.bdAllProps.push(p);
+          });
+
+          grid.innerHTML = '';
+          if (!data.properties.length) {
+            grid.innerHTML = `<div class="empty-state"><div class="empty-title">No properties yet</div><div class="empty-sub">No properties have been tagged for this page. Assign them in the admin panel.</div></div>`;
+            return;
+          }
+          data.properties.forEach(p => grid.appendChild(buildCard(p)));
+        } catch(e) {
+          grid.innerHTML = `<div class="empty-state"><div class="empty-title">Could not load properties</div><div class="empty-sub">Please try refreshing the page.</div></div>`;
+        }
+      }
+
+      loadPlacements();
+    })();
+    </script>
+  <script>
     function toast(msg) {
       const t = document.getElementById('toast');
       if(t) {

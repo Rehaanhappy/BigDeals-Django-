@@ -119,7 +119,7 @@ def contact_view(request):
 def api_properties(request):
     """
     JSON API for properties serving the frontend.
-    Supports server-side pagination, search queries, main_type and sub_type filtering.
+    Supports server-side pagination, search queries, main_type/sub_type, and placement filtering.
     """
     properties = Property.objects.filter(status='approved').prefetch_related('images')
 
@@ -149,7 +149,14 @@ def api_properties(request):
                 Q(title__icontains=token) | Q(location__icontains=token)
             )
 
-    # 3. Handle Saved IDs
+    # 3. Placement filter — returns only properties tagged for a specific listing page.
+    # e.g. ?placement=buy returns properties where 'buy' is in the placements JSON list.
+    placement = request.GET.get('placement', '').strip()
+    VALID_PLACEMENTS = {'buy', 'rent', 'commercial', 'pre_launch', 'builder_projects'}
+    if placement and placement in VALID_PLACEMENTS:
+        properties = properties.filter(placements__contains=placement)
+
+    # 4. Handle Saved IDs
     ids_param = request.GET.get('ids')
     if ids_param:
         id_list = [_safe_int(x) for x in ids_param.split(',') if _safe_int(x)]
@@ -193,6 +200,8 @@ def api_properties(request):
             'imageUrl': p.image.url if p.image else None,
             'gallery': [img.image.url for img in p.images.all() if img.image],
             'submittedAt': p.created_at.strftime('%Y-%m-%d %H:%M:%S'),
+            # Which listing pages this property is tagged for
+            'placements': p.placements or [],
         })
 
     return JsonResponse({
@@ -201,6 +210,38 @@ def api_properties(request):
         'total_pages': paginator.num_pages,
         'has_next': page_obj.has_next()
     })
+
+
+@admin_required
+def update_placements(request, pk):
+    """
+    POST /admin/update-placements/<pk>/
+    Saves the list of page placements for a property to the database.
+    Expects JSON body: { "placements": ["buy", "rent"] }
+    """
+    if request.method != 'POST':
+        return JsonResponse({'error': 'POST required'}, status=405)
+
+    try:
+        prop = Property.objects.get(pk=pk)
+    except Property.DoesNotExist:
+        return JsonResponse({'error': 'Property not found'}, status=404)
+
+    import json
+    try:
+        data = json.loads(request.body)
+    except (json.JSONDecodeError, ValueError):
+        return JsonResponse({'error': 'Invalid JSON'}, status=400)
+
+    VALID_PLACEMENTS = {'buy', 'rent', 'commercial', 'pre_launch', 'builder_projects'}
+    incoming = data.get('placements', [])
+    # Sanitise: keep only known valid slugs
+    cleaned = [p for p in incoming if p in VALID_PLACEMENTS]
+
+    prop.placements = cleaned
+    prop.save(update_fields=['placements'])
+
+    return JsonResponse({'success': True, 'id': prop.pk, 'placements': prop.placements})
 
 
 def admin_dashboard_view(request):

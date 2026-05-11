@@ -23,7 +23,8 @@ from properties.views import (
     update_property_status, delete_image, delete_property,
     admin_login, admin_logout, api_properties,
     pre_launch_view, builder_projects_view,
-    buy_view, rent_view, commercial_view, contact_view
+    buy_view, rent_view, commercial_view, contact_view,
+    update_placements,
 )
 
 urlpatterns = [
@@ -43,6 +44,7 @@ urlpatterns = [
     path('admin/update/<int:pk>/', update_property_status, name='update-property'),
     path('admin/delete/<int:pk>/', delete_property, name='delete-property'),
     path('admin/delete-image/<int:pk>/', delete_image, name='delete-image'),
+    path('admin/update-placements/<int:pk>/', update_placements, name='update-placements'),
 ]
 
 if settings.DEBUG:

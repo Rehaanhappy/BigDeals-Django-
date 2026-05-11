@@ -1975,8 +1975,8 @@
             verified: {{ p.verified|yesno:"true,false" }}, label: "{{ p.label|escapejs }}",
             status: "{{ p.status|lower }}", submittedAt: "{{ p.created_at.isoformat }}",
             images: [{% for img in p.images.all %}{ id: "{{ img.id }}", url: "{{ img.image.url|escapejs }}" }{% if not forloop.last %},{% endif %}{% endfor %}],
-            // placements: loaded from localStorage so the admin can persist tags across sessions
-            placements: JSON.parse(localStorage.getItem('bd_placements_{{ p.id }}') || '[]')
+            // placements: read directly from the database via Django server-side rendering
+            placements: {{ p.placements|default:'[]'|safe }}
     } {% if not forloop.last %}, {% endif %}
     {% endfor %}
     ];
@@ -2011,29 +2011,44 @@
       document.getElementById('placementModal').style.display = 'flex';
     }
 
-    // savePlacements: collect checked boxes, update the property object, persist to localStorage
+    // savePlacements: collect checked boxes, POST them to the Django API to save to the database,
+    // then update the in-memory property objects so the table re-renders immediately with new pills.
     function savePlacements() {
       const id = window._placementEditId;
       if (!id) return;
       const selected = ['buy','rent','commercial','pre_launch','builder_projects']
         .filter(key => { const cb = document.getElementById('plcm_' + key); return cb && cb.checked; });
 
-      // Persist to localStorage so it survives page refresh (keyed by property id)
-      localStorage.setItem('bd_placements_' + id, JSON.stringify(selected));
+      // POST to the real Django API — this saves to the database permanently.
+      fetch(`/admin/update-placements/${id}/`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json', 'X-CSRFToken': CSRF },
+        body: JSON.stringify({ placements: selected })
+      })
+      .then(r => r.json())
+      .then(data => {
+        if (!data.success) { toast('Failed to save placements', 'error'); return; }
 
-      // Update in-memory objects across all three status buckets
-      ['bd_pending_listings','bd_approved_listings','bd_rejected_listings'].forEach(storeKey => {
-        try {
-          let arr = JSON.parse(localStorage.getItem(storeKey) || '[]');
-          arr = arr.map(p => String(p.id) === String(id) ? { ...p, placements: selected } : p);
-          localStorage.setItem(storeKey, JSON.stringify(arr));
-        } catch(e) {}
-      });
+        // Update the in-memory dbProperties array so the table re-renders with new pills immediately
+        // (without needing a full page refresh)
+        const all = [...getPending(), ...getApproved(), ...getRejected()];
+        all.forEach(p => {
+          if (String(p.id) === String(id)) p.placements = selected;
+        });
+        // Sync back to localStorage so existing getPending/getApproved helpers see the change
+        ['bd_pending_listings','bd_approved_listings','bd_rejected_listings'].forEach(key => {
+          try {
+            let arr = JSON.parse(localStorage.getItem(key) || '[]');
+            arr = arr.map(p => String(p.id) === String(id) ? { ...p, placements: selected } : p);
+            localStorage.setItem(key, JSON.stringify(arr));
+          } catch(e) {}
+        });
 
-      document.getElementById('placementModal').style.display = 'none';
-      // Re-render the table so new placement pills appear immediately
-      renderTable(currentTab);
-      toast('Placements updated!', 'success');
+        document.getElementById('placementModal').style.display = 'none';
+        renderTable(currentTab);
+        toast('Placements saved to database!', 'success');
+      })
+      .catch(() => toast('Network error saving placements', 'error'));
     }
 
     initTabs();

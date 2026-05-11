@@ -72,6 +72,15 @@ class Property(models.Model):
     verified = models.BooleanField(default=False)
     label = models.CharField(max_length=50, null=True, blank=True)
 
+    # Which listing pages this property is tagged to appear on.
+    # Stored as a JSON list of slug strings, e.g. ["buy", "rent"].
+    # Valid values: 'buy', 'rent', 'commercial', 'pre_launch', 'builder_projects'
+    placements = models.JSONField(
+        default=list,
+        blank=True,
+        help_text="Page slugs this property is tagged for: buy, rent, commercial, pre_launch, builder_projects"
+    )
+
     status = models.CharField(max_length=20, choices=STATUS_CHOICES, default='pending', db_index=True)
     image = models.ImageField(upload_to='property_images/', null=True, blank=True)
     created_at = models.DateTimeField(auto_now_add=True, db_index=True)
