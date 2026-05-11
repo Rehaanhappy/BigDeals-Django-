@@ -297,7 +297,13 @@
       padding: 64px 0
     }
 
-    /* ── NAV ── */
+    /* =========================
+  NAVBAR STYLING
+  Controls the top navigation menu.
+  display: flex ensures the logo and links sit horizontally side-by-side.
+  position: fixed keeps it at the top even when scrolling.
+  z-index: 1000 makes sure it floats ABOVE all other content on the page.
+========================= */
     nav {
       position: fixed;
       top: 0;
@@ -412,7 +418,12 @@
       background: var(--gold2)
     }
 
-    /* ── HERO ── */
+    /* =========================
+  HERO SECTION STYLING
+  The big banner at the top. 
+  min-height ensures it takes up a good portion of the screen.
+  flex-direction: column stacks the title, subtitle, and search bar vertically.
+========================= */
     .hero {
       min-height: 100vh;
       background: var(--navy);
@@ -2947,7 +2958,12 @@
   </button>
 
   <!-- NAV -->
-  <nav id="mainNav">
+  <!-- =========================
+  NAVIGATION BAR (HEADER)
+  This section stays fixed at the top of the screen.
+  We use a <nav> tag for semantic HTML (good for SEO).
+========================= -->
+<nav id="mainNav">
     <div class="nav-inner">
       <a href="#" class="nav-logo">Big<span>Deals</span></a>
       <div class="nav-links">
@@ -2980,7 +2996,12 @@
   <!-- MOBILE NAV DRAWER -->
 
   <!-- HERO -->
-  <section class="hero">
+  <!-- =========================
+  HERO SECTION
+  The large welcoming area at the top of the page.
+  It contains the main search bar and background image.
+========================= -->
+<section class="hero">
     <div class="hero-bg"></div>
     <div class="hero-pattern"></div>
     <div class="hero-glow"></div>
@@ -3320,7 +3341,11 @@
   </div>
 
   <!-- DETAIL MODAL -->
-  <div class="modal-overlay" id="detailOverlay" onclick="closeModal(event,this)">
+  <!-- =========================
+  PROPERTY DETAIL MODAL (POPUP)
+  This is hidden by default. It overlays the entire screen when a property is clicked.
+========================= -->
+<div class="modal-overlay" id="detailOverlay" onclick="closeModal(event,this)">
     <div class="modal" id="detailModal">
       <div class="modal-gallery">
         <div class="img-bg" id="modalGallery"></div>
@@ -3537,7 +3562,11 @@
   </div>
 
   <!-- FOOTER -->
-  <footer>
+  <!-- =========================
+  FOOTER SECTION
+  Contains links, contact info, and copyright at the bottom of the page.
+========================= -->
+<footer>
     <div class="footer-inner">
       <div class="footer-top">
         <div class="footer-brand">
@@ -3636,6 +3665,10 @@
       document.getElementById('grid-img-' + id).style.backgroundImage = `url('${gal.urls[gal.idx]}')`;
     }
 
+    // =========================
+    // FUNCTION: renderGrid
+    // Takes the raw JSON data received from the server and turns it into HTML property cards.
+    // =========================
     function renderGrid(props, append = false) {
       const g = document.getElementById('propGrid');
       if (!props || !props.length) {
@@ -3823,6 +3856,13 @@
       `).join('');
     }
 
+    // =========================
+    // FUNCTION: fetchProperties
+    // This function talks to our backend server (API) to grab property data.
+    // We use "async/await" so the browser doesn\'t freeze while waiting for the internet.
+    // "page" tells the server which chunk of data to send (for pagination).
+    // "append" tells us if we are replacing the current list, or adding to the bottom (Load More).
+    // =========================
     async function fetchProperties(page = 1, append = false) {
       if (isFetching) return;
       isFetching = true;
@@ -4053,6 +4093,11 @@
       return svgs[p.svgIcon] || svgs.apartment;
     }
 
+    // =========================
+    // FUNCTION: updateGallery
+    // Handles the left/right swipe logic for the property detail modal image gallery.
+    // "dir" is direction (+1 for next, -1 for previous).
+    // =========================
     function updateGallery(dir) {
       if (!window.currentGallery) return;
       window.currentGalleryIdx += dir;

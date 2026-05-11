@@ -43,7 +43,13 @@
     @keyframes heroFadeUp { from { opacity: 0; transform: translateY(28px) } to { opacity: 1; transform: translateY(0) } }
     @keyframes heroPulse { 0%,100% { opacity:1; transform:scale(1) } 50% { opacity:0.6; transform:scale(1.4) } }
 
-    /* ── NAV ── */
+    /* =========================
+  NAVBAR STYLING
+  Controls the top navigation menu.
+  display: flex ensures the logo and links sit horizontally side-by-side.
+  position: fixed keeps it at the top even when scrolling.
+  z-index: 1000 makes sure it floats ABOVE all other content on the page.
+========================= */
     nav {
       position: fixed; top: 0; left: 0; right: 0; z-index: 1000;
       transition: all 0.3s; background: rgba(11, 28, 63, 0.97);
@@ -70,7 +76,12 @@
     .nav-btn-gold:hover { background:var(--gold2) }
     .mobile-top-nav { display:none }
 
-    /* ── HERO ── */
+    /* =========================
+  HERO SECTION STYLING
+  The big banner at the top. 
+  min-height ensures it takes up a good portion of the screen.
+  flex-direction: column stacks the title, subtitle, and search bar vertically.
+========================= */
     .hero {
       min-height: 60vh;
       background: var(--navy);
@@ -617,7 +628,12 @@
   <div class="toast" id="toast"></div>
 
   <!-- NAV -->
-  <nav id="mainNav">
+  <!-- =========================
+  NAVIGATION BAR (HEADER)
+  This section stays fixed at the top of the screen.
+  We use a <nav> tag for semantic HTML (good for SEO).
+========================= -->
+<nav id="mainNav">
     <div class="nav-inner">
       <a href="/" class="nav-logo">Big<span>Deals</span></a>
       <div class="nav-links">
@@ -648,7 +664,12 @@
   <!-- MOBILE NAV DRAWER -->
 
   <!-- HERO -->
-  <section class="hero">
+  <!-- =========================
+  HERO SECTION
+  The large welcoming area at the top of the page.
+  It contains the main search bar and background image.
+========================= -->
+<section class="hero">
     <div class="hero-bg"></div>
     <div class="hero-pattern"></div>
     <div class="hero-glow"></div>
@@ -674,12 +695,20 @@
       </div>
 
       <!-- Property cards injected here by JS -->
-      <div class="prop-grid" id="builderGrid"></div>
+      <!-- =========================
+  PROPERTY LISTINGS GRID
+  This is where the property cards will be injected by JavaScript.
+========================= -->
+<div class="prop-grid" id="builderGrid"></div>
       </div>
   </section>
 
   <!-- FOOTER -->
-  <footer>
+  <!-- =========================
+  FOOTER SECTION
+  Contains links, contact info, and copyright at the bottom of the page.
+========================= -->
+<footer>
     <div class="footer-inner">
       <div class="footer-top">
         <div class="footer-brand">
@@ -717,414 +746,30 @@
     </div>
   </footer>
 
-  <script>
+    <script>
     function toast(msg) {
       const t = document.getElementById('toast');
-      t.textContent = msg; t.classList.add('show');
-      clearTimeout(window._toastTimer);
-      window._toastTimer = setTimeout(() => t.classList.remove('show'), 2800);
+      if(t) {
+        t.textContent = msg; 
+        t.classList.add('show');
+        clearTimeout(window._toastTimer);
+        window._toastTimer = setTimeout(() => t.classList.remove('show'), 2800);
+      }
     }
-    function contactBuilder() {
-      const text = 'Hi BigDeals! I\'d like to list my builder project on your platform. Please share the process.';
-      window.open('https://wa.me/919567510999?text=' + encodeURIComponent(text), '_blank');
+    
+    function toggleMobileNav() {
+      const nav = document.getElementById('mobileNav');
+      const overlay = document.getElementById('mobileOverlay');
+      if(nav) nav.classList.toggle('open');
+      if(overlay) overlay.classList.toggle('open');
+    }
+    
+    function closeMobileNav() {
+      const nav = document.getElementById('mobileNav');
+      const overlay = document.getElementById('mobileOverlay');
+      if(nav) nav.classList.remove('open');
+      if(overlay) overlay.classList.remove('open');
     }
   </script>
-  <script>
-    // Mobile top nav: center active pill on load, center any pill on tap
-    (function() {
-      var nav = document.querySelector('.mobile-top-nav');
-      if (!nav) return;
-      // Center active pill on page load
-      var active = nav.querySelector('a.active');
-      if (active) {
-        active.scrollIntoView({ behavior: 'instant', inline: 'center', block: 'nearest' });
-      }
-      // Scroll clicked pill to center
-      nav.querySelectorAll('a').forEach(function(link) {
-        link.addEventListener('click', function() {
-          this.scrollIntoView({ behavior: 'smooth', inline: 'center', block: 'nearest' });
-        });
-      });
-    })();
-  </script>
-  <script>
-    /* ── MODAL JS ── */
-    var currentProp = null;
-    function _getBadges(p) {
-      var h = '';
-      if (p.verified) h += '<span class="badge b-verified"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" width="10" height="10"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>Verified</span>';
-      if (p.label === 'new') h += '<span class="badge b-new">New</span>';
-      if (p.label === 'reduced') h += '<span class="badge b-reduced">Price Reduced</span>';
-      return h;
-    }
-    function updateGallery(dir) {
-      var g = window.currentGallery || []; if (g.length < 2) return;
-      window.currentGalleryIdx = (window.currentGalleryIdx + dir + g.length) % g.length;
-      var idx = window.currentGalleryIdx;
-      var mg = document.getElementById('modalGallery');
-      if (mg) mg.style.backgroundImage = "url('" + g[idx] + "')";
-      var ind = document.getElementById('galleryIndicator');
-      if (ind) ind.textContent = (idx+1) + ' / ' + g.length;
-    }
-    function bdOpenModal(id) {
-      var pool = window.bdAllProps || [];
-      currentProp = pool.find(function(p){ return String(p.id) === String(id); });
-      if (!currentProp) return;
-      var p = currentProp;
-      var gal = (p.gallery && p.gallery.length) ? [p.imageUrl].concat(p.gallery) : [p.imageUrl || ''];
-      gal = gal.filter(function(u,i,a){ return u && a.indexOf(u)===i; });
-      window.currentGallery = gal; window.currentGalleryIdx = 0;
-      var mg = document.getElementById('modalGallery');
-      mg.style.cssText = "background:url('" + gal[0] + "') center/cover;display:flex;align-items:center;justify-content:center;position:relative;";
-      var arrows = gal.length > 1 ? '<div onclick="event.stopPropagation();updateGallery(-1)" style="position:absolute;left:12px;width:36px;height:36px;background:rgba(255,255,255,0.9);border-radius:50%;display:flex;align-items:center;justify-content:center;cursor:pointer;z-index:2"><svg viewBox="0 0 24 24" fill="none" stroke="#333" stroke-width="2" width="20" height="20"><polyline points="15 18 9 12 15 6"/></svg></div><div onclick="event.stopPropagation();updateGallery(1)" style="position:absolute;right:12px;width:36px;height:36px;background:rgba(255,255,255,0.9);border-radius:50%;display:flex;align-items:center;justify-content:center;cursor:pointer;z-index:2"><svg viewBox="0 0 24 24" fill="none" stroke="#333" stroke-width="2" width="20" height="20"><polyline points="9 18 15 12 9 6"/></svg></div><div id="galleryIndicator" style="position:absolute;bottom:12px;background:rgba(0,0,0,0.65);color:white;padding:4px 10px;border-radius:12px;font-size:12px;font-weight:600;backdrop-filter:blur(4px)">1 / ' + gal.length + '</div>' : '';
-      mg.innerHTML = arrows;
-      document.getElementById('modalBadges').innerHTML = _getBadges(p);
-      document.getElementById('modalPrice').textContent = p.price || '';
-      document.getElementById('modalTitle').textContent = p.title || '';
-      document.getElementById('modalLoc').textContent = p.location || '';
-      document.getElementById('modalDesc').textContent = p.desc || p.description || 'Premium property listed on BigDeals.';
-      var TYPE_MAP={apartment:'residential',villa:'residential',house:'residential',penthouse:'residential',office:'commercial',shop:'commercial',building:'commercial',commercial:'commercial',land:'land',plot:'land'};
-      var mt=p.main_type||TYPE_MAP[p.type]||'residential', det=p.details||{}, attrsHtml;
-      if(mt==='land'){attrsHtml='<div class="m-attr"><div class="m-attr-val">'+(det.plot_size||p.area||'—')+'</div><div class="m-attr-lbl">Plot Area</div></div><div class="m-attr"><div class="m-attr-val">Land</div><div class="m-attr-lbl">Type</div></div>';}
-      else if(mt==='commercial'){attrsHtml='<div class="m-attr"><div class="m-attr-val">'+(det.area||p.area||'—')+'</div><div class="m-attr-lbl">Area</div></div><div class="m-attr"><div class="m-attr-val">'+(det.furnishing||'—')+'</div><div class="m-attr-lbl">Furnishing</div></div>';}
-      else{var beds=Number(det.bedrooms!==undefined?det.bedrooms:p.beds)||0,baths=Number(det.bathrooms!==undefined?det.bathrooms:p.baths)||0;attrsHtml='<div class="m-attr"><div class="m-attr-val">'+(beds||'—')+'</div><div class="m-attr-lbl">Bedrooms</div></div><div class="m-attr"><div class="m-attr-val">'+(baths||'—')+'</div><div class="m-attr-lbl">Bathrooms</div></div><div class="m-attr"><div class="m-attr-val">'+(det.area||p.area||'—')+'</div><div class="m-attr-lbl">Area</div></div>';}
-      document.getElementById('modalAttrs').innerHTML = attrsHtml;
-      var ams=Array.isArray(p.amenities)?p.amenities:(p.amenities?String(p.amenities).split(',').map(function(a){return a.trim();}).filter(Boolean):[]);
-      document.getElementById('modalAmenities').innerHTML=ams.map(function(a){return '<span class="amenity">'+a+'</span>';}).join('');
-      var mapBox=document.querySelector('.map-box'),mapTitle=mapBox?mapBox.previousElementSibling:null;
-      if(p.mapUrl&&(p.mapUrl.includes('<iframe')||p.mapUrl.includes('/embed/'))){var src=p.mapUrl.includes('<iframe')?(p.mapUrl.match(/src="([^"]+)"/) || [])[1]:p.mapUrl;mapBox.style.cssText='display:flex;padding:0';mapBox.innerHTML='<iframe src="'+src+'" width="100%" height="100%" style="border:0;border-radius:12px" allowfullscreen loading="lazy"></iframe>';if(mapTitle)mapTitle.style.display='block';}else{if(mapBox)mapBox.style.display='none';if(mapTitle)mapTitle.style.display='none';}
-      document.getElementById('modalVerNote').style.display=p.verified?'flex':'none';
-      document.getElementById('detailOverlay').classList.add('open');
-      document.body.style.overflow='hidden';
-    }
-    function closeDetail(){document.getElementById('detailOverlay').classList.remove('open');document.body.style.overflow='';}
-    function closeModal(e,overlay){if(e.target===overlay){overlay.classList.remove('open');document.body.style.overflow='';}}
-    function openShare(){document.getElementById('shareOverlay').classList.add('open');}
-    function shareVia(v){document.getElementById('shareOverlay').classList.remove('open');var msgs={whatsapp:'Opening WhatsApp...',facebook:'Opening Facebook...',email:'Opening email...',copy:'Link copied!',sms:'Opening messages...',twitter:'Opening Twitter/X...'};var t=document.getElementById('toast');if(t){t.textContent=msgs[v]||'Sharing...';t.classList.add('show');setTimeout(function(){t.classList.remove('show');},2800);}}
-    function submitEnquiry(){var n=document.querySelector('.inq-input[placeholder="Your full name"]'),ph=document.querySelector('.inq-input[placeholder="Phone number"]');if(!n||!ph||!n.value.trim()||!ph.value.trim()){var t=document.getElementById('toast');if(t){t.textContent='Please enter your name and phone number';t.classList.add('show');setTimeout(function(){t.classList.remove('show');},2800);}return;}var p=currentProp,propInfo=p?encodeURIComponent(' for "'+p.title+'" ('+p.price+')'):'',msg=document.querySelector('.inq-textarea');window.open('https://wa.me/919567510999?text=Hi BigDeals!%0a*Name:* '+encodeURIComponent(n.value)+'%0a*Phone:* '+encodeURIComponent(ph.value)+'%0a*Enquiry'+propInfo+':*%0a'+encodeURIComponent(msg?msg.value:''),'_blank');}
-    function waOpen(pid){var p=pid&&window.bdAllProps?window.bdAllProps.find(function(x){return String(x.id)===String(pid);}):null;var text=p?'Hi BigDeals! I am interested in *'+p.title+'* at *'+p.location+'*, priced at *'+p.price+'* (ID:'+p.id+'). Please share more details.':'Hi BigDeals! I am interested in a property.';window.open('https://wa.me/919567510999?text='+encodeURIComponent(text),'_blank');}
-  </script>
-  <script>
-    (function(){
-      const GRID_ID = 'builderGrid';
-      const TYPE_FILTER = ''; // passed to ?type=
-      let allProps = [], currentPage = 1, totalPages = 1, isFetching = false;
-
-      function esc(s){ const d=document.createElement('div'); d.textContent=s||''; return d.innerHTML; }
-
-      function getBadges(p){
-        let h='';
-        if(p.verified) h+=`<span class="badge b-verified"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" width="10" height="10"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>Verified</span>`;
-        if(p.label==='new') h+=`<span class="badge b-new">New</span>`;
-        if(p.label==='reduced') h+=`<span class="badge b-reduced">Price Reduced</span>`;
-        return h;
-      }
-
-      function getAttrs(p){
-        const TYPE_MAP={apartment:'residential',villa:'residential',house:'residential',penthouse:'residential',townhouse:'residential',duplex:'residential',studio:'residential',office:'commercial',shop:'commercial',showroom:'commercial',warehouse:'commercial',building:'commercial',commercial:'commercial',land:'land',plot:'land',agricultural:'land'};
-        const mt=p.main_type||TYPE_MAP[p.type]||'residential';
-        const det=p.details||{};
-        const attrs=[];
-
-        // Helper: strip redundant unit suffix (e.g. "10 Cents sq.ft" -> "10 Cents")
-        function cleanArea(s){
-          if(!s) return s;
-          // If area has a named unit (Cents/Acres/Guntha/Bigha/Marla/Kanal/Hectare), strip trailing sq.ft/sqft/sq ft
-          return s.replace(/\b(cents?|acres?|guntha|bigha|marla|kanal|hectares?)\b.*?(\s*(sq\.?\s*ft|sqft))?$/i,function(m,unit){return m.replace(/\s*(sq\.?\s*ft|sqft)\s*$/i,'').trim();});
-        }
-
-        if(mt==='land'){
-          const ps=cleanArea(det.plot_size||p.area);
-          if(ps&&ps!=='Not specified'&&ps!=='—'&&ps!=='None')
-            attrs.push('<div class="c-attr"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="12" height="12"><path d="M3 17l4-8 4 4 4-6 4 10"/><line x1="3" y1="21" x2="21" y2="21"/></svg> '+ps+'</div>');
-          const lt=det.land_type;
-          if(lt) attrs.push('<div class="c-attr"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="12" height="12"><rect x="2" y="3" width="20" height="14" rx="2"/><path d="M8 21h8M12 17v4"/></svg> '+lt.charAt(0).toUpperCase()+lt.slice(1)+'</div>');
-          if(!attrs.length) attrs.push('<div class="c-attr"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="12" height="12"><path d="M3 17l4-8 4 4 4-6 4 10"/><line x1="3" y1="21" x2="21" y2="21"/></svg> Prime Plot</div>');
-        }else if(mt==='commercial'){
-          const a=cleanArea(det.area||p.area);
-          if(a&&a!=='Not specified'&&a!=='—'&&a!=='None')
-            attrs.push('<div class="c-attr"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="12" height="12"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18"/><path d="M9 21V9"/></svg> '+a+'</div>');
-          const fn=det.furnishing;
-          if(fn) attrs.push('<div class="c-attr"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="12" height="12"><path d="M20 9V6a2 2 0 0 0-2-2H6a2 2 0 0 0-2 2v3"/><path d="M2 11v5a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2v-5a2 2 0 0 0-4 0v2H6v-2a2 2 0 0 0-4 0z"/></svg> '+fn.replace(/-/g,' ').replace(/\b\w/g,c=>c.toUpperCase())+'</div>');
-          if(!attrs.length) attrs.push('<div class="c-attr"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="12" height="12"><rect x="2" y="3" width="20" height="14" rx="2"/><path d="M8 21h8M12 17v4"/></svg> Commercial Space</div>');
-        }else{
-          const beds=det.bedrooms!==undefined?Number(det.bedrooms):Number(p.beds);
-          const baths=det.bathrooms!==undefined?Number(det.bathrooms):Number(p.baths);
-          const area=cleanArea(det.area||p.area);
-          if(beds>0) attrs.push('<div class="c-attr"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="12" height="12"><path d="M2 4v16"/><path d="M2 8h18a2 2 0 0 1 2 2v10"/><path d="M2 17h20"/><path d="M6 8v9"/></svg> '+beds+' Bed'+(beds>1?'s':'')+'</div>');
-          if(baths>0) attrs.push('<div class="c-attr"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="12" height="12"><path d="M4 12h16a1 1 0 0 1 1 1v3a4 4 0 0 1-4 4H7a4 4 0 0 1-4-4v-3a1 1 0 0 1 1-1z"/><path d="M6 12V5a2 2 0 0 1 2-2h3v2.25"/></svg> '+baths+' Bath'+(baths>1?'s':'')+'</div>');
-          if(area&&area!=='Not specified'&&area!=='—'&&area!=='None'&&attrs.length<2) attrs.push('<div class="c-attr"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="12" height="12"><rect x="3" y="3" width="18" height="18" rx="2"/></svg> '+area+'</div>');
-        }
-        return attrs.join('')||'<div class="c-attr" style="color:#9CA3AF">—</div>';
-      }
-
-      function waOpen(pid){
-        const p=allProps.find(x=>String(x.id)===String(pid));
-        const text=p?`Hi BigDeals! I'm interested in *${p.title}* at *${p.location}*, priced at *${p.price}* (ID:${p.id}). Please share more details.`:`Hi BigDeals! I'm interested in a property.`;
-        window.open('https://wa.me/919567510999?text='+encodeURIComponent(text),'_blank');
-      }
-
-      function openDetail(pid){ window.bdOpenModal(pid); }
-
-      function toggleSave(pid){
-        let s=JSON.parse(localStorage.getItem('bd_saved')||'[]').map(String);
-        const i=s.indexOf(String(pid));
-        if(i>-1){s.splice(i,1);}else{s.push(String(pid));}
-        localStorage.setItem('bd_saved',JSON.stringify(s));
-        const btn=document.getElementById('lk'+pid);
-        if(btn) btn.innerHTML=i>-1?'<svg viewBox="0 0 24 24" fill="none" stroke="#9CA3AF" stroke-width="2" width="16" height="16"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>':'<svg viewBox="0 0 24 24" fill="#DC2626" stroke="#DC2626" stroke-width="2" width="16" height="16"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>';
-      }
-
-      function renderGrid(props, append){
-        const g=document.getElementById(GRID_ID);
-        if(!append) g.innerHTML='';
-        if(!props||!props.length){
-          if(!append) g.innerHTML='<div class="empty-state"><div class="empty-title">No listings yet</div><div class="empty-sub">Check back soon — new properties are added daily.</div><a href="/" style="display:inline-block;margin-top:20px;padding:10px 28px;background:var(--navy);color:#fff;border-radius:10px;text-decoration:none;font-weight:600">View All Listings</a></div>';
-          return;
-        }
-        const saved=JSON.parse(localStorage.getItem('bd_saved')||'[]').map(String);
-        const frag=document.createDocumentFragment();
-        for(const p of props){
-          const pid=String(p.id);
-          const liked=saved.includes(pid);
-          const img=p.imageUrl||'https://images.unsplash.com/photo-1560518883-ce09059eeffa?w=800&q=80';
-          const card=document.createElement('div');
-          card.className='p-card reveal';
-          card.onclick=()=>openDetail(pid);
-
-          const imgDiv=document.createElement('div');
-          imgDiv.className='p-card-img';
-          imgDiv.style.backgroundImage='url('+JSON.stringify(img)+')';
-
-          const badges=document.createElement('div');
-          badges.className='card-badges';
-          badges.innerHTML=getBadges(p);
-          imgDiv.appendChild(badges);
-
-          const likeBtn=document.createElement('button');
-          likeBtn.className='card-like';
-          likeBtn.id='lk'+pid;
-          likeBtn.setAttribute('aria-label','Save');
-          likeBtn.style.zIndex='2';
-          likeBtn.innerHTML=liked?'<svg viewBox="0 0 24 24" fill="#DC2626" stroke="#DC2626" stroke-width="2" width="16" height="16"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>':'<svg viewBox="0 0 24 24" fill="none" stroke="#9CA3AF" stroke-width="2" width="16" height="16"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>';
-          likeBtn.onclick=e=>{e.stopPropagation();toggleSave(pid);};
-          imgDiv.appendChild(likeBtn);
-          card.appendChild(imgDiv);
-
-          const body=document.createElement('div');
-          body.className='p-card-body';
-          let mapHref = '';
-
-          if (p.mapUrl && p.mapUrl !== 'None') {
-            if (p.mapUrl.includes('<a')) {
-              const temp = document.createElement('div');
-              temp.innerHTML = p.mapUrl;
-              const link = temp.querySelector('a');
-              mapHref = link ? link.href : '';
-            } else {
-              mapHref = p.mapUrl;
-            }
-          }
-          body.innerHTML=
-            '<div class="card-price">'+esc(p.price)+'</div>'+
-            '<div class="card-title">'+esc(p.title)+'</div>'+
-            '<div class="card-loc"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="11" height="11"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg><span>'+esc(p.location)+'</span>'+(mapHref?'<a href="'+mapHref+'" target="_blank" onclick="event.stopPropagation()" style="margin-left:6px;color:#2563EB;background:#EFF6FF;padding:2px 6px;border-radius:4px;font-size:10px;font-weight:600;text-decoration:none;">Map</a>':'')+'</div>'+
-            '<div class="card-divider"></div>'+
-            '<div class="card-attrs">'+getAttrs(p)+'</div>';
-
-          const foot=document.createElement('div');
-          foot.className='card-foot';
-          const waBtn=document.createElement('button');
-          waBtn.className='c-btn c-btn-wa';
-          waBtn.innerHTML='<svg viewBox="0 0 24 24" fill="currentColor" width="13" height="13"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg> WhatsApp';
-          waBtn.onclick=e=>{e.stopPropagation();waOpen(pid);};
-          const detBtn=document.createElement('button');
-          detBtn.className='c-btn c-btn-outline';
-          detBtn.textContent='View Details';
-          detBtn.onclick=e=>{e.stopPropagation();openDetail(pid);};
-          foot.appendChild(waBtn); foot.appendChild(detBtn);
-          body.appendChild(foot);
-          card.appendChild(body);
-          frag.appendChild(card);
-        }
-        g.appendChild(frag);
-
-        // Reveal animation
-        const obs=new IntersectionObserver(entries=>{entries.forEach(e=>{if(e.isIntersecting){e.target.classList.add('visible');obs.unobserve(e.target);}});},{threshold:0.1});
-        g.querySelectorAll('.reveal:not(.visible)').forEach(el=>obs.observe(el));
-
-        // Load more
-        let lmw=document.getElementById('loadMoreWrap');
-        if(totalPages>currentPage){
-          if(!lmw){lmw=document.createElement('div');lmw.id='loadMoreWrap';lmw.className='load-more-wrap';g.after(lmw);}
-          lmw.innerHTML='<button class="load-more-btn" onclick="loadMore()">Load More</button>';
-        }else{
-          if(lmw) lmw.innerHTML='';
-        }
-      }
-
-      async function fetchProps(page,append){
-        if(isFetching)return; isFetching=true;
-        if(!append){
-          const g=document.getElementById(GRID_ID);
-          g.innerHTML=Array(6).fill('<div class="skeleton-card"></div>').join('');
-        }
-        try{
-          const params=new URLSearchParams({page});
-          if(TYPE_FILTER) params.append('type',TYPE_FILTER);
-          const res=await fetch('/api/properties/?'+params);
-          const data=await res.json();
-          totalPages=data.total_pages||1;
-          currentPage=page;
-          const props=data.properties||[];
-          if(append) allProps=[...allProps,...props]; else allProps=props;
-          window.bdAllProps = allProps;
-          renderGrid(append?props:allProps,append);
-        }catch(e){console.error(e);}
-        finally{isFetching=false;}
-      }
-
-      window.loadMore=function(){fetchProps(currentPage+1,true);};
-      fetchProps(1,false);
-    })();
-  </script>
-
-  <div class="modal-overlay" id="detailOverlay" onclick="closeModal(event,this)">
-    <div class="modal" id="detailModal">
-      <div class="modal-gallery">
-        <div class="img-bg" id="modalGallery"></div>
-        <button class="modal-close" onclick="closeDetail()">✕</button>
-        <button class="modal-share" onclick="openShare()">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="16" height="16">
-            <circle cx="18" cy="5" r="3" />
-            <circle cx="6" cy="12" r="3" />
-            <circle cx="18" cy="19" r="3" />
-            <line x1="8.59" y1="13.51" x2="15.42" y2="17.49" />
-            <line x1="15.41" y1="6.51" x2="8.59" y2="10.49" />
-          </svg>
-        </button>
-      </div>
-      <div class="modal-body">
-        <div class="modal-main">
-          <div class="modal-badges" id="modalBadges"></div>
-          <div class="modal-price" id="modalPrice"></div>
-          <div class="modal-title" id="modalTitle"></div>
-          <div class="modal-loc"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="14"
-              height="14">
-              <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z" />
-              <circle cx="12" cy="10" r="3" />
-            </svg><span id="modalLoc"></span></div>
-          <div class="modal-attrs" id="modalAttrs"></div>
-          <div class="modal-section-title">About this property</div>
-          <p class="modal-desc" id="modalDesc"></p>
-          <div class="modal-section-title">Amenities</div>
-          <div class="amenities" id="modalAmenities"></div>
-          <div class="modal-section-title">Location</div>
-          <div class="map-box"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="16"
-              height="16" style="margin-right:6px;vertical-align:-3px">
-              <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z" />
-              <circle cx="12" cy="10" r="3" />
-            </svg> Google Maps — <span id="modalMapLoc"></span></div>
-        </div>
-        <div class="modal-sidebar">
-          <div class="contact-brand">
-            <div class="contact-logo-box">BD</div>
-            <div>
-              <div class="contact-name-lg">BigDeals Real Estate</div>
-              <div class="contact-sub-lg">+91 95675 10999 · bigdeals.pro</div>
-            </div>
-          </div>
-          <div class="contact-actions">
-            <button class="contact-btn cb-call" onclick="window.location.href='tel:+919567510999'"><svg
-                viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="14" height="14"
-                style="margin-right:5px">
-                <path
-                  d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 12a19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 3.62 1h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L7.91 8.6a16 16 0 0 0 5.5 5.5l.96-.96a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z" />
-              </svg> Call Now</button>
-            <button class="contact-btn cb-wa" onclick="waOpen(currentProp && currentProp.id)"><svg viewBox="0 0 24 24"
-                fill="currentColor" width="14" height="14" style="margin-right:5px">
-                <path
-                  d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z" />
-              </svg> WhatsApp</button>
-          </div>
-          <div class="modal-section-title" style="margin-bottom:12px">Quick Inquiry</div>
-          <div class="inquiry-form">
-            <input class="inq-input" placeholder="Your full name">
-            <input class="inq-input" placeholder="Phone number">
-            <input class="inq-input" placeholder="Email address">
-            <textarea class="inq-textarea"
-              placeholder="I'm interested in this property and would like to schedule a visit..."></textarea>
-            <button class="inq-submit" onclick="submitEnquiry()">Send Inquiry</button>
-          </div>
-          <div class="verified-note" id="modalVerNote" style="display:none">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" width="14" height="14"
-              style="flex-shrink:0">
-              <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14" />
-              <polyline points="22 4 12 14.01 9 11.01" />
-            </svg>
-            Verified by BigDeals team — visited within the last 14 days
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <div class="share-overlay" id="shareOverlay" onclick="closeModal(event,this)">
-    <div class="share-modal">
-      <div class="share-title">Share this property <span
-          onclick="document.getElementById('shareOverlay').classList.remove('open')"
-          style="cursor:pointer;color:var(--muted);font-weight:400;font-size:20px">✕</span></div>
-      <div class="share-opts">
-        <div class="share-opt" onclick="shareVia('whatsapp')">
-          <div class="share-opt-icon" style="background:#E7FFF0"><svg viewBox="0 0 24 24" fill="#25D366" width="28"
-              height="28">
-              <path
-                d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z" />
-            </svg></div>
-          <div class="share-opt-lbl">WhatsApp</div>
-        </div>
-        <div class="share-opt" onclick="shareVia('facebook')">
-          <div class="share-opt-icon" style="background:#E7F0FF"><svg viewBox="0 0 24 24" fill="#1877F2" width="28"
-              height="28">
-              <path
-                d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z" />
-            </svg></div>
-          <div class="share-opt-lbl">Facebook</div>
-        </div>
-        <div class="share-opt" onclick="shareVia('email')">
-          <div class="share-opt-icon" style="background:#FFF3E0"><svg viewBox="0 0 24 24" fill="none" stroke="#F97316"
-              stroke-width="2" width="28" height="28">
-              <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z" />
-              <polyline points="22,6 12,13 2,6" />
-            </svg></div>
-          <div class="share-opt-lbl">Email</div>
-        </div>
-        <div class="share-opt" onclick="shareVia('copy')">
-          <div class="share-opt-icon" style="background:#F1F5F9"><svg viewBox="0 0 24 24" fill="none" stroke="#64748B"
-              stroke-width="2" width="28" height="28">
-              <rect x="9" y="9" width="13" height="13" rx="2" />
-              <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1" />
-            </svg></div>
-          <div class="share-opt-lbl">Copy Link</div>
-        </div>
-        <div class="share-opt" onclick="shareVia('sms')">
-          <div class="share-opt-icon" style="background:#F0FFF4"><svg viewBox="0 0 24 24" fill="none" stroke="#10B981"
-              stroke-width="2" width="28" height="28">
-              <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z" />
-            </svg></div>
-          <div class="share-opt-lbl">Message</div>
-        </div>
-        <div class="share-opt" onclick="shareVia('twitter')">
-          <div class="share-opt-icon" style="background:#F0F9FF"><svg viewBox="0 0 24 24" fill="#1DA1F2" width="28"
-              height="28">
-              <path
-                d="M23 3a10.9 10.9 0 01-3.14 1.53 4.48 4.48 0 00-7.86 3v1A10.66 10.66 0 013 4s-4 9 5 13a11.64 11.64 0 01-7 2c9 5 20 0 20-11.5a4.5 4.5 0 00-.08-.83A7.72 7.72 0 0023 3z" />
-            </svg></div>
-          <div class="share-opt-lbl">Twitter/X</div>
-        </div>
-      </div>
-    </div>
-  </div>
-  </body>
-
+</body>
 </html>

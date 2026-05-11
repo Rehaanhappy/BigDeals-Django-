@@ -1347,6 +1347,14 @@
             <option>This Week</option>
             <option>This Month</option>
           </select>
+          <select class="tbl-select" id="filterPlacement" onchange="filterTable()">
+            <option value="">All Pages</option>
+            <option value="buy">Buy</option>
+            <option value="rent">Rent</option>
+            <option value="commercial">Commercial</option>
+            <option value="pre_launch">Pre-launch</option>
+            <option value="builder_projects">Builder Projects</option>
+          </select>
           <select class="tbl-bulk">
             <option>Bulk Actions</option>
             <option>Approve Selected</option>
@@ -1430,7 +1438,13 @@
       document.getElementById('sidebarOverlay').classList.remove('open');
       document.body.style.overflow = '';
     }
-    function filterTable() { renderTable(currentTab); } // hook for table controls (can be extended)
+    function filterTable() {
+      // Read the placement filter value to check if we need to filter by page assignment
+      const placementFilter = (document.getElementById('filterPlacement') || {}).value || '';
+      // Store it on window so renderTable can access it
+      window._placementFilter = placementFilter;
+      renderTable(currentTab);
+    }
 
     function showDashboard() {
       document.getElementById('loginScreen').style.display = 'none';
@@ -1619,6 +1633,21 @@
       else if (tab === 'rejected') data = getRejected();
       else if (tab === 'all') data = getAll();
 
+      // Apply placement filter: if admin selected a specific page, only show properties tagged for it
+      const placementFilter = window._placementFilter || '';
+      if (placementFilter && data) {
+        data = data.filter(p => (p.placements || []).includes(placementFilter));
+      }
+
+      // Also apply the text search filter from tableLocalSearch
+      const searchQ = (document.getElementById('tableLocalSearch') || {}).value?.toLowerCase() || '';
+      if (searchQ && data) {
+        data = data.filter(p =>
+          (p.title || '').toLowerCase().includes(searchQ) ||
+          (p.location || '').toLowerCase().includes(searchQ)
+        );
+      }
+
       const wrap = document.getElementById('tableWrap');
 
       if (!data || data.length === 0) {
@@ -1650,6 +1679,26 @@
         const typePill = `<span class="type-pill type-${p.type || 'other'}">${cap(p.type || 'Other')}</span>`;
         const dateStr = p.submittedAt ? formatDate(p.submittedAt) : '—';
 
+        // Render placement pills — colorful badges showing which pages this property is assigned to
+        const placementMeta = {
+          buy:              { label: 'Buy',      color: '#2563EB', bg: '#EFF6FF', border: '#BFDBFE' },
+          rent:             { label: 'Rent',     color: '#059669', bg: '#ECFDF5', border: '#A7F3D0' },
+          commercial:       { label: 'Comm.',    color: '#D97706', bg: '#FFFBEB', border: '#FDE68A' },
+          pre_launch:       { label: 'Pre-L',    color: '#7C3AED', bg: '#F5F3FF', border: '#DDD6FE' },
+          builder_projects: { label: 'Builder',  color: '#DB2777', bg: '#FDF2F8', border: '#FBCFE8' },
+        };
+        const placementsHtml = (p.placements || []).map(key => {
+          const m = placementMeta[key];
+          if (!m) return '';
+          return `<span style="display:inline-flex;align-items:center;padding:2px 8px;border-radius:20px;font-size:10px;font-weight:700;letter-spacing:0.4px;background:${m.bg};color:${m.color};border:1px solid ${m.border};margin:2px 2px 0 0">${m.label}</span>`;
+        }).join('') || `<span style="font-size:11px;color:var(--muted);font-style:italic">—</span>`;
+
+        // "Tag" button used to open the placement assignment modal
+        const tagBtn = `<button class="action-btn" onclick="openPlacementModal('${p.id}')" style="background:#F5F3FF;color:#7C3AED;border:1px solid #DDD6FE" title="Assign to Pages">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="12" height="12"><path d="M20.59 13.41l-7.17 7.17a2 2 0 0 1-2.83 0L2 12V2h10l8.59 8.59a2 2 0 0 1 0 2.82z"/><line x1="7" y1="7" x2="7.01" y2="7"/></svg>
+          Tag
+        </button>`;
+
         if (tab === 'pending') {
           return `<tr>
             <td>
@@ -1662,6 +1711,7 @@
               <div style="font-weight:600">${esc(p.contactName || '—')}</div>
               <div style="font-size:12px;color:var(--muted)">${esc(p.contactPhone || '')}</div>
             </td>
+            <td style="min-width:110px">${placementsHtml}</td>
             <td class="date-cell">${dateStr}</td>
             <td>
               <div class="actions-cell">
@@ -1685,6 +1735,7 @@
                   <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="12" height="12"><path d="M3 6h18"/><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/></svg>
                   Delete
                 </button>
+                ${tagBtn}
               </div>
             </td>
           </tr>`;
@@ -1708,6 +1759,7 @@
               ${p.contactPhone && p.contactPhone !== '—' ? `<div style="font-size:12px;color:var(--muted)">${esc(p.contactPhone)}</div>` : ''}
             </td>
             <td>${statusPill}</td>
+            <td style="min-width:110px">${placementsHtml}</td>
             <td class="date-cell">${p.reviewedAt ? formatDate(p.reviewedAt) : dateStr}</td>
             <td>
               ${tab === 'approved' ? `
@@ -1715,6 +1767,7 @@
                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="12" height="12"><path d="M3 6h18"/><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/></svg>
                 Delete
               </button>
+              ${tagBtn}
               ` : `
               <button class="action-btn btn-view" onclick="viewDetail('${p.id}')" style="margin-right: 4px;">
                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="12" height="12"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>
@@ -1728,6 +1781,7 @@
                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="12" height="12"><path d="M3 6h18"/><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/></svg>
                 Delete
               </button>
+              ${tagBtn}
               `}
             </td>
           </tr>`;
@@ -1735,10 +1789,10 @@
       }).join('');
 
       const pendingCols = `<thead><tr>
-        <th>Property</th><th>Type</th><th>Price</th><th>Submitted By</th><th>Date</th><th>Actions</th>
+        <th>Property</th><th>Type</th><th>Price</th><th>Submitted By</th><th>Placements</th><th>Date</th><th>Actions</th>
       </tr></thead>`;
       const otherCols = `<thead><tr>
-        <th>Property</th><th>Type</th><th>Price</th><th>Submitted By</th><th>Status</th><th>Date</th><th></th>
+        <th>Property</th><th>Type</th><th>Price</th><th>Submitted By</th><th>Status</th><th>Placements</th><th>Date</th><th></th>
       </tr></thead>`;
 
       wrap.innerHTML = `
@@ -1920,7 +1974,9 @@
             bedrooms: "{{ p.bedrooms|escapejs }}", bathrooms: "{{ p.bathrooms|escapejs }}", area: "{{ p.area|escapejs }}", description: "{{ p.description|escapejs }}", amenities: "{{ p.amenities|escapejs }}", videoUrl: "{{ p.video_url|default:''|escapejs }}", mapUrl: "{{ p.map_url|default:''|escapejs }}",
             verified: {{ p.verified|yesno:"true,false" }}, label: "{{ p.label|escapejs }}",
             status: "{{ p.status|lower }}", submittedAt: "{{ p.created_at.isoformat }}",
-            images: [{% for img in p.images.all %}{ id: "{{ img.id }}", url: "{{ img.image.url|escapejs }}" }{% if not forloop.last %},{% endif %}{% endfor %}]
+            images: [{% for img in p.images.all %}{ id: "{{ img.id }}", url: "{{ img.image.url|escapejs }}" }{% if not forloop.last %},{% endif %}{% endfor %}],
+            // placements: loaded from localStorage so the admin can persist tags across sessions
+            placements: JSON.parse(localStorage.getItem('bd_placements_{{ p.id }}') || '[]')
     } {% if not forloop.last %}, {% endif %}
     {% endfor %}
     ];
@@ -1933,6 +1989,51 @@
 
     function saveToDbSync() {
       // Any JS action might want to refresh, but for now we rely on the modal form for insertion
+    }
+
+    // =========================
+    // PLACEMENT TAGGING SYSTEM
+    // Functions for managing which pages a property appears on.
+    // =========================
+
+    // openPlacementModal: find the property, pre-check its current placements, and show the modal
+    function openPlacementModal(id) {
+      const all = [...getPending(), ...getApproved(), ...getRejected()];
+      const p = all.find(x => String(x.id) === String(id));
+      if (!p) return;
+      window._placementEditId = id;
+      const current = p.placements || [];
+      // Pre-check checkboxes based on property's current placements array
+      ['buy','rent','commercial','pre_launch','builder_projects'].forEach(key => {
+        const cb = document.getElementById('plcm_' + key);
+        if (cb) cb.checked = current.includes(key);
+      });
+      document.getElementById('placementModal').style.display = 'flex';
+    }
+
+    // savePlacements: collect checked boxes, update the property object, persist to localStorage
+    function savePlacements() {
+      const id = window._placementEditId;
+      if (!id) return;
+      const selected = ['buy','rent','commercial','pre_launch','builder_projects']
+        .filter(key => { const cb = document.getElementById('plcm_' + key); return cb && cb.checked; });
+
+      // Persist to localStorage so it survives page refresh (keyed by property id)
+      localStorage.setItem('bd_placements_' + id, JSON.stringify(selected));
+
+      // Update in-memory objects across all three status buckets
+      ['bd_pending_listings','bd_approved_listings','bd_rejected_listings'].forEach(storeKey => {
+        try {
+          let arr = JSON.parse(localStorage.getItem(storeKey) || '[]');
+          arr = arr.map(p => String(p.id) === String(id) ? { ...p, placements: selected } : p);
+          localStorage.setItem(storeKey, JSON.stringify(arr));
+        } catch(e) {}
+      });
+
+      document.getElementById('placementModal').style.display = 'none';
+      // Re-render the table so new placement pills appear immediately
+      renderTable(currentTab);
+      toast('Placements updated!', 'success');
     }
 
     initTabs();
@@ -2378,5 +2479,75 @@
       </div>
     </div>
   </div>
+
+  <!-- ========================= -->
+  <!-- PLACEMENT ASSIGNMENT MODAL -->
+  <!-- Hidden by default. Opens when admin clicks "Tag" on any property. -->
+  <!-- ========================= -->
+  <div id="placementModal" onclick="if(event.target===this)this.style.display='none'"
+    style="display:none;position:fixed;inset:0;background:rgba(0,0,0,0.5);z-index:99999;align-items:center;justify-content:center;backdrop-filter:blur(4px)">
+    <div onclick="event.stopPropagation()"
+      style="background:#fff;border-radius:20px;padding:32px 28px;max-width:400px;width:90%;box-shadow:0 24px 64px rgba(0,0,0,0.25)">
+      <!-- Modal header -->
+      <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:20px">
+        <div>
+          <div style="font-size:17px;font-weight:700;color:#111827">Assign to Pages</div>
+          <div style="font-size:12px;color:#6B7280;margin-top:2px">Select which listing pages this property appears on</div>
+        </div>
+        <button onclick="document.getElementById('placementModal').style.display='none'"
+          style="width:32px;height:32px;border-radius:50%;border:none;background:#F3F4F6;cursor:pointer;font-size:18px;display:flex;align-items:center;justify-content:center;color:#6B7280">✕</button>
+      </div>
+      <!-- Checkbox list — one per listing page -->
+      <div style="display:flex;flex-direction:column;gap:12px;margin-bottom:24px">
+        <label style="display:flex;align-items:center;gap:12px;padding:12px 14px;border:1.5px solid #E5E7EB;border-radius:12px;cursor:pointer;transition:border-color 0.2s" onmouseover="this.style.borderColor='#2563EB'" onmouseout="this.style.borderColor='#E5E7EB'">
+          <input type="checkbox" id="plcm_buy" style="width:17px;height:17px;accent-color:#2563EB;cursor:pointer">
+          <div>
+            <div style="font-weight:600;font-size:14px;color:#111827">Buy</div>
+            <div style="font-size:11px;color:#6B7280">Residential properties for purchase</div>
+          </div>
+          <span style="margin-left:auto;padding:2px 10px;border-radius:20px;font-size:10px;font-weight:700;background:#EFF6FF;color:#2563EB;border:1px solid #BFDBFE">Buy</span>
+        </label>
+        <label style="display:flex;align-items:center;gap:12px;padding:12px 14px;border:1.5px solid #E5E7EB;border-radius:12px;cursor:pointer;transition:border-color 0.2s" onmouseover="this.style.borderColor='#059669'" onmouseout="this.style.borderColor='#E5E7EB'">
+          <input type="checkbox" id="plcm_rent" style="width:17px;height:17px;accent-color:#059669;cursor:pointer">
+          <div>
+            <div style="font-weight:600;font-size:14px;color:#111827">Rent</div>
+            <div style="font-size:11px;color:#6B7280">Properties available for rental</div>
+          </div>
+          <span style="margin-left:auto;padding:2px 10px;border-radius:20px;font-size:10px;font-weight:700;background:#ECFDF5;color:#059669;border:1px solid #A7F3D0">Rent</span>
+        </label>
+        <label style="display:flex;align-items:center;gap:12px;padding:12px 14px;border:1.5px solid #E5E7EB;border-radius:12px;cursor:pointer;transition:border-color 0.2s" onmouseover="this.style.borderColor='#D97706'" onmouseout="this.style.borderColor='#E5E7EB'">
+          <input type="checkbox" id="plcm_commercial" style="width:17px;height:17px;accent-color:#D97706;cursor:pointer">
+          <div>
+            <div style="font-weight:600;font-size:14px;color:#111827">Commercial</div>
+            <div style="font-size:11px;color:#6B7280">Office spaces, shops & buildings</div>
+          </div>
+          <span style="margin-left:auto;padding:2px 10px;border-radius:20px;font-size:10px;font-weight:700;background:#FFFBEB;color:#D97706;border:1px solid #FDE68A">Comm.</span>
+        </label>
+        <label style="display:flex;align-items:center;gap:12px;padding:12px 14px;border:1.5px solid #E5E7EB;border-radius:12px;cursor:pointer;transition:border-color 0.2s" onmouseover="this.style.borderColor='#7C3AED'" onmouseout="this.style.borderColor='#E5E7EB'">
+          <input type="checkbox" id="plcm_pre_launch" style="width:17px;height:17px;accent-color:#7C3AED;cursor:pointer">
+          <div>
+            <div style="font-weight:600;font-size:14px;color:#111827">Pre-launch</div>
+            <div style="font-size:11px;color:#6B7280">Upcoming projects with early-bird pricing</div>
+          </div>
+          <span style="margin-left:auto;padding:2px 10px;border-radius:20px;font-size:10px;font-weight:700;background:#F5F3FF;color:#7C3AED;border:1px solid #DDD6FE">Pre-L</span>
+        </label>
+        <label style="display:flex;align-items:center;gap:12px;padding:12px 14px;border:1.5px solid #E5E7EB;border-radius:12px;cursor:pointer;transition:border-color 0.2s" onmouseover="this.style.borderColor='#DB2777'" onmouseout="this.style.borderColor='#E5E7EB'">
+          <input type="checkbox" id="plcm_builder_projects" style="width:17px;height:17px;accent-color:#DB2777;cursor:pointer">
+          <div>
+            <div style="font-weight:600;font-size:14px;color:#111827">Builder Projects</div>
+            <div style="font-size:11px;color:#6B7280">Large-scale developer projects</div>
+          </div>
+          <span style="margin-left:auto;padding:2px 10px;border-radius:20px;font-size:10px;font-weight:700;background:#FDF2F8;color:#DB2777;border:1px solid #FBCFE8">Builder</span>
+        </label>
+      </div>
+      <!-- Save button -->
+      <button onclick="savePlacements()"
+        style="width:100%;height:44px;border-radius:10px;border:none;background:linear-gradient(135deg,#7C3AED,#2563EB);color:#fff;font-size:14px;font-weight:700;cursor:pointer;transition:opacity 0.2s;font-family:'Outfit',sans-serif"
+        onmouseover="this.style.opacity='0.9'" onmouseout="this.style.opacity='1'">
+        Save Placements
+      </button>
+    </div>
+  </div>
+
 </body>
 </html>

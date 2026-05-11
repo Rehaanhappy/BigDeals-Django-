@@ -22,7 +22,13 @@
     @keyframes heroFadeUp { from { opacity:0; transform:translateY(28px) } to { opacity:1; transform:translateY(0) } }
     @keyframes heroPulse { 0%,100%{ opacity:1; transform:scale(1) } 50%{ opacity:0.6; transform:scale(1.4) } }
 
-    /* ── NAV ── */
+    /* =========================
+  NAVBAR STYLING
+  Controls the top navigation menu.
+  display: flex ensures the logo and links sit horizontally side-by-side.
+  position: fixed keeps it at the top even when scrolling.
+  z-index: 1000 makes sure it floats ABOVE all other content on the page.
+========================= */
     nav { position:fixed; top:0; left:0; right:0; z-index:1000; background:rgba(11,28,63,0.97); backdrop-filter:blur(12px); box-shadow:0 2px 20px rgba(0,0,0,0.2) }
     .nav-inner { max-width:1400px; margin:0 auto; padding:0 40px; height:72px; display:flex; align-items:center; justify-content:space-between }
     .nav-logo { font-family:'Cormorant Garamond',serif; font-size:28px; font-weight:700; color:#fff; letter-spacing:-0.5px; text-decoration:none }
@@ -40,7 +46,12 @@
     .nav-btn-gold:hover { background:var(--gold2) }
     .mobile-top-nav { display:none }
 
-    /* ── HERO ── */
+    /* =========================
+  HERO SECTION STYLING
+  The big banner at the top. 
+  min-height ensures it takes up a good portion of the screen.
+  flex-direction: column stacks the title, subtitle, and search bar vertically.
+========================= */
     .hero { min-height:45vh; background:var(--navy); position:relative; display:flex; flex-direction:column; justify-content:center; overflow:hidden; padding-top:72px }
     .hero-bg { position:absolute; inset:0; background:linear-gradient(135deg,#0B1C3F 0%,#152a5a 40%,#1B3A7A 100%); z-index:0 }
     .hero-pattern { position:absolute; inset:0; opacity:0.04; background-image:repeating-linear-gradient(0deg,transparent,transparent 60px,rgba(255,255,255,1) 60px,rgba(255,255,255,1) 61px),repeating-linear-gradient(90deg,transparent,transparent 60px,rgba(255,255,255,1) 60px,rgba(255,255,255,1) 61px); z-index:1 }
@@ -53,7 +64,11 @@
     .hero h1 em { font-style:italic; color:var(--gold2) }
     .hero-sub { font-size:18px; color:rgba(255,255,255,0.6); max-width:580px; margin:0 auto; line-height:1.7; font-weight:300; animation:heroFadeUp 0.7s ease 0.4s both }
 
-    /* ── CONTACT LAYOUT ── */
+    /* =========================
+  CONTACT LAYOUT STYLING
+  Uses CSS Grid (grid-template-columns: 400px 1fr) to neatly divide the page 
+  into two columns: 400px for info, and the rest (1fr) for the form.
+========================= */
     .contact-wrap { max-width:1200px; margin:60px auto; padding:0 40px; display:grid; grid-template-columns:1fr 1.2fr; gap:48px; align-items:start }
     .contact-info { display:flex; flex-direction:column; padding-top:0 }
     .contact-info-title { font-family:'Cormorant Garamond',serif; font-size:28px; font-weight:600; color:var(--navy); margin-bottom:8px; margin-top:4px }
@@ -188,7 +203,12 @@
   <div class="toast" id="toast"></div>
 
   <!-- NAV -->
-  <nav id="mainNav">
+  <!-- =========================
+  NAVIGATION BAR (HEADER)
+  This section stays fixed at the top of the screen.
+  We use a <nav> tag for semantic HTML (good for SEO).
+========================= -->
+<nav id="mainNav">
     <div class="nav-inner">
       <a href="/" class="nav-logo">Big<span>Deals</span></a>
       <div class="nav-links">
@@ -218,7 +238,12 @@
   <!-- MOBILE NAV DRAWER -->
 
   <!-- HERO -->
-  <section class="hero">
+  <!-- =========================
+  HERO SECTION
+  The large welcoming area at the top of the page.
+  It contains the main search bar and background image.
+========================= -->
+<section class="hero">
     <div class="hero-bg"></div>
     <div class="hero-pattern"></div>
     <div class="hero-glow"></div>
@@ -231,7 +256,11 @@
   </section>
 
   <!-- CONTACT SPLIT LAYOUT -->
-  <div class="contact-wrap">
+  <!-- =========================
+  CONTACT SECTION WRAPPER
+  Contains the contact info on the left and the inquiry form on the right.
+========================= -->
+<div class="contact-wrap">
 
     <!-- LEFT: Info + Map -->
     <div class="contact-info">
@@ -380,7 +409,11 @@
   </div>
 
   <!-- FOOTER -->
-  <footer>
+  <!-- =========================
+  FOOTER SECTION
+  Contains links, contact info, and copyright at the bottom of the page.
+========================= -->
+<footer>
     <div class="footer-inner">
       <div class="footer-top">
         <div class="footer-brand">
